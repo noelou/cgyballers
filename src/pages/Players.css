@@ -1,0 +1,30 @@
+.players-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.players-filters input,
+.players-filters select {
+  background: var(--bg-elevated);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.players-filters input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.players-filters input::placeholder {
+  color: var(--text-dim);
+}
+
+.players-grid {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}

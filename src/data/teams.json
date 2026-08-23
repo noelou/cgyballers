@@ -1,0 +1,242 @@
+[
+  {
+    "id": "jacque-jons",
+    "name": "Jacque Jons",
+    "color": "#ff6a1a",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "jacque-jons-daclag",
+      "jacque-jons-roa",
+      "jacque-jons-mesa",
+      "jacque-jons-santos",
+      "jacque-jons-saarenas",
+      "jacque-jons-villahermosa",
+      "jacque-jons-villanueva",
+      "jacque-jons-villar",
+      "jacque-jons-ucab",
+      "jacque-jons-abis",
+      "jacque-jons-sanchez",
+      "jacque-jons-baquial"
+    ]
+  },
+  {
+    "id": "stampede",
+    "name": "Stampede",
+    "color": "#1ac0ff",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "stampede-manigsaca",
+      "stampede-oca",
+      "stampede-torres",
+      "stampede-pana",
+      "stampede-ellevera",
+      "stampede-cano",
+      "stampede-baculio",
+      "stampede-sia",
+      "stampede-yanez",
+      "stampede-cabanez",
+      "stampede-maandig",
+      "stampede-ortiz"
+    ]
+  },
+  {
+    "id": "jme-jes",
+    "name": "JME-JES",
+    "color": "#ffd21a",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "jme-jes-jessie",
+      "jme-jes-ronald",
+      "jme-jes-daug",
+      "jme-jes-acaylar",
+      "jme-jes-jarjar",
+      "jme-jes-campos",
+      "jme-jes-beja",
+      "jme-jes-apollo",
+      "jme-jes-libres",
+      "jme-jes-arquibel",
+      "jme-jes-sario",
+      "jme-jes-edrote"
+    ]
+  },
+  {
+    "id": "glq",
+    "name": "GLQ",
+    "color": "#ff1a5e",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "glq-moreno",
+      "glq-langreo",
+      "glq-cordova",
+      "glq-pasigay",
+      "glq-tuto",
+      "glq-pcatolerin",
+      "glq-pantonial",
+      "glq-quilala",
+      "glq-micabani",
+      "glq-lamberang",
+      "glq-repulo",
+      "glq-cahilog"
+    ]
+  },
+  {
+    "id": "a-team",
+    "name": "A-Team",
+    "color": "#3dff9e",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "a-team-tan",
+      "a-team-handuman",
+      "a-team-vadehueza",
+      "a-team-abaday",
+      "a-team-gorit",
+      "a-team-aguhar",
+      "a-team-naliponguit",
+      "a-team-onico",
+      "a-team-arcilla",
+      "a-team-abbu",
+      "a-team-pajo",
+      "a-team-rodrigo"
+    ]
+  },
+  {
+    "id": "ets-x-rlt",
+    "name": "ETS x RLT",
+    "color": "#a45bff",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "ets-x-rlt-valdez",
+      "ets-x-rlt-custan",
+      "ets-x-rlt-ansin",
+      "ets-x-rlt-estevez",
+      "ets-x-rlt-edades",
+      "ets-x-rlt-tan-awon",
+      "ets-x-rlt-bitoy",
+      "ets-x-rlt-tutor",
+      "ets-x-rlt-gumera",
+      "ets-x-rlt-pcaudan",
+      "ets-x-rlt-taal",
+      "ets-x-rlt-lentorio"
+    ]
+  },
+  {
+    "id": "howon",
+    "name": "Howon",
+    "color": "#ff8e1a",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "howon-sanoria",
+      "howon-estrella",
+      "howon-tabalon",
+      "howon-parrel",
+      "howon-virtudazo",
+      "howon-akut",
+      "howon-nabasca",
+      "howon-garcia",
+      "howon-parba",
+      "howon-capito",
+      "howon-gulben",
+      "howon-besande"
+    ]
+  },
+  {
+    "id": "warlyn",
+    "name": "Warlyn",
+    "color": "#1affc4",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "warlyn-magsalay",
+      "warlyn-arcillas",
+      "warlyn-gamorot",
+      "warlyn-barbero",
+      "warlyn-palubon",
+      "warlyn-fernandez",
+      "warlyn-ebarat",
+      "warlyn-palen",
+      "warlyn-maca-ayan",
+      "warlyn-canales",
+      "warlyn-olarte",
+      "warlyn-grafe"
+    ]
+  },
+  {
+    "id": "maranding-autoparts",
+    "name": "Maranding Autoparts",
+    "color": "#ff4f4f",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "maranding-autoparts-cabrezos",
+      "maranding-autoparts-andoy",
+      "maranding-autoparts-arong",
+      "maranding-autoparts-garlan",
+      "maranding-autoparts-labares",
+      "maranding-autoparts-recabo",
+      "maranding-autoparts-grueso",
+      "maranding-autoparts-sang-an",
+      "maranding-autoparts-comique",
+      "maranding-autoparts-alvarado",
+      "maranding-autoparts-inciso",
+      "maranding-autoparts-borinaga"
+    ]
+  },
+  {
+    "id": "grit",
+    "name": "GRIT",
+    "color": "#5b8cff",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "grit-montealegre",
+      "grit-estevez",
+      "grit-j-nagac",
+      "grit-bardos",
+      "grit-amper",
+      "grit-rey",
+      "grit-pabualan",
+      "grit-arancis",
+      "grit-nagac",
+      "grit-pantolio",
+      "grit-aycardo",
+      "grit-gacusan"
+    ]
+  },
+  {
+    "id": "rgb-zees",
+    "name": "RGB Zees",
+    "color": "#c8ff1a",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "rgb-zees-plantado",
+      "rgb-zees-madrigal",
+      "rgb-zees-ayuma",
+      "rgb-zees-sandigan",
+      "rgb-zees-zamora",
+      "rgb-zees-nemenzo",
+      "rgb-zees-cabreros",
+      "rgb-zees-baylo",
+      "rgb-zees-madrigal-8",
+      "rgb-zees-marcoso",
+      "rgb-zees-gealan",
+      "rgb-zees-juson"
+    ]
+  },
+  {
+    "id": "young-chow",
+    "name": "Young Chow",
+    "color": "#ff6bd6",
+    "venue": "I.S. Covered Court",
+    "playerIds": [
+      "young-chow-bayon",
+      "young-chow-gaccion",
+      "young-chow-halasan",
+      "young-chow-goopio",
+      "young-chow-julie",
+      "young-chow-pardillo",
+      "young-chow-gacusan",
+      "young-chow-francisco",
+      "young-chow-poras",
+      "young-chow-bangcuyo",
+      "young-chow-proceso",
+      "young-chow-achaocoso"
+    ]
+  }
+]

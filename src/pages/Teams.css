@@ -1,0 +1,27 @@
+.teams-grid {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.team-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.team-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.team-card-name {
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.team-card-meta {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
