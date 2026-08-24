@@ -147,84 +147,74 @@ TEAMS.forEach((team, ti) => {
     id: slug,
     name: team.name,
     color,
+    logo: `/logos/${slug}.png`,
     venue: VENUE,
     playerIds: roster.map((p) => p.id),
   })
 })
 
 // ---- Schedule + standings ----
-// League nights are Wednesday, Friday, and Sunday. Friday carries a full
-// four-game card (6/7/8/9 PM); Wednesday and Sunday carry a two-game card
-// (8/9 PM) since fewer teams play those nights.
-const WEDNESDAY = 3
-const FRIDAY = 5
-const SUNDAY = 0
-const FRIDAY_SLOTS = ['18:00', '19:00', '20:00', '21:00']
-const OTHER_SLOTS = ['20:00', '21:00']
+// Real fixture list for CGY Ballers Season 4 — Amlan's Cup (from the league's
+// published schedule graphic). Update this array — not a generator — when a
+// new round of fixtures is announced; see scripts/README.md for the flow.
+// [date, time, homeTeamName, awayTeamName]
+const REAL_FIXTURES = [
+  ['2026-08-05', '20:00', 'A-Team', 'RGB Zees'],
+  ['2026-08-05', '21:00', 'ETS x RLT', 'Howon'],
+  ['2026-08-07', '18:00', 'Stampede', 'Maranding Autoparts'],
+  ['2026-08-07', '19:00', 'Jacque Jons', 'GLQ'],
+  ['2026-08-07', '20:00', 'JME-JES', 'Warlyn'],
+  ['2026-08-07', '21:00', 'GRIT', 'Young Chow'],
+  ['2026-08-12', '20:00', 'Jacque Jons', 'JME-JES'],
+  ['2026-08-12', '21:00', 'Stampede', 'ETS x RLT'],
+  ['2026-08-14', '18:00', 'RGB Zees', 'GRIT'],
+  ['2026-08-14', '19:00', 'A-Team', 'Howon'],
+  ['2026-08-14', '20:00', 'Maranding Autoparts', 'GLQ'],
+  ['2026-08-14', '21:00', 'Warlyn', 'Stampede'],
+  ['2026-08-16', '20:00', 'Young Chow', 'Warlyn'],
+  ['2026-08-16', '21:00', 'Jacque Jons', 'Maranding Autoparts'],
+  ['2026-08-19', '20:00', 'ETS x RLT', 'Young Chow'],
+  ['2026-08-19', '21:00', 'GRIT', 'Stampede'],
+  ['2026-08-21', '18:00', 'JME-JES', 'A-Team'],
+  ['2026-08-21', '19:00', 'Young Chow', 'GLQ'],
+  ['2026-08-21', '20:00', 'Jacque Jons', 'Warlyn'],
+  ['2026-08-21', '21:00', 'Howon', 'RGB Zees'],
+  ['2026-08-23', '20:00', 'GLQ', 'Stampede'],
+  ['2026-08-23', '21:00', 'Maranding Autoparts', 'GRIT'],
+  ['2026-08-26', '20:00', 'Howon', 'Stampede'],
+  ['2026-08-26', '21:00', 'A-Team', 'Maranding Autoparts'],
+  ['2026-08-28', '18:00', 'ETS x RLT', 'Maranding Autoparts'],
+  ['2026-08-28', '19:00', 'JME-JES', 'Howon'],
+  ['2026-08-28', '20:00', 'RGB Zees', 'Jacque Jons'],
+  ['2026-08-28', '21:00', 'Warlyn', 'A-Team'],
+  ['2026-08-30', '20:00', 'GRIT', 'ETS x RLT'],
+  ['2026-08-30', '21:00', 'GLQ', 'Warlyn'],
+]
 
 function buildSchedule() {
-  const pairs = []
-  for (let i = 0; i < teams.length; i++) {
-    for (let j = i + 1; j < teams.length; j++) pairs.push([i, j])
-  }
-  // shuffle deterministically — each team faces every other team once (single round robin)
-  for (let i = pairs.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1))
-    ;[pairs[i], pairs[j]] = [pairs[j], pairs[i]]
-  }
+  const teamByName = Object.fromEntries(teams.map((t) => [t.name, t]))
 
-  const games = []
-  let queue = pairs
-  const d = new Date('2026-07-01')
-  let safety = 0
-
-  while (queue.length > 0 && safety < 2000) {
-    safety++
-    const day = d.getDay()
-    const times = day === FRIDAY ? FRIDAY_SLOTS : (day === WEDNESDAY || day === SUNDAY) ? OTHER_SLOTS : null
-
-    if (times) {
-      const usedToday = new Set()
-      const deferred = []
-      let slotIdx = 0
-
-      for (const pair of queue) {
-        const [a, b] = pair
-        const home = teams[a]
-        const away = teams[b]
-        if (slotIdx < times.length && !usedToday.has(home.id) && !usedToday.has(away.id)) {
-          usedToday.add(home.id)
-          usedToday.add(away.id)
-          const date = new Date(d)
-          const isPlayed = date < TODAY
-          const game = {
-            id: `g${games.length + 1}`,
-            date: date.toISOString().slice(0, 10),
-            time: times[slotIdx],
-            venue: home.venue,
-            home: home.id,
-            homeName: home.name,
-            away: away.id,
-            awayName: away.name,
-            status: isPlayed ? 'final' : 'scheduled',
-            homeScore: null,
-            awayScore: null,
-          }
-          if (isPlayed) {
-            game.homeScore = randInt(62, 108)
-            game.awayScore = randInt(62, 108)
-            if (game.homeScore === game.awayScore) game.homeScore += 1
-          }
-          games.push(game)
-          slotIdx++
-        } else {
-          deferred.push(pair)
-        }
-      }
-      queue = deferred
+  const games = REAL_FIXTURES.map(([date, time, homeName, awayName], i) => {
+    const home = teamByName[homeName]
+    const away = teamByName[awayName]
+    if (!home) throw new Error(`Unknown home team in REAL_FIXTURES: ${homeName}`)
+    if (!away) throw new Error(`Unknown away team in REAL_FIXTURES: ${awayName}`)
+    return {
+      id: `g${i + 1}`,
+      date,
+      time,
+      venue: home.venue,
+      home: home.id,
+      homeName: home.name,
+      away: away.id,
+      awayName: away.name,
+      // No official results reported yet — flip to 'final' with real scores
+      // once a game is played (see scripts/README.md).
+      status: 'scheduled',
+      homeScore: null,
+      awayScore: null,
     }
-    d.setDate(d.getDate() + 1)
-  }
+  })
 
   games.sort((x, y) => x.date.localeCompare(y.date) || x.time.localeCompare(y.time))
   return games

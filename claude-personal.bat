@@ -1,0 +1,1 @@
+set CLAUDE_CONFIG_DIR=%USERPROFILE%\.claude-personal && claude

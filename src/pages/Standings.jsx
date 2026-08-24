@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import standings from '../data/standings.json'
+import teams from '../data/teams.json'
+import TeamBadge from '../components/TeamBadge'
 
 export default function Standings() {
   return (
@@ -33,16 +35,7 @@ export default function Standings() {
                     to={`/teams/${row.team}`}
                     style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700 }}
                   >
-                    <span
-                      style={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: '50%',
-                        background: row.color,
-                        display: 'inline-block',
-                        flexShrink: 0,
-                      }}
-                    />
+                    <TeamBadge team={teams.find((t) => t.id === row.team)} size={24} />
                     {row.name}
                   </Link>
                 </td>

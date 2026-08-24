@@ -10,7 +10,10 @@ import './Home.css'
 const teamById = Object.fromEntries(teams.map((t) => [t.id, t]))
 
 export default function Home() {
-  const upcoming = schedule.filter((g) => g.status === 'scheduled').slice(0, 3)
+  const todayStr = new Date().toISOString().slice(0, 10)
+  const upcoming = schedule
+    .filter((g) => g.status === 'scheduled' && g.date >= todayStr)
+    .slice(0, 3)
   const recent = schedule.filter((g) => g.status === 'final').slice(-3).reverse()
   const topStandings = standings.slice(0, 5)
   const latestNews = news.slice(-3).reverse()
@@ -55,6 +58,7 @@ export default function Home() {
         <div className="card home-block">
           <div className="section-title">Recent Results</div>
           <div className="section-sub">Latest final scores</div>
+          {recent.length === 0 && <p style={{ color: 'var(--text-muted)' }}>No final scores yet.</p>}
           <ul className="game-list">
             {recent.map((g) => (
               <li key={g.id} className="game-row">
@@ -91,7 +95,11 @@ export default function Home() {
                   <tr key={row.team}>
                     <td>{row.rank}</td>
                     <td>
-                      <Link to={`/teams/${row.team}`} style={{ color: row.color, fontWeight: 700 }}>
+                      <Link
+                        to={`/teams/${row.team}`}
+                        style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700 }}
+                      >
+                        <TeamBadge team={teamById[row.team]} size={22} />
                         {row.name}
                       </Link>
                     </td>

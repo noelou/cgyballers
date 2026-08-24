@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 export default function TeamBadge({ team, size = 40 }) {
   if (!team) return null
   const initials = team.name
@@ -7,6 +9,29 @@ export default function TeamBadge({ team, size = 40 }) {
     .map((w) => w[0])
     .join('')
     .toUpperCase()
+
+  const [imgFailed, setImgFailed] = useState(false)
+
+  if (team.logo && !imgFailed) {
+    return (
+      <img
+        src={team.logo}
+        alt={`${team.name} logo`}
+        width={size}
+        height={size}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: 'var(--radius-md)',
+          objectFit: 'contain',
+          flexShrink: 0,
+          background: `${team.color}1f`,
+          border: `1px solid ${team.color}55`,
+        }}
+        onError={() => setImgFailed(true)}
+      />
+    )
+  }
 
   return (
     <div

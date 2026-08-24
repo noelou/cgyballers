@@ -3,6 +3,7 @@
     "id": "jacque-jons",
     "name": "Jacque Jons",
     "color": "#ff6a1a",
+    "logo": "/logos/jacque-jons.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "jacque-jons-daclag",
@@ -23,6 +24,7 @@
     "id": "stampede",
     "name": "Stampede",
     "color": "#1ac0ff",
+    "logo": "/logos/stampede.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "stampede-manigsaca",
@@ -43,6 +45,7 @@
     "id": "jme-jes",
     "name": "JME-JES",
     "color": "#ffd21a",
+    "logo": "/logos/jme-jes.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "jme-jes-jessie",
@@ -63,6 +66,7 @@
     "id": "glq",
     "name": "GLQ",
     "color": "#ff1a5e",
+    "logo": "/logos/glq.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "glq-moreno",
@@ -83,6 +87,7 @@
     "id": "a-team",
     "name": "A-Team",
     "color": "#3dff9e",
+    "logo": "/logos/a-team.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "a-team-tan",
@@ -103,6 +108,7 @@
     "id": "ets-x-rlt",
     "name": "ETS x RLT",
     "color": "#a45bff",
+    "logo": "/logos/ets-x-rlt.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "ets-x-rlt-valdez",
@@ -123,6 +129,7 @@
     "id": "howon",
     "name": "Howon",
     "color": "#ff8e1a",
+    "logo": "/logos/howon.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "howon-sanoria",
@@ -143,6 +150,7 @@
     "id": "warlyn",
     "name": "Warlyn",
     "color": "#1affc4",
+    "logo": "/logos/warlyn.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "warlyn-magsalay",
@@ -163,6 +171,7 @@
     "id": "maranding-autoparts",
     "name": "Maranding Autoparts",
     "color": "#ff4f4f",
+    "logo": "/logos/maranding-autoparts.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "maranding-autoparts-cabrezos",
@@ -183,6 +192,7 @@
     "id": "grit",
     "name": "GRIT",
     "color": "#5b8cff",
+    "logo": "/logos/grit.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "grit-montealegre",
@@ -203,6 +213,7 @@
     "id": "rgb-zees",
     "name": "RGB Zees",
     "color": "#c8ff1a",
+    "logo": "/logos/rgb-zees.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "rgb-zees-plantado",
@@ -223,6 +234,7 @@
     "id": "young-chow",
     "name": "Young Chow",
     "color": "#ff6bd6",
+    "logo": "/logos/young-chow.png",
     "venue": "I.S. Covered Court",
     "playerIds": [
       "young-chow-bayon",
