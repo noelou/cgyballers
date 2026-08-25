@@ -45,9 +45,9 @@ export default function Home() {
               <li key={g.id} className="game-row">
                 <span className="game-date">{formatDate(g.date)}<br />{formatTime(g.time)}</span>
                 <span className="game-teams">
-                  <TeamBadge team={teamById[g.away]} size={28} /> {g.awayName}
+                  <TeamBadge team={teamById[g.home]} size={28} /> {g.homeName}
                   <span className="game-at">@</span>
-                  {g.homeName} <TeamBadge team={teamById[g.home]} size={28} />
+                  {g.awayName} <TeamBadge team={teamById[g.away]} size={28} />
                 </span>
               </li>
             ))}
@@ -64,9 +64,9 @@ export default function Home() {
               <li key={g.id} className="game-row">
                 <span className="game-date">{formatDate(g.date)}</span>
                 <span className="game-teams score">
-                  {g.awayName} <b>{g.awayScore}</b>
+                  {g.homeName} <b>{g.homeScore}</b>
                   <span className="game-at">@</span>
-                  <b>{g.homeScore}</b> {g.homeName}
+                  <b>{g.awayScore}</b> {g.awayName}
                 </span>
               </li>
             ))}

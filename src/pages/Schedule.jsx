@@ -60,23 +60,23 @@ export default function Schedule() {
               <div key={g.id} className="card schedule-row">
                 <div className="schedule-time">{formatTime(g.time)}</div>
                 <div className="schedule-team">
-                  <TeamBadge team={teamById[g.away]} size={32} />
-                  <Link to={`/teams/${g.away}`}>{g.awayName}</Link>
+                  <TeamBadge team={teamById[g.home]} size={32} />
+                  <Link to={`/teams/${g.home}`}>{g.homeName}</Link>
                 </div>
                 <div className="schedule-result">
                   {g.status === 'final' ? (
                     <span className="schedule-score">
-                      <b className={g.awayScore > g.homeScore ? 'win' : ''}>{g.awayScore}</b>
-                      {' – '}
                       <b className={g.homeScore > g.awayScore ? 'win' : ''}>{g.homeScore}</b>
+                      {' – '}
+                      <b className={g.awayScore > g.homeScore ? 'win' : ''}>{g.awayScore}</b>
                     </span>
                   ) : (
                     <span className="schedule-vs">@</span>
                   )}
                 </div>
                 <div className="schedule-team schedule-team-right">
-                  <Link to={`/teams/${g.home}`}>{g.homeName}</Link>
-                  <TeamBadge team={teamById[g.home]} size={32} />
+                  <Link to={`/teams/${g.away}`}>{g.awayName}</Link>
+                  <TeamBadge team={teamById[g.away]} size={32} />
                 </div>
                 <div className="schedule-venue">{g.venue}</div>
                 <span className={`badge schedule-status ${g.status === 'final' ? 'status-final' : ''}`}>
