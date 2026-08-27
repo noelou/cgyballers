@@ -165,21 +165,21 @@
     "away": "warlyn",
     "awayName": "Warlyn",
     "status": "final",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 57,
+    "awayScore": 56
   },
   {
     "id": "g14",
     "date": "2026-08-16",
     "time": "21:00",
     "venue": "I.S. Covered Court",
-    "home": "jacque-jons",
-    "homeName": "Jacque Jons",
+    "home": "a-team",
+    "homeName": "A-Team",
     "away": "maranding-autoparts",
     "awayName": "Maranding Autoparts",
     "status": "final",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 56,
+    "awayScore": 62
   },
   {
     "id": "g15",
@@ -191,8 +191,8 @@
     "away": "young-chow",
     "awayName": "Young Chow",
     "status": "final",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 84,
+    "awayScore": 80
   },
   {
     "id": "g16",
@@ -204,8 +204,8 @@
     "away": "stampede",
     "awayName": "Stampede",
     "status": "final",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 74,
+    "awayScore": 105
   },
   {
     "id": "g17",
@@ -314,7 +314,7 @@
   {
     "id": "g25",
     "date": "2026-08-28",
-    "time": "18:00",
+    "time": "20:00",
     "venue": "I.S. Covered Court",
     "home": "grit",
     "homeName": "GRIT",
@@ -327,7 +327,7 @@
   {
     "id": "g26",
     "date": "2026-08-28",
-    "time": "19:00",
+    "time": "21:00",
     "venue": "I.S. Covered Court",
     "home": "jme-jes",
     "homeName": "JME-JES",

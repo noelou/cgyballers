@@ -25,8 +25,6 @@ export default function TeamBadge({ team, size = 40 }) {
           borderRadius: 'var(--radius-md)',
           objectFit: 'contain',
           flexShrink: 0,
-          background: `${team.color}1f`,
-          border: `1px solid ${team.color}55`,
         }}
         onError={() => setImgFailed(true)}
       />
