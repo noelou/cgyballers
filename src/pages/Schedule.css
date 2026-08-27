@@ -99,6 +99,20 @@
   border-color: rgba(61, 214, 106, 0.3);
 }
 
+.status-cancelled {
+  background: rgba(240, 82, 82, 0.14);
+  color: var(--loss);
+  border-color: rgba(240, 82, 82, 0.3);
+}
+
+.schedule-row-cancelled {
+  opacity: 0.6;
+}
+
+.schedule-row-cancelled .schedule-team a {
+  text-decoration: line-through;
+}
+
 @media (max-width: 760px) {
   .schedule-row {
     grid-template-columns: 1fr auto 1fr;

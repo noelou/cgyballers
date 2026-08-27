@@ -45,6 +45,7 @@ export default function Schedule() {
           <option value="all">All Games</option>
           <option value="scheduled">Upcoming</option>
           <option value="final">Final</option>
+          <option value="cancelled">Cancelled</option>
         </select>
       </div>
 
@@ -57,7 +58,7 @@ export default function Schedule() {
           <div key={date} className="schedule-day">
             <div className="schedule-date">{formatDate(date, { weekday: 'long', month: 'short', day: 'numeric' })}</div>
             {games.map((g) => (
-              <div key={g.id} className="card schedule-row">
+              <div key={g.id} className={`card schedule-row ${g.status === 'cancelled' ? 'schedule-row-cancelled' : ''}`}>
                 <div className="schedule-time">{formatTime(g.time)}</div>
                 <div className="schedule-team">
                   <TeamBadge team={teamById[g.home]} size={32} />
@@ -70,6 +71,8 @@ export default function Schedule() {
                       {' – '}
                       <b className={g.awayScore > g.homeScore ? 'win' : ''}>{g.awayScore}</b>
                     </span>
+                  ) : g.status === 'cancelled' ? (
+                    <span className="schedule-vs">–</span>
                   ) : (
                     <span className="schedule-vs">@</span>
                   )}
@@ -79,8 +82,8 @@ export default function Schedule() {
                   <TeamBadge team={teamById[g.away]} size={32} />
                 </div>
                 <div className="schedule-venue">{g.venue}</div>
-                <span className={`badge schedule-status ${g.status === 'final' ? 'status-final' : ''}`}>
-                  {g.status === 'final' ? 'Final' : 'Upcoming'}
+                <span className={`badge schedule-status ${g.status === 'final' ? 'status-final' : ''} ${g.status === 'cancelled' ? 'status-cancelled' : ''}`}>
+                  {g.status === 'final' ? 'Final' : g.status === 'cancelled' ? 'Cancelled' : 'Upcoming'}
                 </span>
               </div>
             ))}

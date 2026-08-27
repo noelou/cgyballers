@@ -217,8 +217,8 @@
     "away": "grit",
     "awayName": "GRIT",
     "status": "final",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 78,
+    "awayScore": 69
   },
   {
     "id": "g18",
@@ -230,8 +230,8 @@
     "away": "glq",
     "awayName": "GLQ",
     "status": "final",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 53,
+    "awayScore": 65
   },
   {
     "id": "g19",
@@ -243,8 +243,8 @@
     "away": "warlyn",
     "awayName": "Warlyn",
     "status": "final",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 62,
+    "awayScore": 49
   },
   {
     "id": "g20",
@@ -256,8 +256,8 @@
     "away": "rgb-zees",
     "awayName": "RGB Zees",
     "status": "final",
-    "homeScore": null,
-    "awayScore": null
+    "homeScore": 52,
+    "awayScore": 47
   },
   {
     "id": "g21",
@@ -268,7 +268,7 @@
     "homeName": "RGB Zees",
     "away": "jacque-jons",
     "awayName": "Jacque Jons",
-    "status": "scheduled",
+    "status": "cancelled",
     "homeScore": null,
     "awayScore": null
   },
@@ -281,9 +281,9 @@
     "homeName": "Warlyn",
     "away": "a-team",
     "awayName": "A-Team",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 100,
+    "awayScore": 104
   },
   {
     "id": "g23",
@@ -294,9 +294,9 @@
     "homeName": "Howon",
     "away": "stampede",
     "awayName": "Stampede",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 87,
+    "awayScore": 80
   },
   {
     "id": "g24",
@@ -307,9 +307,9 @@
     "homeName": "Maranding Autoparts",
     "away": "grit",
     "awayName": "GRIT",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 76,
+    "awayScore": 71
   },
   {
     "id": "g25",

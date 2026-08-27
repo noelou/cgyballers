@@ -89,7 +89,9 @@ export default function TeamDetail() {
                       ? <span style={{ color: won ? 'var(--win)' : 'var(--loss)', fontWeight: 700 }}>
                           {won ? 'W' : 'L'} {teamScore}-{oppScore}
                         </span>
-                      : <span style={{ color: 'var(--text-dim)' }}>Upcoming</span>}
+                      : g.status === 'cancelled'
+                        ? <span style={{ color: 'var(--text-dim)' }}>Cancelled</span>
+                        : <span style={{ color: 'var(--text-dim)' }}>Upcoming</span>}
                   </td>
                 </tr>
               )
