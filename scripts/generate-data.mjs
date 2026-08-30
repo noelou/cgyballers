@@ -9,8 +9,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const DATA_DIR = join(__dirname, '..', 'src', 'data')
 mkdirSync(DATA_DIR, { recursive: true })
 
-const TODAY = new Date('2026-08-23')
-
 const TEAMS = [
   { name: 'Jacque Jons', players: ['Daclag', 'Roa', 'Mesa', 'Santos', 'Saarenas', 'Villahermosa', 'Villanueva', 'Villar', 'Ucab', 'Abis', 'Sanchez', 'Baquial'] },
   { name: 'Stampede', players: ['Manigsaca', 'Oca', 'Torres', 'Pana', 'Ellevera', 'Cano', 'Baculio', 'Sia', 'Yanez', 'Cabanez', 'Maandig', 'Ortiz'] },
@@ -55,30 +53,21 @@ function seedFromString(str) {
 }
 const rng = mulberry32(seedFromString('cgyballers-2026'))
 const randInt = (min, max) => Math.floor(rng() * (max - min + 1)) + min
-const pick = (arr) => arr[randInt(0, arr.length - 1)]
 
 const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C']
 const POSITION_LABEL = { PG: 'Point Guard', SG: 'Shooting Guard', SF: 'Small Forward', PF: 'Power Forward', C: 'Center' }
 
 const HEIGHT_RANGE = { PG: [170, 180], SG: [176, 186], SF: [183, 193], PF: [188, 198], C: [195, 208] }
-const PPG_RANGE = { PG: [8, 20], SG: [9, 24], SF: [8, 22], PF: [7, 19], C: [6, 17] }
-const RPG_RANGE = { PG: [2, 5], SG: [2, 6], SF: [4, 8], PF: [6, 11], C: [7, 14] }
-const APG_RANGE = { PG: [4, 10], SG: [2, 7], SF: [2, 5], PF: [1, 4], C: [1, 3] }
+// Player stats (ppg/rpg/apg/etc.) are no longer mocked here — they are computed
+// at load time from real box scores in src/data/boxscores/*.json (see
+// src/utils/playerStats.js). This script only seeds bios.
 
-const FREE_AGENT_POOL = ['Free Agent', 'Barangay Ballers', 'Riverside Hoops', 'Coastal Runners', 'Metro Ballaz']
 
 function cmToFeetInches(cm) {
   const totalInches = cm / 2.54
   const feet = Math.floor(totalInches / 12)
   const inches = Math.round(totalInches % 12)
   return `${feet}'${inches}"`
-}
-
-function birthdateForAge(age) {
-  const y = TODAY.getFullYear() - age
-  const m = randInt(1, 12)
-  const d = randInt(1, 28)
-  return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`
 }
 
 const teams = []
@@ -105,18 +94,6 @@ TEAMS.forEach((team, ti) => {
     const experience = randInt(0, 9)
     const age = Math.max(19, 19 + experience + randInt(0, 4))
 
-    const [ppgMin, ppgMax] = PPG_RANGE[position]
-    const [rpgMin, rpgMax] = RPG_RANGE[position]
-    const [apgMin, apgMax] = APG_RANGE[position]
-
-    const draft = rng() < 0.25
-      ? `${TODAY.getFullYear() - randInt(0, experience || 1)} League Draft`
-      : 'Undrafted'
-
-    const lastTeam = experience === 0
-      ? '—'
-      : (rng() < 0.5 ? pick(TEAMS.filter((t) => t.name !== team.name).map((t) => t.name)) : pick(FREE_AGENT_POOL))
-
     const player = {
       id,
       name,
@@ -125,17 +102,10 @@ TEAMS.forEach((team, ti) => {
       number,
       position,
       positionLabel: POSITION_LABEL[position],
-      ppg: +(ppgMin + rng() * (ppgMax - ppgMin)).toFixed(1),
-      rpg: +(rpgMin + rng() * (rpgMax - rpgMin)).toFixed(1),
-      apg: +(apgMin + rng() * (apgMax - apgMin)).toFixed(1),
       heightCm: height,
       heightDisplay: cmToFeetInches(height),
       weightKg: weight,
-      country: 'Philippines',
-      lastTeam,
       age,
-      birthdate: birthdateForAge(age),
-      draft,
       experience: experience === 0 ? 'Rookie' : `${experience} yr${experience > 1 ? 's' : ''}`,
       pic: null,
     }
@@ -222,38 +192,8 @@ function buildSchedule() {
 
 const schedule = buildSchedule()
 
-function buildStandings() {
-  const table = {}
-  teams.forEach((t) => {
-    table[t.id] = { team: t.id, name: t.name, color: t.color, wins: 0, losses: 0, pf: 0, pa: 0, streak: 0, streakType: null }
-  })
-  schedule.filter((g) => g.status === 'final').forEach((g) => {
-    const h = table[g.home]
-    const a = table[g.away]
-    h.pf += g.homeScore; h.pa += g.awayScore
-    a.pf += g.awayScore; a.pa += g.homeScore
-    if (g.homeScore > g.awayScore) { h.wins++; a.losses++ } else { a.wins++; h.losses++ }
-  })
-  const rows = Object.values(table).map((r) => {
-    const gp = r.wins + r.losses
-    return {
-      ...r,
-      gp,
-      winPct: gp ? +(r.wins / gp).toFixed(3) : 0,
-      diff: r.pf - r.pa,
-    }
-  })
-  rows.sort((a, b) => b.winPct - a.winPct || b.diff - a.diff)
-  const leaderWins = rows[0]?.wins ?? 0
-  const leaderLosses = rows[0]?.losses ?? 0
-  rows.forEach((r, i) => {
-    r.rank = i + 1
-    r.gb = i === 0 ? 0 : +(((leaderWins - r.wins) + (r.losses - leaderLosses)) / 2).toFixed(1)
-  })
-  return rows
-}
-
-const standings = buildStandings()
+// Standings are no longer written to a file — src/utils/standings.js computes
+// them at load time from schedule.json, so there is nothing to regenerate here.
 
 const news = [
   {
@@ -309,7 +249,6 @@ const news = [
 writeFileSync(join(DATA_DIR, 'teams.json'), JSON.stringify(teams, null, 2))
 writeFileSync(join(DATA_DIR, 'players.json'), JSON.stringify(players, null, 2))
 writeFileSync(join(DATA_DIR, 'schedule.json'), JSON.stringify(schedule, null, 2))
-writeFileSync(join(DATA_DIR, 'standings.json'), JSON.stringify(standings, null, 2))
 writeFileSync(join(DATA_DIR, 'news.json'), JSON.stringify(news, null, 2))
 
 console.log(`Generated ${teams.length} teams, ${players.length} players, ${schedule.length} games, ${news.length} news items.`)

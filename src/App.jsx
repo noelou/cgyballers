@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import News from './pages/News'
 import NewsArticle from './pages/NewsArticle'
 import Schedule from './pages/Schedule'
+import GameDetail from './pages/GameDetail'
 import Standings from './pages/Standings'
 import Players from './pages/Players'
 import PlayerDetail from './pages/PlayerDetail'
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/news" element={<News />} />
           <Route path="/news/:newsId" element={<NewsArticle />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/games/:gameId" element={<GameDetail />} />
           <Route path="/standings" element={<Standings />} />
           <Route path="/players" element={<Players />} />
           <Route path="/players/:playerId" element={<PlayerDetail />} />

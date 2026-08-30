@@ -1,8 +1,8 @@
 [
   {
     "id": "n1",
-    "title": "Ayuma and Campos fight",
-    "date": "2026-08-14",
+    "title": "CGYBallers Season Tips Off at CGY Sports Complex",
+    "date": "2026-07-04",
     "excerpt": "Twelve teams open the new season with a doubleheader as the league returns for another year of grassroots ball.",
     "body": "The CGYBallers season officially began this weekend with a packed doubleheader at CGY Sports Complex. Fans packed the sidelines to watch the twelve-team league tip off its schedule, with several offseason roster moves already shaking up early power rankings.",
     "tag": "League"
@@ -10,9 +10,41 @@
   {
     "id": "n2",
     "title": "Early Standings Shakeup as Contenders Separate from the Pack",
-    "date": "2026-08-19",
+    "date": "2026-07-20",
     "excerpt": "A few weeks into the season, the standings are starting to take shape with two teams jumping out to hot starts.",
     "body": "With the opening weeks in the books, the standings board is beginning to separate the contenders from the rest of the field. Depth and defense have been the deciding factor so far, and coaches around the league are already adjusting rotations.",
     "tag": "Standings"
+  },
+  {
+    "id": "n3",
+    "title": "Weekly Stat Leaders: Scoring, Boards, and Dimes",
+    "date": "2026-08-02",
+    "excerpt": "A look at who is topping the league leaderboards through the first stretch of the season.",
+    "body": "Scoring races are heating up across the league as several players push toward the top of the leaderboard in points, rebounds, and assists per game. The players page has the full breakdown of every roster and their season averages.",
+    "tag": "Stats"
+  },
+  {
+    "id": "n4",
+    "title": "Midseason Injury Update",
+    "date": "2026-08-10",
+    "excerpt": "A rundown of the latest availability news around the league heading into the second half of the schedule.",
+    "body": "Several squads are managing minor injuries as the season reaches its midpoint. Team staff say most players are considered day-to-day and expected back well before the playoff push begins.",
+    "tag": "Injuries"
+  },
+  {
+    "id": "n5",
+    "title": "Playoff Picture Coming Into Focus",
+    "date": "2026-08-18",
+    "excerpt": "With the regular season winding down, teams on the bubble are jockeying for playoff positioning.",
+    "body": "As the schedule enters its final stretch, several teams sit within a game or two of a playoff spot. Every remaining matchup now carries extra weight for teams fighting to lock in postseason positioning.",
+    "tag": "Playoffs"
+  },
+  {
+    "id": "n6",
+    "title": "Community Spotlight: The Growth of CGYBallers",
+    "date": "2026-08-22",
+    "excerpt": "A look at how the league has grown from a handful of teams into a full-fledged twelve-team competition.",
+    "body": "What started as a small weekend pickup circuit has grown into CGYBallers, a twelve-team league with a full regular season, standings race, and passionate local following. Organizers say expansion talks for next season are already underway.",
+    "tag": "Community"
   }
 ]

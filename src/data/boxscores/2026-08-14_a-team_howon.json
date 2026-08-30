@@ -1,0 +1,143 @@
+{
+  "gameId": "g10",
+  "date": "2026-08-14",
+  "home": "a-team",
+  "away": "howon",
+  "homeScore": 66,
+  "awayScore": 74,
+  "source": "public/records/14/howon vs a-team.jfif",
+  "lines": {
+    "a-team-tan": {
+      "pts": 16,
+      "reb": 5,
+      "ast": 2,
+      "blk": 2,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 2
+    },
+    "a-team-aguhar": {
+      "pts": 21,
+      "reb": 6,
+      "ast": 2,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 1
+    },
+    "a-team-naliponguit": {
+      "pts": 19,
+      "reb": 6,
+      "ast": 3,
+      "blk": 1,
+      "stl": 1,
+      "tpa": 4,
+      "tpm": 1,
+      "fta": 2,
+      "ftm": 2
+    },
+    "a-team-onico": {
+      "pts": 0,
+      "reb": 2,
+      "ast": 10,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "a-team-arcilla": {
+      "pts": 6,
+      "reb": 3,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "a-team-rodrigo": {
+      "pts": 4,
+      "reb": 0,
+      "ast": 1,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 3,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-virtudazo": {
+      "pts": 15,
+      "reb": 7,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-akut": {
+      "pts": 11,
+      "reb": 7,
+      "ast": 7,
+      "blk": 0,
+      "stl": 3,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "howon-nabasca": {
+      "pts": 4,
+      "reb": 4,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-capito": {
+      "pts": 22,
+      "reb": 2,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 5,
+      "ftm": 3
+    },
+    "howon-gulben": {
+      "pts": 3,
+      "reb": 3,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "howon-besande": {
+      "pts": 19,
+      "reb": 5,
+      "ast": 7,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 4,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "gameId": "g12",
+  "date": "2026-08-14",
+  "home": "warlyn",
+  "away": "stampede",
+  "homeScore": 56,
+  "awayScore": 73,
+  "source": "public/records/14/stampede vs warlyn.jfif",
+  "lines": {
+    "warlyn-magsalay": {
+      "pts": 9,
+      "reb": 3,
+      "ast": 4,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-arcillas": {
+      "pts": 4,
+      "reb": 7,
+      "ast": 1,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-barbero": {
+      "pts": 4,
+      "reb": 3,
+      "ast": 3,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 4,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-palubon": {
+      "pts": 22,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 4,
+      "tpm": 1,
+      "fta": 1,
+      "ftm": 1
+    },
+    "warlyn-fernandez": {
+      "pts": 4,
+      "reb": 0,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-ebarat": {
+      "pts": 3,
+      "reb": 0,
+      "ast": 3,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 2,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-palen": {
+      "pts": 0,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-canales": {
+      "pts": 2,
+      "reb": 1,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-olarte": {
+      "pts": 8,
+      "reb": 4,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 1,
+      "fta": 2,
+      "ftm": 1
+    },
+    "stampede-manigsaca": {
+      "pts": 4,
+      "reb": 2,
+      "ast": 5,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "stampede-ellevera": {
+      "pts": 29,
+      "reb": 2,
+      "ast": 6,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 2,
+      "tpm": 1,
+      "fta": 2,
+      "ftm": 2
+    },
+    "stampede-baculio": {
+      "pts": 4,
+      "reb": 1,
+      "ast": 1,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "stampede-yanez": {
+      "pts": 2,
+      "reb": 0,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "stampede-cabanez": {
+      "pts": 22,
+      "reb": 11,
+      "ast": 6,
+      "blk": 1,
+      "stl": 2,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "stampede-maandig": {
+      "pts": 10,
+      "reb": 2,
+      "ast": 3,
+      "blk": 0,
+      "stl": 3,
+      "tpa": 5,
+      "tpm": 2,
+      "fta": 0,
+      "ftm": 0
+    },
+    "stampede-ortiz": {
+      "pts": 2,
+      "reb": 0,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    }
+  }
+}

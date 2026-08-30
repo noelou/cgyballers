@@ -1,0 +1,31 @@
+{
+  "gameId": "g1",
+  "date": "2026-08-05",
+  "home": "a-team",
+  "away": "rgb-zees",
+  "homeScore": 100,
+  "awayScore": 93,
+  "source": "public/records/05/a-team vs rgb.jfif",
+  "lines": {
+    "a-team-tan":        { "pts": 10, "reb": 2, "ast": 3, "blk": 2, "stl": 1, "tpa": 0, "tpm": 0, "fta": 0,  "ftm": 0 },
+    "a-team-handuman":   { "pts": 24, "reb": 6, "ast": 4, "blk": 3, "stl": 0, "tpa": 0, "tpm": 0, "fta": 4,  "ftm": 4 },
+    "a-team-vadehueza":  { "pts": 21, "reb": 0, "ast": 2, "blk": 0, "stl": 1, "tpa": 1, "tpm": 0, "fta": 3,  "ftm": 3 },
+    "a-team-abaday":     { "pts": 2,  "reb": 5, "ast": 2, "blk": 0, "stl": 0, "tpa": 3, "tpm": 0, "fta": 0,  "ftm": 0 },
+    "a-team-gorit":      { "pts": 7,  "reb": 6, "ast": 7, "blk": 0, "stl": 0, "tpa": 3, "tpm": 1, "fta": 0,  "ftm": 0 },
+    "a-team-aguhar":     { "pts": 21, "reb": 3, "ast": 2, "blk": 0, "stl": 0, "tpa": 0, "tpm": 0, "fta": 3,  "ftm": 3 },
+    "a-team-onico":      { "pts": 3,  "reb": 3, "ast": 7, "blk": 0, "stl": 0, "tpa": 2, "tpm": 1, "fta": 0,  "ftm": 0 },
+    "a-team-arcilla":    { "pts": 2,  "reb": 3, "ast": 2, "blk": 0, "stl": 0, "tpa": 0, "tpm": 0, "fta": 0,  "ftm": 0 },
+    "a-team-abbu":       { "pts": 8,  "reb": 1, "ast": 4, "blk": 0, "stl": 0, "tpa": 6, "tpm": 1, "fta": 0,  "ftm": 0 },
+    "a-team-rodrigo":    { "pts": 2,  "reb": 2, "ast": 2, "blk": 0, "stl": 0, "tpa": 0, "tpm": 0, "fta": 0,  "ftm": 0 },
+
+    "rgb-zees-plantado": { "pts": 6,  "reb": 2, "ast": 0,  "blk": 0, "stl": 0, "tpa": 3,  "tpm": 0, "fta": 0, "ftm": 0 },
+    "rgb-zees-madrigal": { "pts": 2,  "reb": 0, "ast": 2,  "blk": 0, "stl": 1, "tpa": 2,  "tpm": 0, "fta": 0, "ftm": 0 },
+    "rgb-zees-ayuma":    { "pts": 26, "reb": 6, "ast": 12, "blk": 1, "stl": 6, "tpa": 10, "tpm": 6, "fta": 0, "ftm": 0 },
+    "rgb-zees-sandigan": { "pts": 18, "reb": 9, "ast": 6,  "blk": 1, "stl": 2, "tpa": 8,  "tpm": 4, "fta": 0, "ftm": 0 },
+    "rgb-zees-cabreros": { "pts": 22, "reb": 1, "ast": 3,  "blk": 0, "stl": 0, "tpa": 9,  "tpm": 4, "fta": 4, "ftm": 4 },
+    "rgb-zees-baylo":    { "pts": 0,  "reb": 1, "ast": 0,  "blk": 0, "stl": 0, "tpa": 3,  "tpm": 0, "fta": 0, "ftm": 0 },
+    "rgb-zees-marcoso":  { "pts": 14, "reb": 5, "ast": 1,  "blk": 0, "stl": 0, "tpa": 12, "tpm": 4, "fta": 0, "ftm": 0 },
+    "rgb-zees-gealan":   { "pts": 0,  "reb": 4, "ast": 0,  "blk": 0, "stl": 0, "tpa": 0,  "tpm": 0, "fta": 0, "ftm": 0 },
+    "rgb-zees-juson":    { "pts": 5,  "reb": 2, "ast": 0,  "blk": 0, "stl": 0, "tpa": 2,  "tpm": 1, "fta": 0, "ftm": 0 }
+  }
+}

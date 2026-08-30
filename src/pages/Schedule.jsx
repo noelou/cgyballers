@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import schedule from '../data/schedule.json'
 import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge'
+import { hasBoxscore } from '../utils/boxscores'
 import { formatDate, formatTime } from '../utils/date'
 import './Schedule.css'
 
@@ -66,11 +67,19 @@ export default function Schedule() {
                 </div>
                 <div className="schedule-result">
                   {g.status === 'final' ? (
-                    <span className="schedule-score">
-                      <b className={g.homeScore > g.awayScore ? 'win' : ''}>{g.homeScore}</b>
-                      {' – '}
-                      <b className={g.awayScore > g.homeScore ? 'win' : ''}>{g.awayScore}</b>
-                    </span>
+                    hasBoxscore(g.id) ? (
+                      <Link to={`/games/${g.id}`} className="schedule-score schedule-score-link" title="View box score">
+                        <b className={g.homeScore > g.awayScore ? 'win' : ''}>{g.homeScore}</b>
+                        {' – '}
+                        <b className={g.awayScore > g.homeScore ? 'win' : ''}>{g.awayScore}</b>
+                      </Link>
+                    ) : (
+                      <span className="schedule-score">
+                        <b className={g.homeScore > g.awayScore ? 'win' : ''}>{g.homeScore}</b>
+                        {' – '}
+                        <b className={g.awayScore > g.homeScore ? 'win' : ''}>{g.awayScore}</b>
+                      </span>
+                    )
                   ) : g.status === 'cancelled' ? (
                     <span className="schedule-vs">–</span>
                   ) : (

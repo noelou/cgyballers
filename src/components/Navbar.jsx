@@ -5,7 +5,7 @@ import './Navbar.css'
 
 const LINKS = [
   { to: '/', label: 'Home', end: true },
-  { to: '/news', label: 'News' },
+  // { to: '/news', label: 'News' }, // hidden for now — pending league sign-off
   { to: '/schedule', label: 'Schedule' },
   { to: '/standings', label: 'Standings' },
   { to: '/players', label: 'Players' },

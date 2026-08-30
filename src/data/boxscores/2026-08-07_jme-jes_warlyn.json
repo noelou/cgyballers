@@ -1,0 +1,253 @@
+{
+  "gameId": "g5",
+  "date": "2026-08-07",
+  "home": "jme-jes",
+  "away": "warlyn",
+  "homeScore": 85,
+  "awayScore": 75,
+  "source": "public/records/07/jme vs warlyn.jfif",
+  "lines": {
+    "jme-jes-jessie": {
+      "pts": 2,
+      "reb": 3,
+      "ast": 11,
+      "blk": 0,
+      "stl": 3,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jme-jes-daug": {
+      "pts": 12,
+      "reb": 6,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 2
+    },
+    "jme-jes-acaylar": {
+      "pts": 1,
+      "reb": 0,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "jme-jes-jarjar": {
+      "pts": 12,
+      "reb": 4,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 2
+    },
+    "jme-jes-campos": {
+      "pts": 13,
+      "reb": 5,
+      "ast": 3,
+      "blk": 0,
+      "stl": 5,
+      "tpa": 6,
+      "tpm": 2,
+      "fta": 2,
+      "ftm": 1
+    },
+    "jme-jes-beja": {
+      "pts": 2,
+      "reb": 3,
+      "ast": 0,
+      "blk": 4,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jme-jes-apollo": {
+      "pts": 16,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 9,
+      "tpm": 4,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jme-jes-libres": {
+      "pts": 8,
+      "reb": 0,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 5,
+      "tpm": 2,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jme-jes-arquibel": {
+      "pts": 15,
+      "reb": 6,
+      "ast": 2,
+      "blk": 1,
+      "stl": 2,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 3
+    },
+    "jme-jes-sario": {
+      "pts": 4,
+      "reb": 1,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-magsalay": {
+      "pts": 12,
+      "reb": 10,
+      "ast": 5,
+      "blk": 0,
+      "stl": 4,
+      "tpa": 6,
+      "tpm": 2,
+      "fta": 1,
+      "ftm": 0
+    },
+    "warlyn-arcillas": {
+      "pts": 29,
+      "reb": 6,
+      "ast": 3,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 1,
+      "fta": 4,
+      "ftm": 4
+    },
+    "warlyn-gamorot": {
+      "pts": 8,
+      "reb": 2,
+      "ast": 2,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 3,
+      "tpm": 2,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-barbero": {
+      "pts": 8,
+      "reb": 3,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-palubon": {
+      "pts": 3,
+      "reb": 3,
+      "ast": 6,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "warlyn-fernandez": {
+      "pts": 5,
+      "reb": 5,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-ebarat": {
+      "pts": 0,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-palen": {
+      "pts": 10,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 2,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-maca-ayan": {
+      "pts": 0,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-canales": {
+      "pts": 0,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-olarte": {
+      "pts": 0,
+      "reb": 5,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 0
+    },
+    "warlyn-grafe": {
+      "pts": 0,
+      "reb": 0,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import players from '../data/players.json'
 import teams from '../data/teams.json'
 import PlayerCard from '../components/PlayerCard'
+import { getPlayerStats } from '../utils/playerStats'
 import './Players.css'
 
 const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C']
@@ -17,7 +18,7 @@ export default function Players() {
       .filter((p) => (q ? p.name.toLowerCase().includes(q) : true))
       .filter((p) => (teamFilter === 'all' ? true : p.team === teamFilter))
       .filter((p) => (posFilter === 'all' ? true : p.position === posFilter))
-      .sort((a, b) => b.ppg - a.ppg)
+      .sort((a, b) => getPlayerStats(b.id).ppg - getPlayerStats(a.id).ppg)
   }, [query, teamFilter, posFilter])
 
   return (

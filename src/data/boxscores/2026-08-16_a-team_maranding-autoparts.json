@@ -1,0 +1,154 @@
+{
+  "gameId": "g14",
+  "date": "2026-08-16",
+  "home": "a-team",
+  "away": "maranding-autoparts",
+  "homeScore": 56,
+  "awayScore": 62,
+  "source": "public/records/16/maranding vs a team.jfif",
+  "lines": {
+    "a-team-handuman": {
+      "pts": 16,
+      "reb": 11,
+      "ast": 1,
+      "blk": 1,
+      "stl": 0,
+      "tpa": 4,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 2
+    },
+    "a-team-vadehueza": {
+      "pts": 21,
+      "reb": 7,
+      "ast": 2,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 3,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 3
+    },
+    "a-team-naliponguit": {
+      "pts": 13,
+      "reb": 9,
+      "ast": 4,
+      "blk": 1,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 1
+    },
+    "a-team-onico": {
+      "pts": 0,
+      "reb": 2,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "a-team-arcilla": {
+      "pts": 0,
+      "reb": 0,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "a-team-rodrigo": {
+      "pts": 6,
+      "reb": 4,
+      "ast": 1,
+      "blk": 1,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 2
+    },
+    "maranding-autoparts-cabrezos": {
+      "pts": 18,
+      "reb": 3,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 8,
+      "tpm": 2,
+      "fta": 0,
+      "ftm": 0
+    },
+    "maranding-autoparts-andoy": {
+      "pts": 12,
+      "reb": 8,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 4,
+      "ftm": 2
+    },
+    "maranding-autoparts-recabo": {
+      "pts": 6,
+      "reb": 14,
+      "ast": 3,
+      "blk": 1,
+      "stl": 1,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 0
+    },
+    "maranding-autoparts-grueso": {
+      "pts": 2,
+      "reb": 3,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "maranding-autoparts-comique": {
+      "pts": 12,
+      "reb": 3,
+      "ast": 4,
+      "blk": 0,
+      "stl": 4,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "maranding-autoparts-alvarado": {
+      "pts": 8,
+      "reb": 1,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 4,
+      "tpm": 2,
+      "fta": 0,
+      "ftm": 0
+    },
+    "maranding-autoparts-inciso": {
+      "pts": 4,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    }
+  }
+}

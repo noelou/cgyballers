@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import standings from '../data/standings.json'
+import standings from '../utils/standings'
 import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge'
 
@@ -8,7 +8,7 @@ export default function Standings() {
     <div className="container">
       <span className="eyebrow">2026 Season</span>
       <h1 className="section-title" style={{ fontSize: 28, marginTop: 8 }}>Standings</h1>
-      <p className="section-sub">League table, sorted by win percentage.</p>
+      <p className="section-sub">League table.</p>
 
       <div className="card table-scroll">
         <table>
@@ -19,11 +19,6 @@ export default function Standings() {
               <th>GP</th>
               <th>W</th>
               <th>L</th>
-              <th>PCT</th>
-              <th>GB</th>
-              <th>PF</th>
-              <th>PA</th>
-              <th>DIFF</th>
             </tr>
           </thead>
           <tbody>
@@ -42,13 +37,6 @@ export default function Standings() {
                 <td>{row.gp}</td>
                 <td>{row.wins}</td>
                 <td>{row.losses}</td>
-                <td>{row.winPct.toFixed(3)}</td>
-                <td>{row.gb}</td>
-                <td>{row.pf}</td>
-                <td>{row.pa}</td>
-                <td style={{ color: row.diff >= 0 ? 'var(--win)' : 'var(--loss)' }}>
-                  {row.diff >= 0 ? `+${row.diff}` : row.diff}
-                </td>
               </tr>
             ))}
           </tbody>

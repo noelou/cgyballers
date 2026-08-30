@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import schedule from '../data/schedule.json'
-import standings from '../data/standings.json'
-import news from '../data/news.json'
+import standings from '../utils/standings'
 import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge'
 import { formatDateShort as formatDate, formatTime } from '../utils/date'
@@ -16,7 +15,6 @@ export default function Home() {
     .slice(0, 3)
   const recent = schedule.filter((g) => g.status === 'final').slice(-3).reverse()
   const topStandings = standings.slice(0, 5)
-  const latestNews = news.slice(-3).reverse()
 
   return (
     <div className="container">
@@ -75,7 +73,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-grid">
+      <section style={{ marginBottom: 20 }}>
         <div className="card home-block">
           <div className="section-title">Standings</div>
           <div className="section-sub">Top of the table</div>
@@ -87,7 +85,6 @@ export default function Home() {
                   <th>Team</th>
                   <th>W</th>
                   <th>L</th>
-                  <th>PCT</th>
                 </tr>
               </thead>
               <tbody>
@@ -105,29 +102,12 @@ export default function Home() {
                     </td>
                     <td>{row.wins}</td>
                     <td>{row.losses}</td>
-                    <td>{row.winPct.toFixed(3)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           <Link to="/standings" className="see-all">Full standings &rarr;</Link>
-        </div>
-
-        <div className="card home-block">
-          <div className="section-title">Latest News</div>
-          <div className="section-sub">What's happening around the league</div>
-          <ul className="news-list">
-            {latestNews.map((n) => (
-              <li key={n.id}>
-                <Link to={`/news/${n.id}`} className="news-list-item">
-                  <span className="badge">{n.tag}</span>
-                  <span className="news-list-title">{n.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <Link to="/news" className="see-all">All news &rarr;</Link>
         </div>
       </section>
     </div>

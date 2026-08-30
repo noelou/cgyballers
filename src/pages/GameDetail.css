@@ -1,0 +1,97 @@
+.game-detail-header {
+  padding: 22px;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.game-detail-date {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.game-detail-score {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-detail-team {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.game-detail-team.won {
+  color: var(--text);
+}
+
+.game-detail-team a {
+  color: inherit;
+}
+
+.game-detail-team-score {
+  margin-left: auto;
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+}
+
+.game-detail-team.won .game-detail-team-score {
+  color: var(--win);
+}
+
+.game-detail-box-title {
+  font-size: 16px;
+  margin: 24px 0 10px;
+}
+
+.game-detail-box {
+  width: 100%;
+}
+
+.game-detail-box th,
+.game-detail-box td {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.game-detail-box th:first-child,
+.game-detail-box td:first-child {
+  text-align: left;
+}
+
+.game-detail-box tfoot td {
+  font-weight: 800;
+  border-top: 2px solid var(--border);
+}
+
+.game-detail-name {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.game-detail-num {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.game-detail-dnp {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 8px 2px 0;
+}
+
+.game-detail-dnp span {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-right: 6px;
+}

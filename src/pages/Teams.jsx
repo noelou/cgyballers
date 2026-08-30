@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import teams from '../data/teams.json'
-import standings from '../data/standings.json'
+import standings from '../utils/standings'
 import TeamBadge from '../components/TeamBadge'
 import './Teams.css'
 

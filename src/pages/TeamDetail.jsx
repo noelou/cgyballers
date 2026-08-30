@@ -1,10 +1,12 @@
 import { Link, useParams } from 'react-router-dom'
 import teams from '../data/teams.json'
 import players from '../data/players.json'
-import standings from '../data/standings.json'
+import standings from '../utils/standings'
 import schedule from '../data/schedule.json'
 import Avatar from '../components/Avatar'
 import TeamBadge from '../components/TeamBadge'
+import { getPlayerStats } from '../utils/playerStats'
+import { hasBoxscore } from '../utils/boxscores'
 import { formatDateShort, formatTime } from '../utils/date'
 import './TeamDetail.css'
 
@@ -23,7 +25,9 @@ export default function TeamDetail() {
     )
   }
 
-  const roster = players.filter((p) => p.team === team.id).sort((a, b) => a.number - b.number)
+  const roster = players
+    .filter((p) => p.team === team.id)
+    .sort((a, b) => (a.number ?? 999) - (b.number ?? 999))
   const record = standings.find((s) => s.team === team.id)
   const games = schedule
     .filter((g) => g.home === team.id || g.away === team.id)
@@ -50,15 +54,22 @@ export default function TeamDetail() {
 
       <div className="section-title" style={{ fontSize: 18, marginTop: 32 }}>Roster</div>
       <div className="grid team-roster-grid">
-        {roster.map((p) => (
-          <Link key={p.id} to={`/players/${p.id}`} className="card roster-row">
-            <Avatar name={p.name} size={44} />
-            <div>
-              <div className="roster-name">{p.name}</div>
-              <div className="roster-meta">#{p.number} &middot; {p.position} &middot; {p.ppg} PPG</div>
-            </div>
-          </Link>
-        ))}
+        {roster.map((p) => {
+          const stats = getPlayerStats(p.id)
+          return (
+            <Link key={p.id} to={`/players/${p.id}`} className="card roster-row">
+              <Avatar name={p.name} pic={p.pic} size={44} />
+              <div>
+                <div className="roster-name">{p.name}</div>
+                <div className="roster-meta">
+                  {p.number != null && <>#{p.number} &middot; </>}
+                  {p.position && <>{p.position} &middot; </>}
+                  {stats.gp ? `${stats.ppg} PPG` : 'No games'}
+                </div>
+              </div>
+            </Link>
+          )
+        })}
       </div>
 
       <div className="section-title" style={{ fontSize: 18, marginTop: 32 }}>Games</div>
@@ -86,9 +97,13 @@ export default function TeamDetail() {
                   <td>{isHome ? 'vs' : '@'} {opponent}</td>
                   <td>
                     {g.status === 'final'
-                      ? <span style={{ color: won ? 'var(--win)' : 'var(--loss)', fontWeight: 700 }}>
-                          {won ? 'W' : 'L'} {teamScore}-{oppScore}
-                        </span>
+                      ? hasBoxscore(g.id)
+                        ? <Link to={`/games/${g.id}`} style={{ color: won ? 'var(--win)' : 'var(--loss)', fontWeight: 700 }} title="View box score">
+                            {won ? 'W' : 'L'} {teamScore}-{oppScore}
+                          </Link>
+                        : <span style={{ color: won ? 'var(--win)' : 'var(--loss)', fontWeight: 700 }}>
+                            {won ? 'W' : 'L'} {teamScore}-{oppScore}
+                          </span>
                       : g.status === 'cancelled'
                         ? <span style={{ color: 'var(--text-dim)' }}>Cancelled</span>
                         : <span style={{ color: 'var(--text-dim)' }}>Upcoming</span>}

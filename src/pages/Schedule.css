@@ -78,6 +78,16 @@
   color: var(--accent-strong);
 }
 
+.schedule-score-link {
+  color: inherit;
+  border-bottom: 1px dotted var(--text-dim);
+  padding-bottom: 1px;
+}
+
+.schedule-score-link:hover {
+  border-bottom-color: var(--accent-strong);
+}
+
 .schedule-vs {
   color: var(--text-dim);
   font-weight: 700;

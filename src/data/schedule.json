@@ -320,9 +320,9 @@
     "homeName": "GRIT",
     "away": "ets-x-rlt",
     "awayName": "ETS x RLT",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 74,
+    "awayScore": 86
   },
   {
     "id": "g26",
@@ -333,9 +333,9 @@
     "homeName": "JME-JES",
     "away": "howon",
     "awayName": "Howon",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 91,
+    "awayScore": 92
   },
   {
     "id": "g27",

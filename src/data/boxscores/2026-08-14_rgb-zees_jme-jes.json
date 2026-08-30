@@ -1,0 +1,209 @@
+{
+  "gameId": "g9",
+  "date": "2026-08-14",
+  "home": "rgb-zees",
+  "away": "jme-jes",
+  "homeScore": 80,
+  "awayScore": 76,
+  "source": "public/records/14/rgb vs jme.jfif",
+  "lines": {
+    "rgb-zees-plantado": {
+      "pts": 9,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 1
+    },
+    "rgb-zees-madrigal": {
+      "pts": 5,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 1
+    },
+    "rgb-zees-ayuma": {
+      "pts": 2,
+      "reb": 3,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 4,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "rgb-zees-sandigan": {
+      "pts": 5,
+      "reb": 7,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "rgb-zees-zamora": {
+      "pts": 8,
+      "reb": 8,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "rgb-zees-nemenzo": {
+      "pts": 7,
+      "reb": 6,
+      "ast": 1,
+      "blk": 3,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 1
+    },
+    "rgb-zees-cabreros": {
+      "pts": 15,
+      "reb": 3,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 5,
+      "tpm": 3,
+      "fta": 6,
+      "ftm": 6
+    },
+    "rgb-zees-marcoso": {
+      "pts": 29,
+      "reb": 0,
+      "ast": 1,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 11,
+      "tpm": 7,
+      "fta": 1,
+      "ftm": 0
+    },
+    "rgb-zees-gealan": {
+      "pts": 0,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "rgb-zees-juson": {
+      "pts": 0,
+      "reb": 1,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jme-jes-jessie": {
+      "pts": 4,
+      "reb": 3,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jme-jes-ronald": {
+      "pts": 0,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jme-jes-daug": {
+      "pts": 17,
+      "reb": 3,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jme-jes-jarjar": {
+      "pts": 11,
+      "reb": 6,
+      "ast": 5,
+      "blk": 2,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 4,
+      "ftm": 3
+    },
+    "jme-jes-campos": {
+      "pts": 15,
+      "reb": 7,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 9,
+      "tpm": 2,
+      "fta": 1,
+      "ftm": 1
+    },
+    "jme-jes-beja": {
+      "pts": 11,
+      "reb": 8,
+      "ast": 3,
+      "blk": 2,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 3
+    },
+    "jme-jes-libres": {
+      "pts": 17,
+      "reb": 4,
+      "ast": 6,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 1,
+      "tpm": 1,
+      "fta": 2,
+      "ftm": 2
+    },
+    "jme-jes-sario": {
+      "pts": 1,
+      "reb": 0,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    }
+  }
+}

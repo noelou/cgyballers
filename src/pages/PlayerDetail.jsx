@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import players from '../data/players.json'
 import teams from '../data/teams.json'
 import Avatar from '../components/Avatar'
-import { formatDate } from '../utils/date'
+import { getPlayerStats } from '../utils/playerStats'
 import './PlayerDetail.css'
 
 const teamById = Object.fromEntries(teams.map((t) => [t.id, t]))
@@ -23,6 +23,9 @@ export default function PlayerDetail() {
   }
 
   const team = teamById[player.team]
+  const stats = getPlayerStats(player.id)
+  const dash = (v) => (stats.gp ? v : '—')
+  const pctText = (v) => (v == null ? '—' : `${v}%`)
 
   return (
     <div className="container">
@@ -31,7 +34,7 @@ export default function PlayerDetail() {
       </Link>
 
       <div className="card player-detail-header">
-        <Avatar name={player.name} size={88} />
+        <Avatar name={player.name} pic={player.pic} size={88} />
         <div>
           <div className="player-detail-team">
             <span style={{ background: team?.color }} className="team-dot" />
@@ -39,28 +42,37 @@ export default function PlayerDetail() {
           </div>
           <h1 className="player-detail-name">{player.name}</h1>
           <p className="player-detail-sub">
-            #{player.number} &middot; {player.positionLabel} ({player.position})
+            {player.number != null && <>#{player.number} &middot; </>}
+            {player.positionLabel
+              ? <>{player.positionLabel} ({player.position})</>
+              : 'Position not listed'}
           </p>
         </div>
       </div>
 
       <div className="player-stat-strip">
-        <StatBlock label="PPG" value={player.ppg} />
-        <StatBlock label="RPG" value={player.rpg} />
-        <StatBlock label="APG" value={player.apg} />
+        <StatBlock label="GP" value={stats.gp} />
+        <StatBlock label="PPG" value={dash(stats.ppg)} />
+        <StatBlock label="RPG" value={dash(stats.rpg)} />
+        <StatBlock label="APG" value={dash(stats.apg)} />
+        <StatBlock label="BPG" value={dash(stats.bpg)} />
+        <StatBlock label="SPG" value={dash(stats.spg)} />
+        <StatBlock label="3P%" value={pctText(stats.tpPct)} />
+        <StatBlock label="FT%" value={pctText(stats.ftPct)} />
       </div>
+      <p className="player-stat-note">
+        {stats.gp
+          ? `Season averages from ${stats.gp} game${stats.gp > 1 ? 's' : ''}.`
+          : 'No games recorded yet this season.'}
+      </p>
 
       <div className="card player-bio">
         <div className="section-title" style={{ fontSize: 16 }}>Bio</div>
         <dl className="bio-grid">
-          <BioRow label="Height" value={`${player.heightDisplay} (${player.heightCm} cm)`} />
-          <BioRow label="Weight" value={`${player.weightKg} kg`} />
-          <BioRow label="Country" value={player.country} />
-          <BioRow label="Age" value={player.age} />
-          <BioRow label="Birthdate" value={formatDate(player.birthdate)} />
-          <BioRow label="Experience" value={player.experience} />
-          <BioRow label="Draft" value={player.draft} />
-          <BioRow label="Last Team" value={player.lastTeam} />
+          <BioRow label="Height" value={player.heightDisplay ? `${player.heightDisplay} (${player.heightCm} cm)` : '—'} />
+          <BioRow label="Weight" value={player.weightKg ? `${player.weightKg} kg` : '—'} />
+          <BioRow label="Age" value={player.age ?? '—'} />
+          <BioRow label="Experience" value={player.experience || '—'} />
         </dl>
       </div>
     </div>
