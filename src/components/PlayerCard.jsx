@@ -11,11 +11,7 @@ export default function PlayerCard({ player }) {
         <Avatar name={player.name} pic={player.pic} size={52} />
         <div>
           <div className="player-card-name">{player.name}</div>
-          <div className="player-card-meta">
-            {player.number != null && `#${player.number} · `}
-            {player.position && `${player.position} · `}
-            {player.teamName}
-          </div>
+          <div className="player-card-meta">{player.teamName}</div>
         </div>
       </div>
       <div className="player-card-stats">

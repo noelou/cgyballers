@@ -1,0 +1,154 @@
+{
+  "gameId": "g20",
+  "date": "2026-08-21",
+  "home": "howon",
+  "away": "rgb-zees",
+  "homeScore": 52,
+  "awayScore": 47,
+  "source": "public/records/21/howon vs rgb.jfif",
+  "lines": {
+    "howon-sanoria": {
+      "pts": 2,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-akut": {
+      "pts": 20,
+      "reb": 10,
+      "ast": 3,
+      "blk": 2,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-nabasca": {
+      "pts": 4,
+      "reb": 7,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-garcia": {
+      "pts": 2,
+      "reb": 0,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-parba": {
+      "pts": 0,
+      "reb": 1,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-capito": {
+      "pts": 14,
+      "reb": 3,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 2
+    },
+    "howon-gulben": {
+      "pts": 2,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-besande": {
+      "pts": 8,
+      "reb": 9,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "rgb-zees-plantado": {
+      "pts": 8,
+      "reb": 6,
+      "ast": 4,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 3,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "rgb-zees-nemenzo": {
+      "pts": 11,
+      "reb": 10,
+      "ast": 1,
+      "blk": 1,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "rgb-zees-cabreros": {
+      "pts": 8,
+      "reb": 1,
+      "ast": 4,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 9,
+      "tpm": 2,
+      "fta": 0,
+      "ftm": 0
+    },
+    "rgb-zees-gealan": {
+      "pts": 15,
+      "reb": 2,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 2,
+      "fta": 4,
+      "ftm": 3
+    },
+    "rgb-zees-juson": {
+      "pts": 5,
+      "reb": 1,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 1,
+      "fta": 1,
+      "ftm": 0
+    }
+  }
+}

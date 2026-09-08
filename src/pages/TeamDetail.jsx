@@ -62,8 +62,6 @@ export default function TeamDetail() {
               <div>
                 <div className="roster-name">{p.name}</div>
                 <div className="roster-meta">
-                  {p.number != null && <>#{p.number} &middot; </>}
-                  {p.position && <>{p.position} &middot; </>}
                   {stats.gp ? `${stats.ppg} PPG` : 'No games'}
                 </div>
               </div>

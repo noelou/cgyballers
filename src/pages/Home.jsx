@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div className="container">
       <section className="hero">
-        <span className="eyebrow">2026 Season</span>
+        <span className="eyebrow">Season 4 Amlans Cup</span>
         <h1 className="hero-title">
           CGY<span style={{ color: 'var(--accent)' }}>Ballers</span>
         </h1>

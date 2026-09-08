@@ -31,10 +31,11 @@
 }
 
 .footer-sponsor img {
-  max-width: 74px;
+  max-width: 70px;
   width: auto;
   object-fit: contain;
   display: block;
+  height: 60px;
 }
 
 .footer-bottom {

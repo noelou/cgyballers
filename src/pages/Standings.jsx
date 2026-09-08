@@ -6,7 +6,7 @@ import TeamBadge from '../components/TeamBadge'
 export default function Standings() {
   return (
     <div className="container">
-      <span className="eyebrow">2026 Season</span>
+      <span className="eyebrow">Season 4 Amlans Cup</span>
       <h1 className="section-title" style={{ fontSize: 28, marginTop: 8 }}>Standings</h1>
       <p className="section-sub">League table.</p>
 

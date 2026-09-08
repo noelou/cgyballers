@@ -31,7 +31,7 @@ export default function Schedule() {
 
   return (
     <div className="container">
-      <span className="eyebrow">2026 Season</span>
+      <span className="eyebrow">Season 4 Amlans Cup</span>
       <h1 className="section-title" style={{ fontSize: 28, marginTop: 8 }}>Schedule</h1>
       <p className="section-sub">Every matchup on the CGYBallers calendar.</p>
 

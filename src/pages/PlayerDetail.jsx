@@ -41,12 +41,6 @@ export default function PlayerDetail() {
             <Link to={`/teams/${player.team}`}>{player.teamName}</Link>
           </div>
           <h1 className="player-detail-name">{player.name}</h1>
-          <p className="player-detail-sub">
-            {player.number != null && <>#{player.number} &middot; </>}
-            {player.positionLabel
-              ? <>{player.positionLabel} ({player.position})</>
-              : 'Position not listed'}
-          </p>
         </div>
       </div>
 
@@ -65,16 +59,6 @@ export default function PlayerDetail() {
           ? `Season averages from ${stats.gp} game${stats.gp > 1 ? 's' : ''}.`
           : 'No games recorded yet this season.'}
       </p>
-
-      <div className="card player-bio">
-        <div className="section-title" style={{ fontSize: 16 }}>Bio</div>
-        <dl className="bio-grid">
-          <BioRow label="Height" value={player.heightDisplay ? `${player.heightDisplay} (${player.heightCm} cm)` : '—'} />
-          <BioRow label="Weight" value={player.weightKg ? `${player.weightKg} kg` : '—'} />
-          <BioRow label="Age" value={player.age ?? '—'} />
-          <BioRow label="Experience" value={player.experience || '—'} />
-        </dl>
-      </div>
     </div>
   )
 }
@@ -85,14 +69,5 @@ function StatBlock({ label, value }) {
       <span className="player-stat-value">{value}</span>
       <span className="player-stat-label">{label}</span>
     </div>
-  )
-}
-
-function BioRow({ label, value }) {
-  return (
-    <>
-      <dt>{label}</dt>
-      <dd>{value}</dd>
-    </>
   )
 }

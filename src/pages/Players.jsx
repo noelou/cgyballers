@@ -5,21 +5,17 @@ import PlayerCard from '../components/PlayerCard'
 import { getPlayerStats } from '../utils/playerStats'
 import './Players.css'
 
-const POSITIONS = ['PG', 'SG', 'SF', 'PF', 'C']
-
 export default function Players() {
   const [query, setQuery] = useState('')
   const [teamFilter, setTeamFilter] = useState('all')
-  const [posFilter, setPosFilter] = useState('all')
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     return players
       .filter((p) => (q ? p.name.toLowerCase().includes(q) : true))
       .filter((p) => (teamFilter === 'all' ? true : p.team === teamFilter))
-      .filter((p) => (posFilter === 'all' ? true : p.position === posFilter))
       .sort((a, b) => getPlayerStats(b.id).ppg - getPlayerStats(a.id).ppg)
-  }, [query, teamFilter, posFilter])
+  }, [query, teamFilter])
 
   return (
     <div className="container">
@@ -38,12 +34,6 @@ export default function Players() {
           <option value="all">All Teams</option>
           {teams.map((t) => (
             <option key={t.id} value={t.id}>{t.name}</option>
-          ))}
-        </select>
-        <select value={posFilter} onChange={(e) => setPosFilter(e.target.value)}>
-          <option value="all">All Positions</option>
-          {POSITIONS.map((p) => (
-            <option key={p} value={p}>{p}</option>
           ))}
         </select>
       </div>

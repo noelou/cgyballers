@@ -20,8 +20,11 @@ export default function Navbar() {
     <header className="navbar">
       <div className="container navbar-inner">
         <NavLink to="/" className="brand" onClick={() => setOpen(false)}>
-          <span className="brand-mark">CGY</span>
-          <span className="brand-rest">Ballers</span>
+          <img
+            src="/logos/cgyballers_transparent.png"
+            alt="CGY Ballers"
+            className="brand-logo"
+          />
         </NavLink>
 
         <div className="navbar-right">

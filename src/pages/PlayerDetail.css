@@ -29,12 +29,6 @@
   margin: 0 0 4px;
 }
 
-.player-detail-sub {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin: 0;
-}
-
 .player-stat-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
@@ -69,40 +63,10 @@
   margin-top: 4px;
 }
 
-.player-bio {
-  padding: 22px;
-}
-
-.bio-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px 24px;
-  margin: 16px 0 0;
-}
-
-.bio-grid dt {
-  font-size: 11px;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-
-.bio-grid dd {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 600;
-}
-
 @media (max-width: 560px) {
   .player-detail-header {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-  }
-
-  .bio-grid {
-    grid-template-columns: 1fr;
   }
 }
