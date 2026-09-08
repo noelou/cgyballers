@@ -59,11 +59,18 @@ export default function Schedule() {
           <div key={date} className="schedule-day">
             <div className="schedule-date">{formatDate(date, { weekday: 'long', month: 'short', day: 'numeric' })}</div>
             {games.map((g) => (
-              <div key={g.id} className={`card schedule-row ${g.status === 'cancelled' ? 'schedule-row-cancelled' : ''}`}>
+              <div
+                key={g.id}
+                data-status={g.status}
+                className={`card schedule-row ${g.status === 'cancelled' ? 'schedule-row-cancelled' : ''}`}
+              >
                 <div className="schedule-time">{formatTime(g.time)}</div>
                 <div className="schedule-team">
                   <TeamBadge team={teamById[g.home]} size={32} />
                   <Link to={`/teams/${g.home}`}>{g.homeName}</Link>
+                  <span className={`schedule-team-score ${g.status === 'final' && g.homeScore > g.awayScore ? 'win' : ''}`}>
+                    {g.status === 'final' ? g.homeScore : g.status === 'scheduled' ? formatTime(g.time) : ''}
+                  </span>
                 </div>
                 <div className="schedule-result">
                   {g.status === 'final' ? (
@@ -87,13 +94,18 @@ export default function Schedule() {
                   )}
                 </div>
                 <div className="schedule-team schedule-team-right">
-                  <Link to={`/teams/${g.away}`}>{g.awayName}</Link>
                   <TeamBadge team={teamById[g.away]} size={32} />
+                  <Link to={`/teams/${g.away}`}>{g.awayName}</Link>
+                  <span className={`schedule-team-score ${g.status === 'final' && g.awayScore > g.homeScore ? 'win' : ''}`}>
+                    {g.status === 'final' ? g.awayScore : ''}
+                  </span>
                 </div>
-                <div className="schedule-venue">{g.venue}</div>
-                <span className={`badge schedule-status ${g.status === 'final' ? 'status-final' : ''} ${g.status === 'cancelled' ? 'status-cancelled' : ''}`}>
-                  {g.status === 'final' ? 'Final' : g.status === 'cancelled' ? 'Cancelled' : 'Upcoming'}
-                </span>
+                <div className="schedule-footer">
+                  <div className="schedule-venue">{g.venue}</div>
+                  <span className={`badge schedule-status ${g.status === 'final' ? 'status-final' : ''} ${g.status === 'cancelled' ? 'status-cancelled' : ''}`}>
+                    {g.status === 'final' ? 'Final' : g.status === 'cancelled' ? 'Cancelled' : 'Upcoming'}
+                  </span>
+                </div>
               </div>
             ))}
           </div>
