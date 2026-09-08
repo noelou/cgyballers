@@ -31,7 +31,7 @@
 
 .player-stat-strip {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
   gap: 12px;
   margin-bottom: 12px;
 }
@@ -43,15 +43,18 @@
 }
 
 .player-stat-block {
-  padding: 18px;
+  padding: 16px 10px;
   text-align: center;
+  min-width: 0;
 }
 
 .player-stat-value {
   display: block;
-  font-size: 28px;
+  font-size: clamp(20px, 4.5vw, 26px);
   font-weight: 900;
+  line-height: 1.15;
   color: var(--accent-strong);
+  white-space: nowrap;
 }
 
 .player-stat-label {
