@@ -51,14 +51,14 @@
 
 .footer-dim {
   color: var(--text-dim);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .footer-fb {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--text-muted);
 }

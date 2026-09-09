@@ -5,7 +5,7 @@
   "away": "rgb-zees",
   "homeScore": 100,
   "awayScore": 93,
-  "source": "public/records/05/a-team vs rgb.jfif",
+  "source": "public/records/August/05/a-team vs rgb.jfif",
   "lines": {
     "a-team-tan":        { "pts": 10, "reb": 2, "ast": 3, "blk": 2, "stl": 1, "tpa": 0, "tpm": 0, "fta": 0,  "ftm": 0 },
     "a-team-handuman":   { "pts": 24, "reb": 6, "ast": 4, "blk": 3, "stl": 0, "tpa": 0, "tpm": 0, "fta": 4,  "ftm": 4 },

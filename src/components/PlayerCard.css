@@ -28,6 +28,11 @@
   margin-top: 2px;
 }
 
+.player-card-gp {
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
 .player-card-stats {
   display: flex;
   gap: 20px;
@@ -40,6 +45,15 @@
   font-size: 18px;
   font-weight: 800;
   color: var(--accent-strong);
+}
+
+.player-card-stats .stat-active {
+  margin-left: auto;
+  text-align: right;
+}
+
+.player-card-stats .stat-active .stat-value {
+  color: var(--accent);
 }
 
 .stat-label {

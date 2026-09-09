@@ -5,7 +5,7 @@
   "away": "ets-x-rlt",
   "homeScore": 72,
   "awayScore": 83,
-  "source": "public/records/12/ets vs stampede.jfif",
+  "source": "public/records/August/12/ets vs stampede.jfif",
   "lines": {
     "stampede-manigsaca": {
       "pts": 12,
@@ -129,7 +129,7 @@
       "ftm": 0
     },
     "ets-x-rlt-estevez": {
-      "pts": 34,
+      "pts": 10,
       "reb": 10,
       "ast": 5,
       "blk": 0,

@@ -1,0 +1,209 @@
+{
+  "gameId": "g31",
+  "date": "2026-09-04",
+  "home": "maranding-autoparts",
+  "away": "jacque-jons",
+  "homeScore": 86,
+  "awayScore": 94,
+  "source": "public/records/September/04/jjons vs maranding.jfif",
+  "lines": {
+    "maranding-autoparts-cabrezos": {
+      "pts": 13,
+      "reb": 5,
+      "ast": 1,
+      "blk": 1,
+      "stl": 1,
+      "tpa": 6,
+      "tpm": 3,
+      "fta": 1,
+      "ftm": 0
+    },
+    "maranding-autoparts-andoy": {
+      "pts": 23,
+      "reb": 5,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 6,
+      "tpm": 2,
+      "fta": 2,
+      "ftm": 1
+    },
+    "maranding-autoparts-garlan": {
+      "pts": 17,
+      "reb": 14,
+      "ast": 10,
+      "blk": 2,
+      "stl": 2,
+      "tpa": 4,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "maranding-autoparts-labares": {
+      "pts": 9,
+      "reb": 7,
+      "ast": 6,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 4,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 3
+    },
+    "maranding-autoparts-recabo": {
+      "pts": 15,
+      "reb": 5,
+      "ast": 5,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 4,
+      "ftm": 1
+    },
+    "maranding-autoparts-grueso": {
+      "pts": 3,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "maranding-autoparts-sang-an": {
+      "pts": 2,
+      "reb": 0,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 0
+    },
+    "maranding-autoparts-comique": {
+      "pts": 4,
+      "reb": 2,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "maranding-autoparts-alvarado": {
+      "pts": 0,
+      "reb": 0,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jacque-jons-daclag": {
+      "pts": 6,
+      "reb": 1,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jacque-jons-roa": {
+      "pts": 7,
+      "reb": 3,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 1
+    },
+    "jacque-jons-mesa": {
+      "pts": 4,
+      "reb": 3,
+      "ast": 2,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "jacque-jons-santos": {
+      "pts": 37,
+      "reb": 18,
+      "ast": 7,
+      "blk": 1,
+      "stl": 1,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 6,
+      "ftm": 5
+    },
+    "jacque-jons-saarenas": {
+      "pts": 20,
+      "reb": 5,
+      "ast": 5,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 6,
+      "tpm": 4,
+      "fta": 4,
+      "ftm": 4
+    },
+    "jacque-jons-villahermosa": {
+      "pts": 2,
+      "reb": 4,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jacque-jons-villar": {
+      "pts": 8,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 4,
+      "tpm": 2,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jacque-jons-ucab": {
+      "pts": 8,
+      "reb": 4,
+      "ast": 5,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "jacque-jons-baquial": {
+      "pts": 2,
+      "reb": 5,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    }
+  }
+}

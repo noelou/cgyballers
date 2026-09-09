@@ -1,0 +1,165 @@
+{
+  "gameId": "g26",
+  "date": "2026-08-28",
+  "home": "jme-jes",
+  "away": "howon",
+  "homeScore": 91,
+  "awayScore": 92,
+  "source": "public/records/August/28/howon vs jme.jfif",
+  "lines": {
+    "jme-jes-daug": {
+      "pts": 8,
+      "reb": 0,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 2
+    },
+    "jme-jes-jarjar": {
+      "pts": 11,
+      "reb": 12,
+      "ast": 2,
+      "blk": 2,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 4,
+      "ftm": 3
+    },
+    "jme-jes-beja": {
+      "pts": 13,
+      "reb": 5,
+      "ast": 1,
+      "blk": 1,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 4,
+      "ftm": 1
+    },
+    "jme-jes-apollo": {
+      "pts": 14,
+      "reb": 2,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 8,
+      "tpm": 4,
+      "fta": 2,
+      "ftm": 2
+    },
+    "jme-jes-libres": {
+      "pts": 20,
+      "reb": 1,
+      "ast": 4,
+      "blk": 1,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 4,
+      "ftm": 2
+    },
+    "jme-jes-arquibel": {
+      "pts": 7,
+      "reb": 6,
+      "ast": 5,
+      "blk": 1,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 1
+    },
+    "jme-jes-baluran": {
+      "pts": 18,
+      "reb": 6,
+      "ast": 6,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 8,
+      "tpm": 2,
+      "fta": 3,
+      "ftm": 1
+    },
+    "howon-estrella": {
+      "pts": 14,
+      "reb": 6,
+      "ast": 9,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 8,
+      "tpm": 4,
+      "fta": 2,
+      "ftm": 0
+    },
+    "howon-virtudazo": {
+      "pts": 20,
+      "reb": 7,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-nabasca": {
+      "pts": 8,
+      "reb": 9,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "howon-garcia": {
+      "pts": 2,
+      "reb": 3,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-capito": {
+      "pts": 26,
+      "reb": 3,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 6,
+      "tpm": 2,
+      "fta": 2,
+      "ftm": 2
+    },
+    "howon-gulben": {
+      "pts": 7,
+      "reb": 5,
+      "ast": 1,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 1
+    },
+    "howon-besande": {
+      "pts": 15,
+      "reb": 7,
+      "ast": 7,
+      "blk": 1,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 1,
+      "fta": 2,
+      "ftm": 0
+    }
+  }
+}

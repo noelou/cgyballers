@@ -1,0 +1,187 @@
+{
+  "gameId": "g28",
+  "date": "2026-08-30",
+  "home": "glq",
+  "away": "warlyn",
+  "homeScore": 53,
+  "awayScore": 49,
+  "source": "public/records/August/30/glq vs warlyn.jfif",
+  "lines": {
+    "glq-moreno": {
+      "pts": 15,
+      "reb": 6,
+      "ast": 3,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 1
+    },
+    "glq-langreo": {
+      "pts": 7,
+      "reb": 5,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "glq-cordova": {
+      "pts": 12,
+      "reb": 3,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 4,
+      "ftm": 4
+    },
+    "glq-tuto": {
+      "pts": 6,
+      "reb": 2,
+      "ast": 3,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "glq-pantonial": {
+      "pts": 2,
+      "reb": 2,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "glq-micabani": {
+      "pts": 3,
+      "reb": 1,
+      "ast": 1,
+      "blk": 0,
+      "stl": 4,
+      "tpa": 1,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "glq-repulo": {
+      "pts": 4,
+      "reb": 3,
+      "ast": 4,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "glq-cahilog": {
+      "pts": 4,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-magsalay": {
+      "pts": 3,
+      "reb": 7,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 1,
+      "fta": 4,
+      "ftm": 0
+    },
+    "warlyn-arcillas": {
+      "pts": 22,
+      "reb": 9,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-gamorot": {
+      "pts": 5,
+      "reb": 0,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 1
+    },
+    "warlyn-barbero": {
+      "pts": 2,
+      "reb": 3,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-palubon": {
+      "pts": 13,
+      "reb": 1,
+      "ast": 3,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 12,
+      "tpm": 3,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-fernandez": {
+      "pts": 0,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 0
+    },
+    "warlyn-maca-ayan": {
+      "pts": 2,
+      "reb": 0,
+      "ast": 5,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "warlyn-olarte": {
+      "pts": 2,
+      "reb": 0,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    }
+  }
+}

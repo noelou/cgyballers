@@ -11,7 +11,7 @@
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
   padding: 8px 12px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .schedule-date {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   color: var(--text-muted);
   margin-bottom: 10px;
@@ -45,7 +45,7 @@
 }
 
 .schedule-time {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   color: var(--accent-strong);
   white-space: nowrap;

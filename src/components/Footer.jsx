@@ -12,6 +12,8 @@ const SPONSORS = [
   { src: '/sponsors/ets.png', name: 'EasyDrive Transport Service' },
   { src: '/sponsors/maranding.jpg', name: 'Maranding Auto Parts' },
   { src: '/sponsors/amlan.jpg', name: 'Amlan Purified Water' },
+  { src: '/sponsors/scents-and-stuffs.jpg', name: 'Scents and Stuffs' },
+  { src: '/sponsors/kagayan-real-estate.jpg', name: 'Kagayan Real Estate' },
 ]
 
 export default function Footer() {

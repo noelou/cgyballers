@@ -10,10 +10,12 @@ function emptyLine() {
 }
 
 const totals = {}
+const gamePts = {} // playerId -> [points scored in each game]
 
 for (const game of boxscores) {
   for (const [playerId, line] of Object.entries(game.lines ?? {})) {
     const t = (totals[playerId] ??= emptyLine())
+    ;(gamePts[playerId] ??= []).push(line.pts ?? 0)
     t.gp += 1
     t.pts += line.pts ?? 0
     t.reb += line.reb ?? 0
@@ -29,18 +31,23 @@ for (const game of boxscores) {
 
 const avg = (sum, gp) => (gp ? +(sum / gp).toFixed(1) : 0)
 const pct = (made, att) => (att ? +((made / att) * 100).toFixed(1) : null)
+// Sum of a player's `n` highest-scoring games. Scoring leaders are ranked on
+// this so a player who has appeared in more games gets no cumulative edge.
+const bestNSum = (arr, n) => [...arr].sort((a, b) => b - a).slice(0, n).reduce((s, v) => s + v, 0)
 
-// { playerId: { gp, ppg, rpg, apg, bpg, spg, tpPct, ftPct, totals } }
+// { playerId: { gp, ppg, best5pts, rpg, apg, bpg, spg, tpm, tpPct, ftPct, totals } }
 const statsByPlayer = Object.fromEntries(
   Object.entries(totals).map(([id, t]) => [
     id,
     {
       gp: t.gp,
       ppg: avg(t.pts, t.gp),
+      best5pts: bestNSum(gamePts[id] ?? [], 5),
       rpg: avg(t.reb, t.gp),
       apg: avg(t.ast, t.gp),
       bpg: avg(t.blk, t.gp),
       spg: avg(t.stl, t.gp),
+      tpm: t.tpm,
       tpPct: pct(t.tpm, t.tpa),
       ftPct: pct(t.ftm, t.fta),
       totals: { ...t },
@@ -48,7 +55,7 @@ const statsByPlayer = Object.fromEntries(
   ])
 )
 
-const ZERO = { gp: 0, ppg: 0, rpg: 0, apg: 0, bpg: 0, spg: 0, tpPct: null, ftPct: null, totals: emptyLine() }
+const ZERO = { gp: 0, ppg: 0, best5pts: 0, rpg: 0, apg: 0, bpg: 0, spg: 0, tpm: 0, tpPct: null, ftPct: null, totals: emptyLine() }
 
 export function getPlayerStats(playerId) {
   return statsByPlayer[playerId] ?? ZERO

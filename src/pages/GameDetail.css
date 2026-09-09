@@ -5,7 +5,7 @@
 }
 
 .game-detail-date {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-muted);
   margin-bottom: 16px;
 }
@@ -82,7 +82,7 @@
 }
 
 .game-detail-dnp {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-muted);
   margin: 8px 2px 0;
 }

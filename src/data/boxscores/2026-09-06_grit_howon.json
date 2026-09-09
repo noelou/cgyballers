@@ -1,0 +1,187 @@
+{
+  "gameId": "g35",
+  "date": "2026-09-06",
+  "home": "grit",
+  "away": "howon",
+  "homeScore": 59,
+  "awayScore": 53,
+  "source": "public/records/September/06/grit vs howon.jfif",
+  "lines": {
+    "grit-montealegre": {
+      "pts": 3,
+      "reb": 1,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "grit-estevez": {
+      "pts": 0,
+      "reb": 4,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-j-nagac": {
+      "pts": 6,
+      "reb": 5,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 0
+    },
+    "grit-bardos": {
+      "pts": 17,
+      "reb": 6,
+      "ast": 0,
+      "blk": 1,
+      "stl": 1,
+      "tpa": 4,
+      "tpm": 3,
+      "fta": 4,
+      "ftm": 2
+    },
+    "grit-amper": {
+      "pts": 29,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 13,
+      "tpm": 5,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-rey": {
+      "pts": 0,
+      "reb": 3,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-pantolio": {
+      "pts": 0,
+      "reb": 3,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-aycardo": {
+      "pts": 4,
+      "reb": 2,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-gacusan": {
+      "pts": 0,
+      "reb": 0,
+      "ast": 4,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-parrel": {
+      "pts": 9,
+      "reb": 11,
+      "ast": 2,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 1,
+      "tpm": 1,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-virtudazo": {
+      "pts": 18,
+      "reb": 6,
+      "ast": 4,
+      "blk": 1,
+      "stl": 0,
+      "tpa": 4,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 2
+    },
+    "howon-akut": {
+      "pts": 15,
+      "reb": 3,
+      "ast": 1,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "howon-nabasca": {
+      "pts": 1,
+      "reb": 3,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 1
+    },
+    "howon-garcia": {
+      "pts": 0,
+      "reb": 1,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "howon-capito": {
+      "pts": 10,
+      "reb": 2,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 2
+    },
+    "howon-besande": {
+      "pts": 0,
+      "reb": 5,
+      "ast": 4,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 3,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    }
+  }
+}

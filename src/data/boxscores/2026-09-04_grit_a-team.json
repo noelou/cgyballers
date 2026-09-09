@@ -1,0 +1,220 @@
+{
+  "gameId": "g34",
+  "date": "2026-09-04",
+  "home": "grit",
+  "away": "a-team",
+  "homeScore": 91,
+  "awayScore": 87,
+  "source": "public/records/September/04/grit vs a team.jfif",
+  "lines": {
+    "grit-montealegre": {
+      "pts": 6,
+      "reb": 3,
+      "ast": 1,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-estevez": {
+      "pts": 0,
+      "reb": 1,
+      "ast": 2,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 4,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-j-nagac": {
+      "pts": 4,
+      "reb": 6,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-bardos": {
+      "pts": 12,
+      "reb": 15,
+      "ast": 3,
+      "blk": 2,
+      "stl": 1,
+      "tpa": 4,
+      "tpm": 1,
+      "fta": 6,
+      "ftm": 5
+    },
+    "grit-amper": {
+      "pts": 41,
+      "reb": 1,
+      "ast": 4,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 17,
+      "tpm": 6,
+      "fta": 3,
+      "ftm": 3
+    },
+    "grit-rey": {
+      "pts": 4,
+      "reb": 5,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-pabualan": {
+      "pts": 2,
+      "reb": 0,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-nagac": {
+      "pts": 4,
+      "reb": 1,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-pantolio": {
+      "pts": 0,
+      "reb": 6,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "grit-aycardo": {
+      "pts": 12,
+      "reb": 6,
+      "ast": 4,
+      "blk": 0,
+      "stl": 2,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 3,
+      "ftm": 2
+    },
+    "grit-gacusan": {
+      "pts": 6,
+      "reb": 0,
+      "ast": 2,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 1,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 0
+    },
+    "a-team-tan": {
+      "pts": 8,
+      "reb": 7,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 1,
+      "ftm": 0
+    },
+    "a-team-handuman": {
+      "pts": 18,
+      "reb": 11,
+      "ast": 1,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 4,
+      "ftm": 2
+    },
+    "a-team-abaday": {
+      "pts": 17,
+      "reb": 6,
+      "ast": 7,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 5,
+      "tpm": 4,
+      "fta": 1,
+      "ftm": 1
+    },
+    "a-team-gorit": {
+      "pts": 13,
+      "reb": 10,
+      "ast": 10,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 8,
+      "tpm": 3,
+      "fta": 0,
+      "ftm": 0
+    },
+    "a-team-aguhar": {
+      "pts": 18,
+      "reb": 5,
+      "ast": 3,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 2,
+      "ftm": 2
+    },
+    "a-team-naliponguit": {
+      "pts": 4,
+      "reb": 6,
+      "ast": 1,
+      "blk": 2,
+      "stl": 0,
+      "tpa": 2,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "a-team-arcilla": {
+      "pts": 6,
+      "reb": 2,
+      "ast": 0,
+      "blk": 0,
+      "stl": 0,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    },
+    "a-team-pajo": {
+      "pts": 3,
+      "reb": 3,
+      "ast": 0,
+      "blk": 0,
+      "stl": 1,
+      "tpa": 0,
+      "tpm": 0,
+      "fta": 0,
+      "ftm": 0
+    }
+  }
+}

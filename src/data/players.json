@@ -540,6 +540,21 @@
     "pic": null
   },
   {
+    "id": "jme-jes-baluran",
+    "name": "Baluran",
+    "team": "jme-jes",
+    "teamName": "JME-JES",
+    "number": null,
+    "position": null,
+    "positionLabel": null,
+    "heightCm": null,
+    "heightDisplay": null,
+    "weightKg": null,
+    "age": null,
+    "experience": null,
+    "pic": null
+  },
+  {
     "id": "glq-moreno",
     "name": "Moreno",
     "team": "glq",
@@ -717,6 +732,21 @@
     "weightKg": 74,
     "age": 30,
     "experience": "7 yrs",
+    "pic": null
+  },
+  {
+    "id": "glq-turtoga",
+    "name": "Turtoga",
+    "team": "glq",
+    "teamName": "GLQ",
+    "number": null,
+    "position": null,
+    "positionLabel": null,
+    "heightCm": null,
+    "heightDisplay": null,
+    "weightKg": null,
+    "age": null,
+    "experience": null,
     "pic": null
   },
   {
@@ -1092,6 +1122,21 @@
     "weightKg": 85,
     "age": 24,
     "experience": "1 yr",
+    "pic": null
+  },
+  {
+    "id": "ets-x-rlt-cane",
+    "name": "Cane",
+    "team": "ets-x-rlt",
+    "teamName": "ETS x RLT",
+    "number": null,
+    "position": null,
+    "positionLabel": null,
+    "heightCm": null,
+    "heightDisplay": null,
+    "weightKg": null,
+    "age": null,
+    "experience": null,
     "pic": null
   },
   {
@@ -1992,6 +2037,21 @@
     "weightKg": 87,
     "age": 28,
     "experience": "7 yrs",
+    "pic": null
+  },
+  {
+    "id": "rgb-zees-tahoynon",
+    "name": "Tahoynon",
+    "team": "rgb-zees",
+    "teamName": "RGB Zees",
+    "number": null,
+    "position": null,
+    "positionLabel": null,
+    "heightCm": null,
+    "heightDisplay": null,
+    "weightKg": null,
+    "age": null,
+    "experience": null,
     "pic": null
   },
   {

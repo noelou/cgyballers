@@ -3,10 +3,21 @@ import schedule from '../data/schedule.json'
 import standings from '../utils/standings'
 import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge'
+import Avatar from '../components/Avatar'
+import { leaders, MIN_GP, REBOUND_MIN_GP } from '../utils/leaders'
 import { formatDateShort as formatDate, formatTime } from '../utils/date'
 import './Home.css'
 
 const teamById = Object.fromEntries(teams.map((t) => [t.id, t]))
+
+// Points is ranked on each player's 5 best games (see playerStats.best5pts) so
+// extra games don't inflate the total, but the number shown is plain PPG.
+const LEADER_CATS = [
+  { key: 'best5pts', label: 'Points', fmt: (p) => p.ppg.toFixed(1) },
+  { key: 'rpg', label: 'Rebounds', fmt: (p) => p.value.toFixed(1), minGp: REBOUND_MIN_GP },
+  { key: 'apg', label: 'Assists', fmt: (p) => p.value.toFixed(1) },
+  { key: 'tpm', label: 'Threes', fmt: (p) => String(p.value) },
+]
 
 export default function Home() {
   const todayStr = new Date().toISOString().slice(0, 10)
@@ -15,6 +26,9 @@ export default function Home() {
     .slice(0, 3)
   const recent = schedule.filter((g) => g.status === 'final').slice(-3).reverse()
   const topStandings = standings.slice(0, 5)
+  const leaderRows = LEADER_CATS
+    .map((c) => ({ ...c, top: leaders(c.key, 3, c.minGp ?? MIN_GP) }))
+    .filter((c) => c.top.length > 0)
 
   return (
     <div className="container">
@@ -72,6 +86,36 @@ export default function Home() {
           <Link to="/schedule" className="see-all">See full schedule &rarr;</Link>
         </div>
       </section>
+
+      {leaderRows.length > 0 && (
+        <section style={{ marginBottom: 20 }}>
+          <div className="card home-block">
+            <div className="section-title">League Leaders</div>
+            <div className="section-sub">Season leaders &middot; qualified players only</div>
+            <div className="leader-list">
+              {leaderRows.map((c) => (
+                <div key={c.key} className="leader-group">
+                  <div className="leader-cat">{c.label}</div>
+                  <ol className="leader-ranks">
+                    {c.top.map((p, i) => (
+                      <li key={p.id} className="leader-rank-row">
+                        <span className="leader-rank">{i + 1}</span>
+                        <Link to={`/players/${p.id}`} className="leader-player">
+                          <Avatar name={p.name} pic={p.pic} size={28} />
+                          <span className="leader-name">{p.name}</span>
+                          <span className="leader-team">{p.teamName}</span>
+                        </Link>
+                        <span className="leader-value">{c.fmt(p)}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+            <Link to="/players" className="see-all">See all players &rarr;</Link>
+          </div>
+        </section>
+      )}
 
       <section style={{ marginBottom: 20 }}>
         <div className="card home-block">

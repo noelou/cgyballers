@@ -5,7 +5,7 @@
   "away": "howon",
   "homeScore": 89,
   "awayScore": 84,
-  "source": "public/records/05/ets vs howon.jfif",
+  "source": "public/records/August/05/ets vs howon.jfif",
   "lines": {
     "ets-x-rlt-valdez":   { "pts": 9,  "reb": 5, "ast": 1, "blk": 0, "stl": 0, "tpa": 0, "tpm": 0, "fta": 1, "ftm": 1 },
     "ets-x-rlt-custan":   { "pts": 15, "reb": 6, "ast": 2, "blk": 2, "stl": 1, "tpa": 0, "tpm": 0, "fta": 5, "ftm": 5 },
