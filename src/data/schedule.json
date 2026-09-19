@@ -476,9 +476,9 @@
     "homeName": "Stampede",
     "away": "grit",
     "awayName": "GRIT",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 76,
+    "awayScore": 69
   },
   {
     "id": "g38",
@@ -489,9 +489,9 @@
     "homeName": "Jacque Jons",
     "away": "ets-x-rlt",
     "awayName": "ETS x RLT",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 48,
+    "awayScore": 64
   },
   {
     "id": "g39",
@@ -502,9 +502,9 @@
     "homeName": "Warlyn",
     "away": "maranding-autoparts",
     "awayName": "Maranding Autoparts",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 85,
+    "awayScore": 89
   },
   {
     "id": "g40",
@@ -515,7 +515,8 @@
     "homeName": "ETS x RLT",
     "away": "jme-jes",
     "awayName": "JME-JES",
-    "status": "scheduled",
+    "status": "forfeit",
+    "winner": "ets-x-rlt",
     "homeScore": null,
     "awayScore": null
   },
@@ -528,9 +529,9 @@
     "homeName": "RGB Zees",
     "away": "stampede",
     "awayName": "Stampede",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 91,
+    "awayScore": 100
   },
   {
     "id": "g42",
@@ -541,9 +542,9 @@
     "homeName": "A-Team",
     "away": "young-chow",
     "awayName": "Young Chow",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 80,
+    "awayScore": 79
   },
   {
     "id": "g43",
@@ -554,9 +555,9 @@
     "homeName": "GRIT",
     "away": "glq",
     "awayName": "GLQ",
-    "status": "scheduled",
-    "homeScore": null,
-    "awayScore": null
+    "status": "final",
+    "homeScore": 76,
+    "awayScore": 73
   },
   {
     "id": "g44",
@@ -567,6 +568,71 @@
     "homeName": "Maranding Autoparts",
     "away": "howon",
     "awayName": "Howon",
+    "status": "final",
+    "homeScore": 73,
+    "awayScore": 77
+  },
+  {
+    "id": "g45",
+    "date": "2026-09-16",
+    "time": "20:00",
+    "venue": "I.S. Covered Court",
+    "home": "maranding-autoparts",
+    "homeName": "Maranding Autoparts",
+    "away": "rgb-zees",
+    "awayName": "RGB Zees",
+    "status": "final",
+    "homeScore": 98,
+    "awayScore": 89
+  },
+  {
+    "id": "g46",
+    "date": "2026-09-16",
+    "time": "21:00",
+    "venue": "I.S. Covered Court",
+    "home": "glq",
+    "homeName": "GLQ",
+    "away": "howon",
+    "awayName": "Howon",
+    "status": "final",
+    "homeScore": 88,
+    "awayScore": 81
+  },
+  {
+    "id": "g47",
+    "date": "2026-09-20",
+    "time": "18:30",
+    "venue": "I.S. Covered Court",
+    "home": "ets-x-rlt",
+    "homeName": "ETS x RLT",
+    "away": "a-team",
+    "awayName": "A-Team",
+    "status": "scheduled",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": "g48",
+    "date": "2026-09-20",
+    "time": "19:30",
+    "venue": "I.S. Covered Court",
+    "home": "stampede",
+    "homeName": "Stampede",
+    "away": "glq",
+    "awayName": "GLQ",
+    "status": "scheduled",
+    "homeScore": null,
+    "awayScore": null
+  },
+  {
+    "id": "g49",
+    "date": "2026-09-20",
+    "time": "20:30",
+    "venue": "I.S. Covered Court",
+    "home": "jacque-jons",
+    "homeName": "Jacque Jons",
+    "away": "young-chow",
+    "awayName": "Young Chow",
     "status": "scheduled",
     "homeScore": null,
     "awayScore": null

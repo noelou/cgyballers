@@ -1,19 +1,15 @@
-// Season stat leaders, computed from the box-score-derived player stats.
-// A player must have played at least MIN_GP games to be ranked.
-
-import players from '../data/players.json'
-import { getPlayerStats } from './playerStats'
+// Pure function: given the full players list and a statsByPlayer map (from
+// playerStats.js), return the top `count` qualified players for a stat key
+// (e.g. 'ppg', 'tpm'), each as { id, name, teamName, pic, value, gp }.
 
 export const MIN_GP = 5
 
 // Rebounds averages need a bit more sample before the ranking is meaningful.
 export const REBOUND_MIN_GP = 6
 
-// Returns the top `count` qualified players for a stat key (e.g. 'ppg', 'tpm'),
-// each as { id, name, teamName, pic, value, gp }, sorted highest first.
-export function leaders(statKey, count = 1, minGp = MIN_GP) {
+export function buildLeaders(players, statsByPlayer, statKey, count = 1, minGp = MIN_GP) {
   return players
-    .map((p) => ({ p, s: getPlayerStats(p.id) }))
+    .map((p) => ({ p, s: statsByPlayer[p.id] ?? { gp: 0 } }))
     .filter((x) => x.s.gp >= minGp)
     .sort((a, b) => b.s[statKey] - a.s[statKey] || b.s.ppg - a.s.ppg)
     .slice(0, count)

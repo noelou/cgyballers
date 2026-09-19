@@ -1980,18 +1980,18 @@
     "pic": null
   },
   {
-    "id": "rgb-zees-madrigal-8",
-    "name": "Madrigal",
+    "id": "rgb-zees-ybanez",
+    "name": "Ybañez",
     "team": "rgb-zees",
     "teamName": "RGB Zees",
-    "number": 32,
-    "position": "PF",
-    "positionLabel": "Power Forward",
-    "heightCm": 193,
-    "heightDisplay": "6'4\"",
-    "weightKg": 94,
-    "age": 25,
-    "experience": "5 yrs",
+    "number": null,
+    "position": null,
+    "positionLabel": null,
+    "heightCm": null,
+    "heightDisplay": null,
+    "weightKg": null,
+    "age": null,
+    "experience": null,
     "pic": null
   },
   {

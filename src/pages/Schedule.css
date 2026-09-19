@@ -131,6 +131,12 @@
   border-color: rgba(240, 82, 82, 0.3);
 }
 
+.status-forfeit {
+  background: rgba(240, 173, 78, 0.14);
+  color: #e0a736;
+  border-color: rgba(240, 173, 78, 0.3);
+}
+
 .schedule-row-cancelled {
   opacity: 0.6;
 }
@@ -154,6 +160,7 @@
 
   /* For non-final games the tip-off time sits on the team line instead. */
   .schedule-row[data-status='scheduled'] .schedule-time,
+  .schedule-row[data-status='forfeit'] .schedule-time,
   .schedule-row[data-status='cancelled'] .schedule-time {
     display: none;
   }

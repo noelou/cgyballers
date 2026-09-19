@@ -24,6 +24,19 @@
   flex-wrap: wrap;
 }
 
+.btn-fb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #1877f2;
+  border-color: #1877f2;
+}
+
+.btn-fb:hover {
+  background: #1877f2;
+  color: #fff;
+}
+
 .home-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

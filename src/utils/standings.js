@@ -1,11 +1,8 @@
-// Standings are computed at load time from schedule.json — there is no
-// standings.json to regenerate. Edit a game in src/data/schedule.json
-// (set status to "final" and fill in the scores) and the table updates
-// automatically on the next dev reload / build.
-import schedule from '../data/schedule.json'
-import teams from '../data/teams.json'
-
-function buildStandings() {
+// Pure function: given a list of games and teams (same shape whether they
+// come from schedule.json/teams.json or a Postgres query), compute the
+// standings table. Shared by the API server (server/index.mjs) so the
+// ranking/tiebreak rules only live in one place.
+export function buildStandings(schedule, teams) {
   const table = {}
   teams.forEach((t) => {
     table[t.id] = {
@@ -40,6 +37,18 @@ function buildStandings() {
       }
     })
 
+  // Forfeits count as a win/loss but carry no score, so PF/PA are untouched.
+  schedule
+    .filter((g) => g.status === 'forfeit' && g.winner)
+    .forEach((g) => {
+      const winner = table[g.winner]
+      const loserId = g.winner === g.home ? g.away : g.home
+      const loser = table[loserId]
+      if (!winner || !loser) return
+      winner.wins++
+      loser.losses++
+    })
+
   const rows = Object.values(table).map((r) => {
     const gp = r.wins + r.losses
     return {
@@ -64,7 +73,3 @@ function buildStandings() {
 
   return rows
 }
-
-const standings = buildStandings()
-
-export default standings

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ref, watch } from 'vue'
 
 const STORAGE_KEY = 'cgyballers-theme'
 
@@ -9,14 +9,20 @@ function getInitialTheme() {
 }
 
 export function useTheme() {
-  const [theme, setTheme] = useState(getInitialTheme)
+  const theme = ref(getInitialTheme())
 
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    window.localStorage.setItem(STORAGE_KEY, theme)
-  }, [theme])
+  watch(
+    theme,
+    (value) => {
+      document.documentElement.setAttribute('data-theme', value)
+      window.localStorage.setItem(STORAGE_KEY, value)
+    },
+    { immediate: true }
+  )
 
-  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+  const toggleTheme = () => {
+    theme.value = theme.value === 'dark' ? 'light' : 'dark'
+  }
 
   return { theme, toggleTheme }
 }

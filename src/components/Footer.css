@@ -54,15 +54,3 @@
   font-size: 14px;
 }
 
-.footer-fb {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-muted);
-}
-
-.footer-fb:hover {
-  color: #1877f2;
-}
