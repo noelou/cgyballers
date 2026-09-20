@@ -22,16 +22,21 @@ const game = ref(null)
 const homeRoster = ref([])
 const awayRoster = ref([])
 const lines = ref({})
+const loading = ref(true)
 
 onMounted(async () => {
-  const res = await fetch(`/api/games/${route.params.gameId}/boxscore`)
-  if (!res.ok) return
-  const data = await res.json()
-  if (Object.keys(data.lines).length === 0) return // game exists but no box score entered yet
-  game.value = data.game
-  homeRoster.value = data.homeRoster
-  awayRoster.value = data.awayRoster
-  lines.value = data.lines
+  try {
+    const res = await fetch(`/api/games/${route.params.gameId}/boxscore`)
+    if (!res.ok) return
+    const data = await res.json()
+    if (Object.keys(data.lines).length === 0) return // game exists but no box score entered yet
+    game.value = data.game
+    homeRoster.value = data.homeRoster
+    awayRoster.value = data.awayRoster
+    lines.value = data.lines
+  } finally {
+    loading.value = false
+  }
 })
 
 const homeWon = computed(() => game.value && game.value.homeScore > game.value.awayScore)
@@ -58,7 +63,11 @@ const boxTables = computed(() => {
 </script>
 
 <template>
-  <div v-if="!game" class="container">
+  <div v-if="loading" class="container">
+    <div class="empty-state card">Loading&hellip;</div>
+  </div>
+
+  <div v-else-if="!game" class="container">
     <div class="empty-state card">
       <p>No box score is available for this game.</p>
       <router-link to="/schedule" class="btn">Back to Schedule</router-link>

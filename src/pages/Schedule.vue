@@ -1,20 +1,18 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref } from 'vue'
 import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge.vue'
+import { cachedJson } from '../data/apiCache'
 import { formatDate, formatTime } from '../utils/date'
 import './Schedule.css'
 
 const teamById = Object.fromEntries(teams.map((t) => [t.id, t]))
 
-const schedule = ref([])
+const gamesEntry = cachedJson('/api/games', [])
+const schedule = gamesEntry.data
+const loading = computed(() => !gamesEntry.loaded.value)
 const teamFilter = ref('all')
 const statusFilter = ref('all')
-
-onMounted(async () => {
-  const res = await fetch('/api/games')
-  schedule.value = await res.json()
-})
 
 const filtered = computed(() => {
   return schedule.value
@@ -53,9 +51,10 @@ const grouped = computed(() => {
       </select>
     </div>
 
-    <div v-if="grouped.length === 0" class="empty-state card">No games match these filters.</div>
+    <div v-if="loading" class="empty-state card">Loading&hellip;</div>
+    <div v-else-if="grouped.length === 0" class="empty-state card">No games match these filters.</div>
 
-    <div class="schedule-list">
+    <div v-else class="schedule-list">
       <div v-for="[date, games] in grouped" :key="date" class="schedule-day">
         <div class="schedule-date">{{ formatDate(date, { weekday: 'long', month: 'short', day: 'numeric' }) }}</div>
         <div

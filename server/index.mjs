@@ -260,6 +260,15 @@ app.post('/api/games', requireAuth, async (req, res) => {
   res.status(201).json({ id });
 });
 
+// Removes a game from the schedule. Any box score for it is removed too
+// (boxscore_lines cascades on games.id).
+app.delete('/api/games/:gameId', requireAuth, async (req, res) => {
+  const { gameId } = req.params;
+  const result = await pool.query('DELETE FROM games WHERE id = $1 RETURNING id', [gameId]);
+  if (result.rows.length === 0) return res.status(404).json({ error: 'Game not found' });
+  res.status(204).end();
+});
+
 app.get('/api/player-stats', async (req, res) => {
   const result = await pool.query(`
     SELECT player_id AS "playerId", pts, reb, ast, blk, stl, tpa, tpm, fta, ftm

@@ -1,17 +1,15 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import TeamBadge from '../components/TeamBadge.vue'
+import { cachedJson } from '../data/apiCache'
 import './Teams.css'
 
-const teams = ref([])
-const standings = ref([])
+const teamsEntry = cachedJson('/api/teams', [])
+const standingsEntry = cachedJson('/api/standings', [])
+const teams = teamsEntry.data
+const standings = standingsEntry.data
 const standingsByTeam = computed(() => Object.fromEntries(standings.value.map((s) => [s.team, s])))
-
-onMounted(async () => {
-  const [teamsRes, standingsRes] = await Promise.all([fetch('/api/teams'), fetch('/api/standings')])
-  teams.value = await teamsRes.json()
-  standings.value = await standingsRes.json()
-})
+const loading = computed(() => !teamsEntry.loaded.value || !standingsEntry.loaded.value)
 </script>
 
 <template>
@@ -20,7 +18,9 @@ onMounted(async () => {
     <h1 class="section-title" style="font-size: 28px; margin-top: 8px">Teams</h1>
     <p class="section-sub">All 12 teams competing this season.</p>
 
-    <div class="grid teams-grid">
+    <div v-if="loading" class="empty-state card">Loading&hellip;</div>
+
+    <div v-else class="grid teams-grid">
       <router-link
         v-for="t in teams"
         :key="t.id"

@@ -1,9 +1,10 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import players from '../data/players.json'
 import teams from '../data/teams.json'
 import Avatar from '../components/Avatar.vue'
+import { cachedJson } from '../data/apiCache'
 import { getStats } from '../utils/playerStats'
 import './PlayerDetail.css'
 
@@ -13,11 +14,9 @@ const route = useRoute()
 const player = computed(() => players.find((p) => p.id === route.params.playerId))
 const team = computed(() => (player.value ? teamById[player.value.team] : null))
 
-const playerStats = ref({})
-onMounted(async () => {
-  const res = await fetch('/api/player-stats')
-  playerStats.value = await res.json()
-})
+const statsEntry = cachedJson('/api/player-stats', {})
+const playerStats = statsEntry.data
+const loading = computed(() => !statsEntry.loaded.value)
 const stats = computed(() => (player.value ? getStats(playerStats.value, player.value.id) : null))
 
 const dash = (v) => (stats.value.gp ? v : '—')
@@ -63,18 +62,21 @@ const statBlocks = computed(() => {
       </div>
     </div>
 
-    <div class="player-stat-strip">
-      <div v-for="block in statBlocks" :key="block.label" class="card player-stat-block">
-        <span class="player-stat-value">{{ block.value }}</span>
-        <span class="player-stat-label">{{ block.label }}</span>
+    <div v-if="loading" class="empty-state card">Loading&hellip;</div>
+    <template v-else>
+      <div class="player-stat-strip">
+        <div v-for="block in statBlocks" :key="block.label" class="card player-stat-block">
+          <span class="player-stat-value">{{ block.value }}</span>
+          <span class="player-stat-label">{{ block.label }}</span>
+        </div>
       </div>
-    </div>
-    <p class="player-stat-note">
-      {{
-        stats.gp
-          ? `Season averages from ${stats.gp} game${stats.gp > 1 ? 's' : ''}.`
-          : 'No games recorded yet this season.'
-      }}
-    </p>
+      <p class="player-stat-note">
+        {{
+          stats.gp
+            ? `Season averages from ${stats.gp} game${stats.gp > 1 ? 's' : ''}.`
+            : 'No games recorded yet this season.'
+        }}
+      </p>
+    </template>
   </div>
 </template>

@@ -1,14 +1,12 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { computed } from 'vue'
 import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge.vue'
+import { cachedJson } from '../data/apiCache'
 
-const standings = ref([])
-
-onMounted(async () => {
-  const res = await fetch('/api/standings')
-  standings.value = await res.json()
-})
+const standingsEntry = cachedJson('/api/standings', [])
+const standings = standingsEntry.data
+const loading = computed(() => !standingsEntry.loaded.value)
 </script>
 
 <template>
@@ -17,7 +15,9 @@ onMounted(async () => {
     <h1 class="section-title" style="font-size: 28px; margin-top: 8px">Standings</h1>
     <p class="section-sub">League table.</p>
 
-    <div class="card table-scroll">
+    <div v-if="loading" class="empty-state card">Loading&hellip;</div>
+
+    <div v-else class="card table-scroll">
       <table>
         <thead>
           <tr>

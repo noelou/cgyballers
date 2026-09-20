@@ -27,6 +27,18 @@ async function logout() {
   await fetch('/api/logout', { method: 'POST', credentials: 'include' })
   router.push('/admin/login')
 }
+
+async function deleteGame(game) {
+  const confirmed = confirm(`Delete ${game.homeName} vs ${game.awayName} on ${game.date}? This cannot be undone.`)
+  if (!confirmed) return
+
+  const res = await fetch(`/api/games/${game.id}`, { method: 'DELETE', credentials: 'include' })
+  if (res.ok) {
+    games.value = games.value.filter((g) => g.id !== game.id)
+  } else {
+    alert('Failed to delete game.')
+  }
+}
 </script>
 
 <template>
@@ -64,6 +76,7 @@ async function logout() {
                 {{ g.status === 'final' ? 'Edit' : 'Enter' }} Box Score
               </router-link>
               <router-link :to="`/admin/games/${g.id}/status`" class="btn">Edit Score/Status</router-link>
+              <button class="btn" style="color: var(--loss, red)" @click="deleteGame(g)">Delete</button>
             </td>
           </tr>
         </tbody>

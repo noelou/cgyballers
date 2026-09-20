@@ -1,10 +1,11 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import teams from '../data/teams.json'
 import players from '../data/players.json'
 import Avatar from '../components/Avatar.vue'
 import TeamBadge from '../components/TeamBadge.vue'
+import { cachedJson } from '../data/apiCache'
 import { getStats } from '../utils/playerStats'
 import { formatDateShort, formatTime } from '../utils/date'
 import './TeamDetail.css'
@@ -19,20 +20,13 @@ const roster = computed(() => {
     .sort((a, b) => (a.number ?? 999) - (b.number ?? 999))
 })
 
-const standings = ref([])
-const schedule = ref([])
-const playerStats = ref({})
-
-onMounted(async () => {
-  const [standingsRes, gamesRes, statsRes] = await Promise.all([
-    fetch('/api/standings'),
-    fetch('/api/games'),
-    fetch('/api/player-stats'),
-  ])
-  standings.value = await standingsRes.json()
-  schedule.value = await gamesRes.json()
-  playerStats.value = await statsRes.json()
-})
+const standingsEntry = cachedJson('/api/standings', [])
+const gamesEntry = cachedJson('/api/games', [])
+const statsEntry = cachedJson('/api/player-stats', {})
+const standings = standingsEntry.data
+const schedule = gamesEntry.data
+const playerStats = statsEntry.data
+const loading = computed(() => !standingsEntry.loaded.value || !gamesEntry.loaded.value || !statsEntry.loaded.value)
 
 const record = computed(() => (team.value ? standings.value.find((s) => s.team === team.value.id) : null))
 
@@ -82,7 +76,8 @@ function gameRow(g) {
     </div>
 
     <div class="section-title" style="font-size: 18px; margin-top: 32px">Games</div>
-    <div class="card table-scroll">
+    <div v-if="loading" class="empty-state card">Loading&hellip;</div>
+    <div v-else class="card table-scroll">
       <table>
         <thead>
           <tr>
@@ -133,7 +128,7 @@ function gameRow(g) {
         <div>
           <div class="roster-name">{{ p.name }}</div>
           <div class="roster-meta">
-            {{ rosterStats(p.id).gp ? `${rosterStats(p.id).ppg} PPG` : 'No games' }}
+            {{ loading ? '' : rosterStats(p.id).gp ? `${rosterStats(p.id).ppg} PPG` : 'No games' }}
           </div>
         </div>
       </router-link>

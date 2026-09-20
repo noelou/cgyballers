@@ -1,8 +1,9 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed } from 'vue'
 import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge.vue'
 import Avatar from '../components/Avatar.vue'
+import { cachedJson } from '../data/apiCache'
 import { buildLeaders, MIN_GP, REBOUND_MIN_GP } from '../utils/leaders'
 import { formatDateShort as formatDate, formatTime } from '../utils/date'
 import './Home.css'
@@ -22,23 +23,19 @@ const LEADER_CATS = [
 
 const todayStr = new Date().toISOString().slice(0, 10)
 
-const schedule = ref([])
-const standings = ref([])
-const players = ref([])
-const playerStats = ref({})
+const gamesEntry = cachedJson('/api/games', [])
+const standingsEntry = cachedJson('/api/standings', [])
+const playersEntry = cachedJson('/api/players', [])
+const statsEntry = cachedJson('/api/player-stats', {})
 
-onMounted(async () => {
-  const [gamesRes, standingsRes, playersRes, statsRes] = await Promise.all([
-    fetch('/api/games'),
-    fetch('/api/standings'),
-    fetch('/api/players'),
-    fetch('/api/player-stats'),
-  ])
-  schedule.value = await gamesRes.json()
-  standings.value = await standingsRes.json()
-  players.value = await playersRes.json()
-  playerStats.value = await statsRes.json()
-})
+const schedule = gamesEntry.data
+const standings = standingsEntry.data
+const players = playersEntry.data
+const playerStats = statsEntry.data
+
+const loading = computed(
+  () => !gamesEntry.loaded.value || !standingsEntry.loaded.value || !playersEntry.loaded.value || !statsEntry.loaded.value
+)
 
 const upcoming = computed(() =>
   schedule.value.filter((g) => g.status === 'scheduled' && g.date >= todayStr).slice(0, 3)
@@ -78,6 +75,9 @@ const leaderRows = computed(() =>
       </div>
     </section>
 
+    <div v-if="loading" class="empty-state card">Loading&hellip;</div>
+
+    <template v-else>
     <section class="home-grid">
       <div class="card home-block">
         <div class="section-title">Upcoming Games</div>
@@ -173,5 +173,6 @@ const leaderRows = computed(() =>
         <router-link to="/standings" class="see-all">Full standings &rarr;</router-link>
       </div>
     </section>
+    </template>
   </div>
 </template>

@@ -1,7 +1,8 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref } from 'vue'
 import teams from '../data/teams.json'
 import PlayerCard from '../components/PlayerCard.vue'
+import { cachedJson } from '../data/apiCache'
 import { getStats, ZERO_STATS } from '../utils/playerStats'
 import { MIN_GP, REBOUND_MIN_GP } from '../utils/leaders'
 import './Players.css'
@@ -15,17 +16,15 @@ const SORTS = {
   tpm: { label: '3-Pointers Made', short: '3PM', desc: 'three-pointers made (season total)' },
 }
 
-const players = ref([])
-const playerStats = ref({})
+const playersEntry = cachedJson('/api/players', [])
+const statsEntry = cachedJson('/api/player-stats', {})
+const players = playersEntry.data
+const playerStats = statsEntry.data
+const loading = computed(() => !playersEntry.loaded.value || !statsEntry.loaded.value)
+
 const query = ref('')
 const teamFilter = ref('all')
 const sortKey = ref('best5pts')
-
-onMounted(async () => {
-  const [playersRes, statsRes] = await Promise.all([fetch('/api/players'), fetch('/api/player-stats')])
-  players.value = await playersRes.json()
-  playerStats.value = await statsRes.json()
-})
 
 const sort = computed(() => SORTS[sortKey.value])
 const minGp = computed(() => sort.value.minGp ?? MIN_GP)
@@ -69,7 +68,8 @@ const total = computed(() => filtered.value.qualified.length + filtered.value.un
       </select>
     </div>
 
-    <div v-if="total === 0" class="empty-state card">No players match your filters.</div>
+    <div v-if="loading" class="empty-state card">Loading&hellip;</div>
+    <div v-else-if="total === 0" class="empty-state card">No players match your filters.</div>
     <template v-else>
       <div v-if="filtered.qualified.length > 0" class="grid players-grid">
         <PlayerCard
