@@ -1,9 +1,11 @@
 # Deploying CGYBallers to DigitalOcean
 
-Status as of 2026-09-19: droplet is fully set up and serving the site over
-plain HTTP at `http://159.223.81.97`. **Not done yet:** pointing the GoDaddy
-domain at it, and enabling HTTPS (required before login/admin works in a
-real browser — see "Known gotchas" below).
+Status as of 2026-09-20: **live in production** at
+`https://cgyballers.gacs.me`. The droplet, DNS, and HTTPS are all set up —
+see [`DNS-SUBDOMAIN-SETUP.md`](./DNS-SUBDOMAIN-SETUP.md) for how the domain
+was connected. For pushing *new* code changes to this server going
+forward, see [`DEPLOYING-CHANGES.md`](./DEPLOYING-CHANGES.md) instead of
+redoing the steps below — this file is the one-time initial setup record.
 
 ## Server info
 
@@ -154,8 +156,17 @@ systemctl reload nginx
 
 ## What's left
 
-1. **Point the GoDaddy domain at `159.223.81.97`** — add an "A record" in
-   GoDaddy's DNS settings pointing to that IP.
-2. **Enable HTTPS** via Certbot/Let's Encrypt, once the domain resolves to
-   the droplet (needed to verify domain ownership).
-3. Final end-to-end test on the real domain: public pages + admin login.
+Nothing from the original setup — all done as of 2026-09-20:
+
+1. ~~Point the GoDaddy domain at `159.223.81.97`~~ — done via a subdomain,
+   `cgyballers.gacs.me`. Details in
+   [`DNS-SUBDOMAIN-SETUP.md`](./DNS-SUBDOMAIN-SETUP.md).
+2. ~~Enable HTTPS~~ — done via Certbot, also covered in that same doc.
+3. ~~Final end-to-end test~~ — confirmed public pages and admin login work
+   over HTTPS on the real domain.
+
+See also [`STATIC-ASSET-ROUTE-COLLISIONS.md`](./STATIC-ASSET-ROUTE-COLLISIONS.md)
+for a production bug that came up right after launch (folders under
+`public/` that happened to share a name with an app route), and
+[`DEPLOYING-CHANGES.md`](./DEPLOYING-CHANGES.md) for the routine you'll
+use every time from now on to ship new changes here.
