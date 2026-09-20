@@ -147,7 +147,7 @@ async function submit() {
       </label>
       <label>
         Photo path (optional)
-        <input type="text" v-model="pic" placeholder="/players/team-name.png" />
+        <input type="text" v-model="pic" placeholder="/player-photos/team-name.png" />
       </label>
 
       <p v-if="error" style="color: var(--loss, red)">{{ error }}</p>
