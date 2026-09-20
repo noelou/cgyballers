@@ -129,6 +129,13 @@ const grouped = computed(() => {
               {{ g.status === 'final' ? 'Final' : g.status === 'forfeit' ? 'Forfeit' : g.status === 'cancelled' ? 'Cancelled' : 'Upcoming' }}
             </span>
           </div>
+          <router-link
+            v-if="g.status === 'final' && g.hasBoxscore"
+            :to="`/games/${g.id}`"
+            class="schedule-boxscore-btn"
+          >
+            View Box Score
+          </router-link>
         </div>
       </div>
     </div>

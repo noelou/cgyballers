@@ -109,6 +109,35 @@
   font-weight: 700;
 }
 
+/* Spans the full row width on both desktop (grid) and mobile (column flex) —
+   a clearly-labeled way to reach the box score, on top of the score itself
+   being a link, since that alone isn't obvious/tappable enough on mobile. */
+.schedule-boxscore-btn {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  color: var(--accent-strong);
+  font-weight: 700;
+  font-size: 13px;
+  width: max-content;
+}
+
+.schedule-boxscore-btn::after {
+  content: '\203A';
+  font-weight: 900;
+}
+
+.schedule-boxscore-btn:hover {
+  border-color: var(--accent-strong);
+}
+
 .schedule-venue {
   color: var(--text-dim);
   font-size: 12px;
