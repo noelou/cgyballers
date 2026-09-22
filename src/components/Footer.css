@@ -28,14 +28,16 @@
   background: #fff;
   border-radius: var(--radius-md);
   padding: 8px 12px;
+  width: 94px;
+  height: 76px;
+  flex-shrink: 0;
 }
 
 .footer-sponsor img {
-  max-width: 70px;
-  width: auto;
+  width: 70px;
+  height: 60px;
   object-fit: contain;
   display: block;
-  height: 60px;
 }
 
 .footer-bottom {

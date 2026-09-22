@@ -1,3 +1,16 @@
+.home-banner {
+  width: 100%;
+  margin: -40px 0 0;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.home-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .hero {
   padding: 56px 0 40px;
   border-bottom: 1px solid var(--border);

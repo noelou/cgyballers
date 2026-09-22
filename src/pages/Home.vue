@@ -53,12 +53,14 @@ const leaderRows = computed(() =>
 </script>
 
 <template>
+  <div class="home-banner">
+    <img src="/banner/banner-1.jpg" alt="CGYBallers" />
+  </div>
+
   <div class="container">
     <section class="hero">
       <span class="eyebrow">Season 4 Amlans Cup</span>
-      <h1 class="hero-title">
-        CGY<span style="color: var(--accent)">Ballers</span>
-      </h1>
+      <h1 class="sr-only">CGYBallers</h1>
       <p class="hero-sub">
         Twelve teams. One league. Follow every score, stat line, and standings shift from the
         CGYBallers season.

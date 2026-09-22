@@ -25,7 +25,7 @@ const year = new Date().getFullYear()
         <span class="footer-heading">Sponsors</span>
         <div class="footer-sponsor-logos">
           <span class="footer-sponsor" v-for="s in SPONSORS" :key="s.src">
-            <img :src="s.src" :alt="s.name" loading="lazy" />
+            <img :src="s.src" :alt="s.name" loading="lazy" width="70" height="60" />
           </span>
         </div>
       </div>
