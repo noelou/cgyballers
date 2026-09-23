@@ -164,13 +164,62 @@ Everything below replaces a manual JSON edit with a login-protected form:
 
 Everything the public pages show — Players' averages, the Home page's league leaders, standings, the Game Detail box-score view — is computed live from this same data, so a change made in the dashboard shows up immediately across the whole site.
 
+## One request, traced through every file
+
+The fastest way to actually *hold* this system in your head — rather than knowing the files individually — is to trace one action through every layer it touches, in order. Here's "an admin edits a box score":
+
+```mermaid
+sequenceDiagram
+  participant You as Admin (browser)
+  participant Vue as Vue component (src/)
+  participant API as server/index.mjs
+  participant Auth as requireAuth middleware
+  participant Pool as scripts/db.mjs (pool)
+  participant DB as Postgres
+
+  You->>Vue: fills form, clicks Save
+  Vue->>API: fetch POST /api/games/:id/boxscore (cookie attached automatically)
+  API->>Auth: requireAuth(req, res, next)
+  Auth-->>API: cookie's JWT is valid → next()
+  API->>Pool: pool.query('INSERT ... ON CONFLICT DO UPDATE ...')
+  Pool->>DB: runs SQL over the connection from DATABASE_URL
+  DB-->>Pool: rows written
+  Pool-->>API: result
+  API-->>Vue: res.json({ ok: true })
+  Vue-->>You: UI updates, no page reload
+```
+
+Every "where is X called" question collapses once this chain is automatic:
+
+- `server/index.mjs` is called by **whoever started the Node process** — `npm run server` locally, `pm2` on the droplet (see `DEPLOYING-CHANGES.md`). It is never `import`ed by other app code; it's the entry point.
+- `scripts/db.mjs` is called by **every file that needs to touch the database** — `server/index.mjs` and the one-off scripts in `scripts/` (`import-data.mjs`, `run-schema.mjs`, `create-user.mjs`, `test-db.mjs`). It exports one shared `pool` so the connection logic exists in exactly one place.
+- Which actual database `pool` talks to isn't decided by the code at all — it's decided by **which machine `DATABASE_URL` in `.env` points at**, which is why identical code produces different results depending on whether it's running on your PC or the droplet (see `DEPLOYING-CHANGES.md`'s "two separate databases" note).
+
+If you can redraw that diagram from memory and explain the last bullet, you can answer almost any "how does this app work" question about the backend.
+
+## Cheat-sheet: answers to the questions that come up most
+
+Quick Q&A format — these are the two things that actually trip people up in practice, worth being able to answer without hesitating.
+
+**Q: If I add a schedule/game in the local admin (`localhost:5173/admin`), does it show up on the live site?**
+A: No. Local and production are two completely separate Postgres databases — same table names, different machines, no sync between them. Your local admin only ever writes to the Postgres running on your own PC.
+
+**Q: Why not? They're running the same code.**
+A: Because `DATABASE_URL=postgres://postgres:...@localhost:5432/cgyballers` uses `localhost`, and `localhost` doesn't mean "Noel's computer" — it means "whatever machine this process is currently running on." The exact same line of code connects to a different database depending on where `server/index.mjs` is running: your PC when you run `npm run server`, the droplet when `pm2` runs it there. Each machine also has its own `.env` file (`.env` is git-ignored, so it never gets pushed) with its own password.
+
+**Q: So how do I get a schedule entry onto the live site?**
+A: Add it directly in the production admin, `https://cgyballers.gacs.me/admin`. That writes straight to the droplet's Postgres, which is what the live site reads from. There's no "sync" step — you're just choosing which admin panel to type into.
+
+**Q: Does deploying (`git push` → pull on droplet → rebuild) move my local data to production?**
+A: No — deploying only ships *code* (component changes, new API routes, bug fixes). It has zero effect on rows already sitting in either database. Code and data travel through completely different paths: code moves through GitHub + `git pull`; data is typed directly into whichever admin panel (local or prod) you're logged into.
+
+**Q: When would I actually need to deploy for a data-entry feature to work in prod?**
+A: Only if the feature needs a **new column or table** that doesn't exist yet — e.g. adding a "playoff round" field to games. Then you'd deploy the code *and* separately run the matching `ALTER TABLE` by hand against the droplet's database via `psql` (see `DEPLOYING-CHANGES.md` → "Database schema changes"). Ordinary data entry using fields that already exist never needs a deploy.
+
+**One-line summary to remember:** *code* travels through GitHub; *data* never does — each database only holds what was typed into its own admin panel.
+
 ## What's next
 
-Everything above runs **locally only** — on your own machine, for free, with nothing exposed to the internet yet.
+**Update, 2026-09-20:** this has since happened — the app is live in production. See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for the hosting setup and [`DEPLOYING-CHANGES.md`](./DEPLOYING-CHANGES.md) for the ongoing routine of shipping new changes to it.
 
-The planned next step is hosting it live:
-
-- **DigitalOcean** — will run the Express API server and Postgres database continuously, since the admin login/dashboard needs a real server running at all times (unlike a purely static site)
-- **GoDaddy domain** — its DNS will be pointed at DigitalOcean once it's set up, so the site is reachable at your own domain
-
-That's a separate, infrastructure-focused task from everything in this doc — worth tackling once the app itself feels done being built and tested locally.
+~~Everything above runs locally only — on your own machine, for free, with nothing exposed to the internet yet. The planned next step is hosting it live: DigitalOcean will run the Express API server and Postgres database continuously, and a GoDaddy domain's DNS will be pointed at it.~~

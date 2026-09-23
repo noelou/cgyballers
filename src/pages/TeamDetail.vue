@@ -2,7 +2,6 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import teams from '../data/teams.json'
-import players from '../data/players.json'
 import Avatar from '../components/Avatar.vue'
 import TeamBadge from '../components/TeamBadge.vue'
 import { cachedJson } from '../data/apiCache'
@@ -13,20 +12,24 @@ import './TeamDetail.css'
 const route = useRoute()
 const team = computed(() => teams.find((t) => t.id === route.params.teamId))
 
-const roster = computed(() => {
-  if (!team.value) return []
-  return players
-    .filter((p) => p.team === team.value.id)
-    .sort((a, b) => (a.number ?? 999) - (b.number ?? 999))
-})
-
 const standingsEntry = cachedJson('/api/standings', [])
 const gamesEntry = cachedJson('/api/games', [])
+const playersEntry = cachedJson('/api/players', [])
 const statsEntry = cachedJson('/api/player-stats', {})
 const standings = standingsEntry.data
 const schedule = gamesEntry.data
+const players = playersEntry.data
 const playerStats = statsEntry.data
-const loading = computed(() => !standingsEntry.loaded.value || !gamesEntry.loaded.value || !statsEntry.loaded.value)
+const loading = computed(
+  () => !standingsEntry.loaded.value || !gamesEntry.loaded.value || !playersEntry.loaded.value || !statsEntry.loaded.value
+)
+
+const roster = computed(() => {
+  if (!team.value) return []
+  return players.value
+    .filter((p) => p.team === team.value.id)
+    .sort((a, b) => (a.number ?? 999) - (b.number ?? 999))
+})
 
 const record = computed(() => (team.value ? standings.value.find((s) => s.team === team.value.id) : null))
 
@@ -122,13 +125,14 @@ function gameRow(g) {
     </div>
 
     <div class="section-title" style="font-size: 18px; margin-top: 32px">Roster</div>
-    <div class="grid team-roster-grid">
+    <div v-if="loading" class="empty-state card">Loading&hellip;</div>
+    <div v-else class="grid team-roster-grid">
       <router-link v-for="p in roster" :key="p.id" :to="`/players/${p.id}`" class="card roster-row">
         <Avatar :name="p.name" :pic="p.pic" :size="44" />
         <div>
           <div class="roster-name">{{ p.name }}</div>
           <div class="roster-meta">
-            {{ loading ? '' : rosterStats(p.id).gp ? `${rosterStats(p.id).ppg} PPG` : 'No games' }}
+            {{ rosterStats(p.id).gp ? `${rosterStats(p.id).ppg} PPG` : 'No games' }}
           </div>
         </div>
       </router-link>

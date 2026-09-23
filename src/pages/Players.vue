@@ -8,7 +8,7 @@ import { MIN_GP, REBOUND_MIN_GP } from '../utils/leaders'
 import './Players.css'
 
 const SORTS = {
-  best5pts: { label: 'Points', short: 'PTS·5', desc: 'total points across each player’s 5 best games' },
+  ppg: { label: 'Points', short: 'PPG', desc: 'points per game' },
   rpg: { label: 'Rebounds', short: 'RPG', desc: 'rebounds per game', minGp: REBOUND_MIN_GP },
   apg: { label: 'Assists', short: 'APG', desc: 'assists per game' },
   spg: { label: 'Steals', short: 'SPG', desc: 'steals per game' },
@@ -24,7 +24,7 @@ const loading = computed(() => !playersEntry.loaded.value || !statsEntry.loaded.
 
 const query = ref('')
 const teamFilter = ref('all')
-const sortKey = ref('best5pts')
+const sortKey = ref('ppg')
 
 const sort = computed(() => SORTS[sortKey.value])
 const minGp = computed(() => sort.value.minGp ?? MIN_GP)

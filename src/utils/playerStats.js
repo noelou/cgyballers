@@ -9,22 +9,17 @@ function emptyLine() {
 
 const avg = (sum, gp) => (gp ? +(sum / gp).toFixed(1) : 0)
 const pct = (made, att) => (att ? +((made / att) * 100).toFixed(1) : null)
-// Sum of a player's `n` highest-scoring games. Scoring leaders are ranked on
-// this so a player who has appeared in more games gets no cumulative edge.
-const bestNSum = (arr, n) => [...arr].sort((a, b) => b - a).slice(0, n).reduce((s, v) => s + v, 0)
 
 export const ZERO_STATS = {
-  gp: 0, ppg: 0, best5pts: 0, rpg: 0, apg: 0, bpg: 0, spg: 0, tpm: 0, tpPct: null, ftPct: null, totals: emptyLine(),
+  gp: 0, ppg: 0, rpg: 0, apg: 0, bpg: 0, spg: 0, tpm: 0, tpPct: null, ftPct: null, totals: emptyLine(),
 }
 
-// { playerId: { gp, ppg, best5pts, rpg, apg, bpg, spg, tpm, tpPct, ftPct, totals } }
+// { playerId: { gp, ppg, rpg, apg, bpg, spg, tpm, tpPct, ftPct, totals } }
 export function buildPlayerStats(lines) {
   const totals = {}
-  const gamePts = {} // playerId -> [points scored in each game]
 
   for (const line of lines) {
     const t = (totals[line.playerId] ??= emptyLine())
-    ;(gamePts[line.playerId] ??= []).push(line.pts ?? 0)
     t.gp += 1
     t.pts += line.pts ?? 0
     t.reb += line.reb ?? 0
@@ -43,7 +38,6 @@ export function buildPlayerStats(lines) {
       {
         gp: t.gp,
         ppg: avg(t.pts, t.gp),
-        best5pts: bestNSum(gamePts[id] ?? [], 5),
         rpg: avg(t.reb, t.gp),
         apg: avg(t.ast, t.gp),
         bpg: avg(t.blk, t.gp),

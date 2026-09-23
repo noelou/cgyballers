@@ -12,10 +12,8 @@ const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61562394387119'
 
 const teamById = Object.fromEntries(teams.map((t) => [t.id, t]))
 
-// Points is ranked on each player's 5 best games (see playerStats.best5pts) so
-// extra games don't inflate the total, but the number shown is plain PPG.
 const LEADER_CATS = [
-  { key: 'best5pts', label: 'Points', fmt: (p) => p.ppg.toFixed(1) },
+  { key: 'ppg', label: 'Points', fmt: (p) => p.value.toFixed(1) },
   { key: 'rpg', label: 'Rebounds', fmt: (p) => p.value.toFixed(1), minGp: REBOUND_MIN_GP },
   { key: 'apg', label: 'Assists', fmt: (p) => p.value.toFixed(1) },
   { key: 'tpm', label: 'Threes', fmt: (p) => String(p.value) },

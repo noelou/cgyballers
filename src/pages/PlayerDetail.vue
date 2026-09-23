@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import players from '../data/players.json'
 import teams from '../data/teams.json'
 import Avatar from '../components/Avatar.vue'
 import { cachedJson } from '../data/apiCache'
@@ -11,12 +10,15 @@ import './PlayerDetail.css'
 const teamById = Object.fromEntries(teams.map((t) => [t.id, t]))
 
 const route = useRoute()
-const player = computed(() => players.find((p) => p.id === route.params.playerId))
-const team = computed(() => (player.value ? teamById[player.value.team] : null))
 
+const playersEntry = cachedJson('/api/players', [])
 const statsEntry = cachedJson('/api/player-stats', {})
+const players = playersEntry.data
 const playerStats = statsEntry.data
-const loading = computed(() => !statsEntry.loaded.value)
+const loading = computed(() => !playersEntry.loaded.value || !statsEntry.loaded.value)
+
+const player = computed(() => players.value.find((p) => p.id === route.params.playerId))
+const team = computed(() => (player.value ? teamById[player.value.team] : null))
 const stats = computed(() => (player.value ? getStats(playerStats.value, player.value.id) : null))
 
 const dash = (v) => (stats.value.gp ? v : '—')
@@ -39,7 +41,11 @@ const statBlocks = computed(() => {
 </script>
 
 <template>
-  <div v-if="!player" class="container">
+  <div v-if="loading" class="container">
+    <div class="empty-state card">Loading&hellip;</div>
+  </div>
+
+  <div v-else-if="!player" class="container">
     <div class="empty-state card">
       <p>Player not found.</p>
       <router-link to="/players" class="btn">Back to Players</router-link>
@@ -62,21 +68,18 @@ const statBlocks = computed(() => {
       </div>
     </div>
 
-    <div v-if="loading" class="empty-state card">Loading&hellip;</div>
-    <template v-else>
-      <div class="player-stat-strip">
-        <div v-for="block in statBlocks" :key="block.label" class="card player-stat-block">
-          <span class="player-stat-value">{{ block.value }}</span>
-          <span class="player-stat-label">{{ block.label }}</span>
-        </div>
+    <div class="player-stat-strip">
+      <div v-for="block in statBlocks" :key="block.label" class="card player-stat-block">
+        <span class="player-stat-value">{{ block.value }}</span>
+        <span class="player-stat-label">{{ block.label }}</span>
       </div>
-      <p class="player-stat-note">
-        {{
-          stats.gp
-            ? `Season averages from ${stats.gp} game${stats.gp > 1 ? 's' : ''}.`
-            : 'No games recorded yet this season.'
-        }}
-      </p>
-    </template>
+    </div>
+    <p class="player-stat-note">
+      {{
+        stats.gp
+          ? `Season averages from ${stats.gp} game${stats.gp > 1 ? 's' : ''}.`
+          : 'No games recorded yet this season.'
+      }}
+    </p>
   </div>
 </template>
