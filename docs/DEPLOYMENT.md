@@ -75,6 +75,26 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+        # Player photo uploads (the API caps them at 5 MB; Nginx's default is 1 MB).
+        client_max_body_size 6m;
+    }
+
+    # Admin-uploaded files (player photos), stored in /opt/cgyballers/uploads
+    # and served by the API. Not in git — back this folder up separately.
+    location /uploads/ {
+        proxy_pass http://localhost:3001;
+    }
+
+    # index.html must always be revalidated: it points at the current
+    # build's hashed JS/CSS. Without this, browsers heuristically cache it
+    # and keep loading the previous build's code until a manual refresh.
+    location = /index.html {
+        add_header Cache-Control "no-cache";
+    }
+
+    # Hashed build output — filenames change every build, so cache forever.
+    location /assets/ {
+        add_header Cache-Control "public, max-age=31536000, immutable";
     }
 
     location / {

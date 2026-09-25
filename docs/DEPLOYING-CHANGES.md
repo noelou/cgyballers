@@ -127,3 +127,18 @@ If you need to add a new column/table:
 - **Data you entered isn't showing up** — check you entered it on the
   right site (local vs. production — they're separate databases, see
   above).
+
+## Player photos (uploads)
+
+Player photos uploaded through the admin panel (Edit Player → Choose
+photo → Save) are saved on the droplet in `/opt/cgyballers/uploads/`,
+not in git — `git pull` and `npm run build` never touch them, but they
+also aren't backed up anywhere else. Copy them down to your computer now
+and then (run this from PowerShell on your own computer):
+
+```bash
+scp -r root@159.223.81.97:/opt/cgyballers/uploads ./uploads-backup
+```
+
+Photos added the old way (files committed under `public/player-photos/`)
+keep working unchanged.

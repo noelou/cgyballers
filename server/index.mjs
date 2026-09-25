@@ -3,6 +3,10 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import multer from 'multer';
+import sharp from 'sharp';
+import path from 'node:path';
+import { mkdir, unlink } from 'node:fs/promises';
 import { pool } from '../scripts/db.mjs';
 import { buildStandings } from '../src/utils/standings.js';
 import { buildPlayerStats } from '../src/utils/playerStats.js';
@@ -15,6 +19,20 @@ app.use(express.json());
 app.use(cookieParser());
 
 const COOKIE_NAME = 'cgyballers_session';
+
+// Admin-uploaded files live outside dist/ and public/ so `npm run build` and
+// `git pull` never touch them. Served at /uploads/... (proxied by Nginx in
+// production, by Vite's dev proxy locally). Not in git — back it up separately.
+const UPLOAD_DIR = path.resolve(process.env.UPLOAD_DIR || 'uploads');
+const PLAYER_PHOTO_DIR = path.join(UPLOAD_DIR, 'player-photos');
+await mkdir(PLAYER_PHOTO_DIR, { recursive: true });
+app.use('/uploads', express.static(UPLOAD_DIR, { maxAge: '365d', immutable: true }));
+
+const photoUpload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => cb(null, ['image/jpeg', 'image/png', 'image/webp'].includes(file.mimetype)),
+});
 
 // Attach this to any route that should require being logged in.
 // It reads the cookie set at login, checks it's a real, un-tampered-with
@@ -206,6 +224,57 @@ app.put('/api/players/:playerId', requireAuth, async (req, res) => {
 
   if (result.rows.length === 0) return res.status(404).json({ error: 'Player not found' });
   res.json({ id: playerId });
+});
+
+// Deletes a previously uploaded photo file. Photos committed under
+// public/player-photos are left alone — only /uploads/ files are ours to remove.
+async function removeUploadedPhoto(pic) {
+  if (!pic?.startsWith('/uploads/player-photos/')) return;
+  await unlink(path.join(PLAYER_PHOTO_DIR, path.basename(pic))).catch(() => {});
+}
+
+// Uploads/replaces a player's photo. Requires login. The image is cropped to
+// a 400x400 square and re-encoded as WebP; the filename carries a timestamp
+// so a replaced photo never shows a stale cached copy.
+app.post('/api/players/:playerId/photo', requireAuth, (req, res, next) => {
+  photoUpload.single('photo')(req, res, (err) => {
+    if (err?.code === 'LIMIT_FILE_SIZE') return res.status(400).json({ error: 'Photo must be 5 MB or smaller' });
+    if (err) return next(err);
+    next();
+  });
+}, async (req, res) => {
+  const { playerId } = req.params;
+  if (!req.file) return res.status(400).json({ error: 'Choose a JPG, PNG or WebP image' });
+
+  const existing = await pool.query('SELECT pic FROM players WHERE id = $1', [playerId]);
+  if (existing.rows.length === 0) return res.status(404).json({ error: 'Player not found' });
+
+  const filename = `${playerId}-${Date.now()}.webp`;
+  try {
+    await sharp(req.file.buffer)
+      .rotate() // respect phone EXIF orientation
+      .resize(400, 400, { fit: 'cover' })
+      .webp({ quality: 82 })
+      .toFile(path.join(PLAYER_PHOTO_DIR, filename));
+  } catch {
+    return res.status(400).json({ error: 'That file could not be read as an image' });
+  }
+
+  const pic = `/uploads/player-photos/${filename}`;
+  await pool.query('UPDATE players SET pic = $1 WHERE id = $2', [pic, playerId]);
+  await removeUploadedPhoto(existing.rows[0].pic);
+  res.json({ pic });
+});
+
+// Removes a player's photo (falls back to initials). Requires login.
+app.delete('/api/players/:playerId/photo', requireAuth, async (req, res) => {
+  const { playerId } = req.params;
+  const existing = await pool.query('SELECT pic FROM players WHERE id = $1', [playerId]);
+  if (existing.rows.length === 0) return res.status(404).json({ error: 'Player not found' });
+
+  await pool.query('UPDATE players SET pic = NULL WHERE id = $1', [playerId]);
+  await removeUploadedPhoto(existing.rows[0].pic);
+  res.json({ pic: null });
 });
 
 app.get('/api/games', async (req, res) => {
