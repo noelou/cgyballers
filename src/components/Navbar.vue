@@ -9,6 +9,7 @@ const LINKS = [
   // { to: '/news', label: 'News' }, // hidden for now — pending league sign-off
   { to: '/schedule', label: 'Schedule' },
   { to: '/standings', label: 'Standings' },
+  { to: '/playoffs', label: 'Playoffs' },
   { to: '/players', label: 'Players' },
   { to: '/teams', label: 'Teams' },
 ]

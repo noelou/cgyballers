@@ -4,6 +4,7 @@ import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge.vue'
 import { cachedJson } from '../data/apiCache'
 import { formatDate, formatTime } from '../utils/date'
+import { STAGE_LABELS } from '../utils/playoffs'
 import './Schedule.css'
 
 const teamById = Object.fromEntries(teams.map((t) => [t.id, t]))
@@ -117,7 +118,12 @@ const grouped = computed(() => {
             </span>
           </div>
           <div class="schedule-footer">
-            <div class="schedule-venue">{{ g.venue }}</div>
+            <div class="schedule-venue">
+              {{ g.venue }}
+              <span v-if="g.stage && g.stage !== 'elimination'" class="badge" style="margin-left: 6px">
+                {{ STAGE_LABELS[g.stage] }}
+              </span>
+            </div>
             <span
               :class="[
                 'badge schedule-status',

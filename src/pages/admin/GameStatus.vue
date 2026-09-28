@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { STAGE_LABELS } from '../../utils/playoffs'
 
 const route = useRoute()
 const router = useRouter()
@@ -11,6 +12,7 @@ const status = ref('scheduled')
 const homeScore = ref(0)
 const awayScore = ref(0)
 const winner = ref('')
+const stage = ref('elimination')
 const saving = ref(false)
 const error = ref('')
 
@@ -26,6 +28,7 @@ onMounted(async () => {
   homeScore.value = game.value.homeScore ?? 0
   awayScore.value = game.value.awayScore ?? 0
   winner.value = game.value.winner ?? ''
+  stage.value = game.value.stage ?? 'elimination'
 })
 
 const showScores = computed(() => status.value === 'final')
@@ -44,6 +47,7 @@ async function submit() {
         homeScore: Number(homeScore.value),
         awayScore: Number(awayScore.value),
         winner: winner.value || null,
+        stage: stage.value,
       }),
     })
     if (!res.ok) {
@@ -70,6 +74,13 @@ async function submit() {
       <p class="section-sub">{{ game.date }}</p>
 
       <form @submit.prevent="submit" class="card" style="padding: 24px; display: grid; gap: 12px; margin-top: 16px">
+        <label>
+          Stage
+          <select v-model="stage">
+            <option v-for="(label, key) in STAGE_LABELS" :key="key" :value="key">{{ label }}</option>
+          </select>
+        </label>
+
         <label>
           Status
           <select v-model="status">

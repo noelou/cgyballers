@@ -9,6 +9,7 @@ import path from 'node:path';
 import { mkdir, unlink } from 'node:fs/promises';
 import { pool } from '../scripts/db.mjs';
 import { buildStandings } from '../src/utils/standings.js';
+import { buildBracket, STAGES } from '../src/utils/playoffs.js';
 import { buildPlayerStats } from '../src/utils/playerStats.js';
 
 const app = express();
@@ -284,7 +285,7 @@ app.get('/api/games', async (req, res) => {
       g.home_team_id AS home, ht.name AS "homeName",
       g.away_team_id AS away, at.name AS "awayName",
       g.status, g.home_score AS "homeScore", g.away_score AS "awayScore",
-      g.winner,
+      g.winner, g.stage,
       EXISTS (SELECT 1 FROM boxscore_lines bl WHERE bl.game_id = g.id) AS "hasBoxscore"
     FROM games g
     JOIN teams ht ON ht.id = g.home_team_id
@@ -305,10 +306,13 @@ async function generateGameId() {
 
 // Adds a brand-new game to the schedule. Requires login.
 app.post('/api/games', requireAuth, async (req, res) => {
-  const { date, time, venue, home, away } = req.body;
+  const { date, time, venue, home, away, stage = 'elimination' } = req.body;
 
   if (!date || !time || !home || !away) {
     return res.status(400).json({ error: 'date, time, home, and away are required' });
+  }
+  if (!STAGES.includes(stage)) {
+    return res.status(400).json({ error: `stage must be one of: ${STAGES.join(', ')}` });
   }
   if (home === away) {
     return res.status(400).json({ error: 'home and away must be different teams' });
@@ -321,9 +325,9 @@ app.post('/api/games', requireAuth, async (req, res) => {
 
   const id = await generateGameId();
   await pool.query(
-    `INSERT INTO games (id, date, time, venue, home_team_id, away_team_id, status)
-     VALUES ($1, $2, $3, $4, $5, $6, 'scheduled')`,
-    [id, date, time, venue || null, home, away]
+    `INSERT INTO games (id, date, time, venue, home_team_id, away_team_id, status, stage)
+     VALUES ($1, $2, $3, $4, $5, $6, 'scheduled', $7)`,
+    [id, date, time, venue || null, home, away, stage]
   );
 
   res.status(201).json({ id });
@@ -352,10 +356,13 @@ const VALID_STATUSES = ['scheduled', 'final', 'forfeit', 'cancelled'];
 // or correcting a score without re-entering the whole box score. Requires login.
 app.put('/api/games/:gameId/status', requireAuth, async (req, res) => {
   const { gameId } = req.params;
-  const { status, homeScore, awayScore, winner } = req.body;
+  const { status, homeScore, awayScore, winner, stage } = req.body;
 
   if (!VALID_STATUSES.includes(status)) {
     return res.status(400).json({ error: `status must be one of: ${VALID_STATUSES.join(', ')}` });
+  }
+  if (stage !== undefined && !STAGES.includes(stage)) {
+    return res.status(400).json({ error: `stage must be one of: ${STAGES.join(', ')}` });
   }
 
   const gameResult = await pool.query('SELECT home_team_id AS home, away_team_id AS away FROM games WHERE id = $1', [
@@ -374,23 +381,37 @@ app.put('/api/games/:gameId/status', requireAuth, async (req, res) => {
   const isForfeit = status === 'forfeit';
 
   const result = await pool.query(
-    `UPDATE games SET status = $1, home_score = $2, away_score = $3, winner = $4 WHERE id = $5 RETURNING id`,
-    [status, isFinal ? homeScore : null, isFinal ? awayScore : null, isForfeit ? winner : null, gameId]
+    `UPDATE games SET status = $1, home_score = $2, away_score = $3, winner = $4, stage = COALESCE($6, stage)
+     WHERE id = $5 RETURNING id`,
+    [status, isFinal ? homeScore : null, isFinal ? awayScore : null, isForfeit ? winner : null, gameId, stage ?? null]
   );
   if (result.rows.length === 0) return res.status(404).json({ error: 'Game not found' });
 
   res.json({ ok: true });
 });
 
-app.get('/api/standings', async (req, res) => {
+// Everything standings and the playoff bracket are computed from.
+async function loadStandingsInputs() {
   const teamsResult = await pool.query('SELECT id, name, color FROM teams');
   const gamesResult = await pool.query(`
     SELECT
+      id, date::text AS date, time, stage,
       home_team_id AS home, away_team_id AS away, status,
       home_score AS "homeScore", away_score AS "awayScore", winner
     FROM games
   `);
-  res.json(buildStandings(gamesResult.rows, teamsResult.rows));
+  return { teams: teamsResult.rows, games: gamesResult.rows };
+}
+
+app.get('/api/standings', async (req, res) => {
+  const { teams, games } = await loadStandingsInputs();
+  res.json(buildStandings(games, teams));
+});
+
+// The playoff bracket: seeded from the standings, advanced by playoff games.
+app.get('/api/playoffs', async (req, res) => {
+  const { teams, games } = await loadStandingsInputs();
+  res.json(buildBracket(buildStandings(games, teams), games));
 });
 
 // Everything a box-score entry form needs for one game: the game itself,

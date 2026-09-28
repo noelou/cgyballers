@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { STAGE_LABELS } from '../../utils/playoffs'
 
 const router = useRouter()
 const username = ref('')
@@ -69,7 +70,10 @@ async function deleteGame(game) {
         <tbody>
           <tr v-for="g in sortedGames" :key="g.id">
             <td>{{ g.date }}</td>
-            <td>{{ g.homeName }} vs {{ g.awayName }}</td>
+            <td>
+              {{ g.homeName }} vs {{ g.awayName }}
+              <span v-if="g.stage && g.stage !== 'elimination'" class="badge" style="margin-left: 6px">{{ STAGE_LABELS[g.stage] }}</span>
+            </td>
             <td>{{ g.status }}</td>
             <td style="display: flex; gap: 8px">
               <router-link :to="`/admin/games/${g.id}/boxscore`" class="btn">

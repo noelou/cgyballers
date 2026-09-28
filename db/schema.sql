@@ -38,7 +38,10 @@ CREATE TABLE games (
   home_score       integer,
   away_score       integer,
   winner           text REFERENCES teams(id),  -- set for forfeited games only
-  boxscore_source  text                     -- path to the source image, if any
+  boxscore_source  text,                    -- path to the source image, if any
+  -- Which part of the season: 'elimination' (round robin, counts toward
+  -- standings), or a playoff round: 'playin', 'qf', 'sf', 'final'.
+  stage            text NOT NULL DEFAULT 'elimination'
 );
 
 CREATE INDEX idx_games_date ON games(date);

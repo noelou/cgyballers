@@ -5,6 +5,7 @@ import NewsArticle from '../pages/NewsArticle.vue'
 import Schedule from '../pages/Schedule.vue'
 import GameDetail from '../pages/GameDetail.vue'
 import Standings from '../pages/Standings.vue'
+import Playoffs from '../pages/Playoffs.vue'
 import Players from '../pages/Players.vue'
 import PlayerDetail from '../pages/PlayerDetail.vue'
 import Teams from '../pages/Teams.vue'
@@ -18,6 +19,7 @@ const routes = [
   { path: '/schedule', name: 'schedule', component: Schedule },
   { path: '/games/:gameId', name: 'game-detail', component: GameDetail },
   { path: '/standings', name: 'standings', component: Standings },
+  { path: '/playoffs', name: 'playoffs', component: Playoffs },
   { path: '/players', name: 'players', component: Players },
   { path: '/players/:playerId', name: 'player-detail', component: PlayerDetail },
   { path: '/teams', name: 'teams', component: Teams },

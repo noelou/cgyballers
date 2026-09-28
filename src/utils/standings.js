@@ -18,6 +18,10 @@ export function buildStandings(schedule, teams) {
     }
   })
 
+  // Only elimination-round games count; playoff games live in the bracket.
+  // (Games with no stage, e.g. from the legacy JSON, are elimination games.)
+  schedule = schedule.filter((g) => (g.stage ?? 'elimination') === 'elimination')
+
   schedule
     .filter((g) => g.status === 'final' && typeof g.homeScore === 'number' && typeof g.awayScore === 'number')
     .forEach((g) => {

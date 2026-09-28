@@ -1,0 +1,185 @@
+/* The bracket keeps a fixed minimum width and scrolls sideways on narrow
+   screens, rather than squashing four rounds into a phone's width. */
+.bracket-scroll {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.bracket {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(210px, 1fr));
+  grid-template-rows: auto repeat(4, minmax(118px, auto));
+  column-gap: 44px;
+  row-gap: 16px;
+  min-width: 960px;
+  padding-top: 4px;
+}
+
+.bracket-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.bracket-line {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-width: 2;
+}
+
+.bracket-line.is-decided {
+  stroke: var(--accent);
+}
+
+.bracket-col-title {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.bracket-cell {
+  position: relative;
+  align-self: center;
+}
+
+.bracket-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.bracket-card.is-final {
+  border-color: var(--accent);
+}
+
+.bracket-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.bracket-team + .bracket-team {
+  border-top: 1px solid var(--border);
+}
+
+.bracket-seed {
+  width: 18px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-dim);
+  text-align: right;
+}
+
+.bracket-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bracket-name:hover {
+  color: var(--accent-strong);
+}
+
+.bracket-tbd {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+.bracket-adv {
+  flex-shrink: 0;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--accent-strong);
+  background: rgba(255, 106, 26, 0.14);
+  border: 1px solid rgba(255, 106, 26, 0.3);
+}
+
+.bracket-wins {
+  min-width: 14px;
+  flex-shrink: 0;
+  text-align: right;
+  font-weight: 800;
+}
+
+.bracket-team.is-winner .bracket-wins {
+  color: var(--accent-strong);
+}
+
+.bracket-team.is-loser {
+  opacity: 0.45;
+}
+
+.bracket-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+}
+
+.bracket-games {
+  display: flex;
+  gap: 4px;
+}
+
+.bracket-game {
+  padding: 0 5px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  font-weight: 700;
+}
+
+.bracket-game:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+/* Sits above the Final card without shifting it off-centre. */
+.bracket-champion {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 106, 26, 0.12);
+  border: 1px solid rgba(255, 106, 26, 0.35);
+}
+
+.bracket-champion-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.bracket-champion-name {
+  font-weight: 800;
+}
