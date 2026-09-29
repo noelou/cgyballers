@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { STAGE_LABELS } from '../../utils/playoffs'
+import './admin.css'
 
 const router = useRouter()
 const teams = ref([])
@@ -50,10 +51,10 @@ async function submit() {
 
 <template>
   <div class="container" style="max-width: 420px">
-    <router-link to="/admin">&larr; Back to Dashboard</router-link>
-    <h1 class="section-title" style="font-size: 24px; margin-top: 12px">Add Game</h1>
+    <router-link to="/admin" class="admin-back">&larr; Back to Dashboard</router-link>
+    <h1 class="admin-title">Add Game</h1>
 
-    <form @submit.prevent="submit" class="card" style="padding: 24px; display: grid; gap: 12px; margin-top: 16px">
+    <form @submit.prevent="submit" class="card admin-form">
       <label>
         Stage
         <select v-model="stage">
@@ -87,7 +88,7 @@ async function submit() {
         </select>
       </label>
 
-      <p v-if="error" style="color: var(--loss, red)">{{ error }}</p>
+      <p v-if="error" class="admin-error">{{ error }}</p>
       <button type="submit" class="btn btn-primary" :disabled="saving">
         {{ saving ? 'Saving...' : 'Add Game' }}
       </button>

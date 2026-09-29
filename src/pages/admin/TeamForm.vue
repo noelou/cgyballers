@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import './admin.css'
 
 const route = useRoute()
 const router = useRouter()
@@ -111,20 +112,20 @@ async function submit() {
 </script>
 
 <template>
-  <div class="container" style="max-width: 420px">
-    <router-link to="/admin/teams">&larr; Back to Teams</router-link>
-    <h1 class="section-title" style="font-size: 24px; margin-top: 12px">
+  <div class="container" style="max-width: 560px">
+    <router-link to="/admin/teams" class="admin-back">&larr; Back to Teams</router-link>
+    <h1 class="admin-title">
       {{ isEdit ? 'Edit Team' : 'Add Team' }}
     </h1>
 
-    <form @submit.prevent="submit" class="card" style="padding: 24px; display: grid; gap: 12px; margin-top: 16px">
+    <form @submit.prevent="submit" class="card admin-form">
       <label>
         Name
         <input type="text" v-model="name" required />
       </label>
       <label>
         Color
-        <input type="color" v-model="color" style="height: 36px; padding: 2px" />
+        <input type="color" v-model="color" />
       </label>
       <label>
         Logo path
@@ -134,7 +135,7 @@ async function submit() {
         Venue
         <input type="text" v-model="venue" />
       </label>
-      <div>
+      <div class="admin-field">
         Featured player photo (optional)
         <div style="display: flex; align-items: center; gap: 12px; margin-top: 6px">
           <div
@@ -154,20 +155,20 @@ async function submit() {
             <img v-if="shownPhoto" :src="shownPhoto" alt="" style="width: 100%; height: 100%; object-fit: cover" />
             <span v-else>Logo</span>
           </div>
-          <label class="btn" style="cursor: pointer">
+          <label class="btn">
             {{ shownPhoto ? 'Change photo' : 'Choose photo' }}
             <input type="file" accept="image/jpeg,image/png,image/webp" @change="choosePhoto" hidden />
           </label>
           <button v-if="shownPhoto" type="button" class="btn" @click="clearPhoto">Remove</button>
         </div>
-        <small style="color: var(--text-muted)">
+        <small>
           Shown on the home page matchup cards. JPG, PNG or WebP, up to 5 MB, cropped to a square
           automatically. Without one, the card shows the team logo.
           {{ photoFile ? 'Click Save to upload.' : removePhoto ? 'Click Save to remove.' : '' }}
         </small>
       </div>
 
-      <p v-if="error" style="color: var(--loss, red)">{{ error }}</p>
+      <p v-if="error" class="admin-error">{{ error }}</p>
       <button type="submit" class="btn btn-primary" :disabled="saving">
         {{ saving ? 'Saving...' : 'Save' }}
       </button>

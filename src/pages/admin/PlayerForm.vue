@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Avatar from '../../components/Avatar.vue'
+import './admin.css'
 
 const route = useRoute()
 const router = useRouter()
@@ -154,13 +155,27 @@ async function submit() {
 </script>
 
 <template>
-  <div class="container" style="max-width: 420px">
-    <router-link to="/admin/players">&larr; Back to Players</router-link>
-    <h1 class="section-title" style="font-size: 24px; margin-top: 12px">
-      {{ isEdit ? 'Edit Player' : 'Add Player' }}
-    </h1>
+  <div class="container" style="max-width: 560px">
+    <router-link to="/admin/players" class="admin-back">&larr; Back to Players</router-link>
+    <h1 class="admin-title">{{ isEdit ? 'Edit Player' : 'Add Player' }}</h1>
 
-    <form @submit.prevent="submit" class="card" style="padding: 24px; display: grid; gap: 12px; margin-top: 16px">
+    <form @submit.prevent="submit" class="card admin-form">
+      <div class="admin-field">
+        Photo (optional)
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+          <Avatar :name="name || '?'" :pic="shownPic || null" :size="72" />
+          <label class="btn">
+            {{ shownPic ? 'Change photo' : 'Choose photo' }}
+            <input type="file" accept="image/jpeg,image/png,image/webp" @change="choosePhoto" hidden />
+          </label>
+          <button v-if="shownPic" type="button" class="btn" @click="clearPhoto">Remove</button>
+        </div>
+        <small>
+          JPG, PNG or WebP, up to 5 MB. It's cropped to a square automatically.
+          {{ photoFile ? 'Click Save to upload.' : removePhoto ? 'Click Save to remove.' : '' }}
+        </small>
+      </div>
+
       <label>
         Team
         <select v-model="team" required>
@@ -172,54 +187,45 @@ async function submit() {
         Name
         <input type="text" v-model="name" required />
       </label>
-      <label>
-        Number
-        <input type="number" min="0" v-model.number="number" />
-      </label>
-      <label>
-        Position
-        <select v-model="position">
-          <option value="" disabled>Select position...</option>
-          <option v-for="p in POSITIONS" :key="p.key" :value="p.key">{{ p.label }}</option>
-        </select>
-      </label>
-      <label>
-        Height (cm)
-        <input type="number" min="0" v-model.number="heightCm" />
-      </label>
-      <label>
-        Height (display, e.g. 5'7")
-        <input type="text" v-model="heightDisplay" />
-      </label>
-      <label>
-        Weight (kg)
-        <input type="number" min="0" v-model.number="weightKg" />
-      </label>
-      <label>
-        Age
-        <input type="number" min="0" v-model.number="age" />
-      </label>
-      <label>
-        Experience (e.g. "4 yrs" or "Rookie")
-        <input type="text" v-model="experience" />
-      </label>
-      <div>
-        Photo (optional)
-        <div style="display: flex; align-items: center; gap: 12px; margin-top: 6px">
-          <Avatar :name="name || '?'" :pic="shownPic || null" :size="72" />
-          <label class="btn" style="cursor: pointer">
-            {{ shownPic ? 'Change photo' : 'Choose photo' }}
-            <input type="file" accept="image/jpeg,image/png,image/webp" @change="choosePhoto" hidden />
-          </label>
-          <button v-if="shownPic" type="button" class="btn" @click="clearPhoto">Remove</button>
-        </div>
-        <small style="color: var(--text-muted)">
-          JPG, PNG or WebP, up to 5 MB. It's cropped to a square automatically.
-          {{ photoFile ? 'Click Save to upload.' : removePhoto ? 'Click Save to remove.' : '' }}
-        </small>
+      <div class="admin-row">
+        <label>
+          Number
+          <input type="number" min="0" v-model.number="number" />
+        </label>
+        <label>
+          Position
+          <select v-model="position">
+            <option value="" disabled>Select position...</option>
+            <option v-for="p in POSITIONS" :key="p.key" :value="p.key">{{ p.label }}</option>
+          </select>
+        </label>
       </div>
+      <div class="admin-row">
+        <label>
+          Height (cm)
+          <input type="number" min="0" v-model.number="heightCm" />
+        </label>
+        <label>
+          Height (display)
+          <input type="text" v-model="heightDisplay" placeholder="e.g. 5'7&quot;" />
+        </label>
+      </div>
+      <div class="admin-row">
+        <label>
+          Weight (kg)
+          <input type="number" min="0" v-model.number="weightKg" />
+        </label>
+        <label>
+          Age
+          <input type="number" min="0" v-model.number="age" />
+        </label>
+      </div>
+      <label>
+        Experience
+        <input type="text" v-model="experience" placeholder="e.g. 4 yrs or Rookie" />
+      </label>
 
-      <p v-if="error" style="color: var(--loss, red)">{{ error }}</p>
+      <p v-if="error" class="admin-error">{{ error }}</p>
       <button type="submit" class="btn btn-primary" :disabled="saving">
         {{ saving ? 'Saving...' : 'Save' }}
       </button>

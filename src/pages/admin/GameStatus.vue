@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { STAGE_LABELS } from '../../utils/playoffs'
+import './admin.css'
 
 const route = useRoute()
 const router = useRouter()
@@ -63,17 +64,17 @@ async function submit() {
 
 <template>
   <div class="container" style="max-width: 420px">
-    <router-link to="/admin">&larr; Back to Dashboard</router-link>
+    <router-link to="/admin" class="admin-back">&larr; Back to Dashboard</router-link>
 
     <div v-if="error" class="empty-state card">{{ error }}</div>
 
     <template v-if="game">
-      <h1 class="section-title" style="font-size: 24px; margin-top: 12px">
+      <h1 class="admin-title">
         {{ game.homeName }} vs {{ game.awayName }}
       </h1>
       <p class="section-sub">{{ game.date }}</p>
 
-      <form @submit.prevent="submit" class="card" style="padding: 24px; display: grid; gap: 12px; margin-top: 16px">
+      <form @submit.prevent="submit" class="card admin-form">
         <label>
           Stage
           <select v-model="stage">
@@ -111,7 +112,7 @@ async function submit() {
           </select>
         </label>
 
-        <p v-if="error" style="color: var(--loss, red)">{{ error }}</p>
+        <p v-if="error" class="admin-error">{{ error }}</p>
         <button type="submit" class="btn btn-primary" :disabled="saving">
           {{ saving ? 'Saving...' : 'Save' }}
         </button>

@@ -1,0 +1,162 @@
+/* Shared styles for admin pages (forms, list toolbars). */
+
+.admin-back {
+  display: inline-block;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-back:hover {
+  color: var(--text);
+}
+
+.admin-title {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 12px 0 0;
+}
+
+/* Forms */
+.admin-form {
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  margin-top: 20px;
+}
+
+.admin-form label,
+.admin-field {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* "Choose photo" buttons are <label>s wrapping a hidden file input. */
+.admin-form label.btn {
+  display: inline-flex;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.admin-form small {
+  font-weight: 400;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.admin-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.admin-input,
+.admin-form input:not([type='file']):not([type='color']):not([type='checkbox']),
+.admin-form select {
+  width: 100%;
+  padding: 11px 14px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-form input[type='color'] {
+  width: 100%;
+  height: 44px;
+  padding: 4px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.admin-input::placeholder,
+.admin-form input::placeholder {
+  color: var(--text-dim);
+}
+
+.admin-input:hover,
+.admin-form input:hover,
+.admin-form select:hover {
+  border-color: var(--text-dim);
+}
+
+.admin-input:focus,
+.admin-form input:focus,
+.admin-form select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.admin-form .btn-primary[type='submit'] {
+  margin-top: 6px;
+  padding: 12px 18px;
+  font-size: 15px;
+}
+
+.admin-form .btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.admin-error {
+  color: var(--loss);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* List pages: title + primary action, then a filter toolbar */
+.admin-list-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.admin-list-head .admin-title {
+  margin: 0;
+}
+
+.admin-toolbar {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0 8px;
+}
+
+.admin-toolbar .admin-input {
+  width: auto;
+}
+
+.admin-toolbar .admin-search {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .admin-form {
+    padding: 20px;
+  }
+
+  .admin-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-toolbar {
+    flex-direction: column;
+  }
+
+  .admin-toolbar .admin-input {
+    width: 100%;
+  }
+}
