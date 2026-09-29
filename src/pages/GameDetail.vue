@@ -1,10 +1,11 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge.vue'
 import { sumLines } from '../utils/boxscores'
 import { formatDate, formatTime } from '../utils/date'
+import { setPageMeta } from '../utils/seo'
 import './GameDetail.css'
 
 const teamById = Object.fromEntries(teams.map((t) => [t.id, t]))
@@ -59,6 +60,16 @@ const boxTables = computed(() => {
     buildBoxTable(game.value.homeName, homeRoster.value, lines.value),
     buildBoxTable(game.value.awayName, awayRoster.value, lines.value),
   ]
+})
+
+watchEffect(() => {
+  const g = game.value
+  if (!g) return
+  const when = formatDate(g.date, { month: 'long', day: 'numeric', year: 'numeric' })
+  setPageMeta({
+    title: `${g.homeName} ${g.homeScore}–${g.awayScore} ${g.awayName} Box Score`,
+    description: `Box score for ${g.homeName} vs ${g.awayName} on ${when}: final score ${g.homeScore}–${g.awayScore}, with points, rebounds, assists and more for every player.`,
+  })
 })
 </script>
 

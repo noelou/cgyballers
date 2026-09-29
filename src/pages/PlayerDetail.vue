@@ -1,10 +1,11 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import teams from '../data/teams.json'
 import Avatar from '../components/Avatar.vue'
 import { cachedJson } from '../data/apiCache'
 import { getStats } from '../utils/playerStats'
+import { setPageMeta } from '../utils/seo'
 import './PlayerDetail.css'
 
 const teamById = Object.fromEntries(teams.map((t) => [t.id, t]))
@@ -37,6 +38,21 @@ const statBlocks = computed(() => {
     { label: '3P%', value: pctText(s.tpPct) },
     { label: 'FT%', value: pctText(s.ftPct) },
   ]
+})
+
+watchEffect(() => {
+  const p = player.value
+  if (!p) return
+  const teamName = team.value?.name ?? p.teamName
+  const num = p.number != null ? ` #${p.number}` : ''
+  const s = stats.value
+  const line = s?.gp
+    ? ` Season averages: ${s.ppg} PPG, ${s.rpg} RPG, ${s.apg} APG in ${s.gp} games.`
+    : ''
+  setPageMeta({
+    title: `${p.name}${num} · ${teamName}`,
+    description: `${p.name}${num}${p.positionLabel ? `, ${p.positionLabel},` : ''} plays for ${teamName} in the CGYBallers basketball league.${line}`,
+  })
 })
 </script>
 

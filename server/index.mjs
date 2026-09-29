@@ -456,6 +456,38 @@ async function loadStandingsInputs() {
   return { teams: teamsResult.rows, games: gamesResult.rows };
 }
 
+// sitemap.xml for search engines, built from the database so new teams,
+// players and box scores show up without a rebuild. Nginx proxies
+// /sitemap.xml here. Games are only listed once they have a box score —
+// before that their page is empty.
+const SITE_URL = 'https://cgyballers.gacs.me';
+const STATIC_PAGES = ['/', '/schedule', '/standings', '/playoffs', '/players', '/teams'];
+
+app.get('/sitemap.xml', async (req, res) => {
+  const [teams, players, games] = await Promise.all([
+    pool.query('SELECT id FROM teams ORDER BY id'),
+    pool.query('SELECT id FROM players ORDER BY id'),
+    pool.query(`
+      SELECT g.id, g.date::text AS date FROM games g
+      WHERE EXISTS (SELECT 1 FROM boxscore_lines bl WHERE bl.game_id = g.id)
+      ORDER BY g.date, g.id
+    `),
+  ]);
+
+  const url = (path, lastmod) =>
+    `  <url><loc>${SITE_URL}${encodeURI(path)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`;
+  const urls = [
+    ...STATIC_PAGES.map((p) => url(p)),
+    ...teams.rows.map((t) => url(`/teams/${t.id}`)),
+    ...players.rows.map((p) => url(`/players/${p.id}`)),
+    ...games.rows.map((g) => url(`/games/${g.id}`, g.date)),
+  ];
+
+  res.type('application/xml').set('Cache-Control', 'public, max-age=3600').send(
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`
+  );
+});
+
 app.get('/api/standings', async (req, res) => {
   const { teams, games } = await loadStandingsInputs();
   res.json(buildStandings(games, teams));

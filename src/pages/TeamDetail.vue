@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import teams from '../data/teams.json'
 import Avatar from '../components/Avatar.vue'
@@ -7,6 +7,7 @@ import TeamBadge from '../components/TeamBadge.vue'
 import { cachedJson } from '../data/apiCache'
 import { getStats } from '../utils/playerStats'
 import { formatDateShort, formatTime } from '../utils/date'
+import { setPageMeta } from '../utils/seo'
 import './TeamDetail.css'
 
 const route = useRoute()
@@ -52,6 +53,17 @@ function gameRow(g) {
   const won = (g.status === 'final' && teamScore > oppScore) || (g.status === 'forfeit' && g.winner === team.value.id)
   return { isHome, opponent, teamScore, oppScore, won }
 }
+
+watchEffect(() => {
+  const t = team.value
+  if (!t) return
+  const r = record.value
+  const rec = r?.gp ? ` Record: ${r.wins}-${r.losses}.` : ''
+  setPageMeta({
+    title: t.name,
+    description: `${t.name} in the CGYBallers basketball league: roster, schedule, results and player stats.${rec}`,
+  })
+})
 </script>
 
 <template>
