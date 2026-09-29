@@ -125,6 +125,16 @@ cd /opt/cgyballers
 pm2 start server/index.mjs --name cgyballers-api
 pm2 startup            # run the command IT prints, then:
 pm2 save
+
+# 11. Firewall (added 2026-09-29). Allow SSH FIRST so you can't lock yourself out.
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow 22/tcp && ufw allow 80/tcp && ufw allow 443/tcp
+ufw --force enable
+
+# 12. Nightly backups (added 2026-09-29) — see DEPLOYING-CHANGES.md → "Backups"
+#   /etc/cron.d/cgyballers-backup:
+#   0 19 * * * root /opt/cgyballers/scripts/backup.sh >> /var/log/cgyballers-backup.log 2>&1
 ```
 
 ## Known gotchas (all fixed, but worth knowing for next time)
@@ -182,6 +192,10 @@ pg_lsclusters
 
 nginx -t                            # check config syntax before reloading
 systemctl reload nginx
+
+ufw status                          # firewall: should be active, 22/80/443 allowed
+tail -5 /var/log/cgyballers-backup.log   # nightly backups: expect recent "ok" lines
+ls -lh /root/backups/cgyballers/
 ```
 
 ## What's left

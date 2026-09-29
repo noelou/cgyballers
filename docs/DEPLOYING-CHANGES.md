@@ -4,6 +4,11 @@ The one-time setup (`DEPLOYMENT.md`) is already done — the site is live
 at `https://cgyballers.gacs.me`. This doc is the routine you follow
 **every time** you have new changes to ship, from now on.
 
+New to all this? Start with
+[`HOW-THE-LIVE-SITE-WORKS.md`](./HOW-THE-LIVE-SITE-WORKS.md): a plain-language
+tour of how the server fits together (Nginx, API, database, firewall,
+backups), with what changed on 2026-09-29.
+
 ## The big picture
 
 Three separate things exist, and none of them update each other

@@ -2,6 +2,30 @@
 
 Running log of updates to the CGYBallers site. Newest entry on top.
 
+## 2026-09-29 — Forfeits, featured photos, admin redesign, SEO, backups, firewall
+
+Plain-language walkthrough of all of this: [`docs/HOW-THE-LIVE-SITE-WORKS.md`](docs/HOW-THE-LIVE-SITE-WORKS.md).
+
+**League data**
+- JME-JES dropped out: their 5 unscheduled games added as forfeit wins for the opponent (`g63`–`g67`, Sep 11, no time/venue)
+- Games with no time now show "—" instead of crashing Schedule / Team / Game pages
+
+**Admin**
+- Featured player photos (home matchup cards) editable in Admin → Teams → Edit; stored in `teams.featured_photo` + `uploads/featured-photos/`. `src/data/featuredPlayers.js` removed
+- Dashboard redesigned: grouped by date, tabs (Needs result / Upcoming / Completed / All), team filter
+- Players: search + team filter; Teams: logos, spacing; all forms get shared input styles (`src/pages/admin/admin.css`)
+
+**Search engines & sharing**
+- Per-page titles/descriptions/canonical (`src/utils/seo.js`), Open Graph preview image, structured data, `robots.txt`, database-generated `/sitemap.xml`
+
+**Fixes**
+- Cloudflare Web Analytics never recorded anything (broken `data-cf-beacon` attribute) — fixed
+- Production Nginx: added `/uploads/` (uploaded photos 404'd) and 6 MB upload limit (was 1 MB)
+
+**Server / security**
+- Nightly DB + uploads backup, 14 days kept (`scripts/backup.sh`, cron 03:00 PH); test-restored OK
+- API listens on 127.0.0.1 only; UFW firewall on (22/80/443 only)
+
 ## 2026-08-24 — Team logos, real schedule, standings script
 
 **Team logos**
