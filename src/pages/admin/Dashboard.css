@@ -66,8 +66,6 @@
   background: var(--accent);
   border-color: var(--accent);
   color: var(--accent-text);
-  font-size: 26px;
-  line-height: 1;
 }
 
 .dash-action-title {

@@ -1,5 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import TeamBadge from '../../components/TeamBadge.vue'
+import './admin.css'
 
 const teams = ref([])
 
@@ -11,13 +13,13 @@ onMounted(async () => {
 
 <template>
   <div class="container">
-    <router-link to="/admin">&larr; Back to Dashboard</router-link>
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px">
-      <h1 class="section-title" style="font-size: 24px">Teams</h1>
-      <router-link to="/admin/teams/new" class="btn btn-primary">Add Team</router-link>
+    <router-link to="/admin" class="admin-back">&larr; Back to Dashboard</router-link>
+    <div class="admin-list-head">
+      <h1 class="admin-title">Teams</h1>
+      <router-link to="/admin/teams/new" class="btn btn-primary">+ Add Team</router-link>
     </div>
 
-    <div class="card table-scroll">
+    <div class="card table-scroll" style="margin-top: 24px">
       <table>
         <thead>
           <tr>
@@ -29,14 +31,17 @@ onMounted(async () => {
         </thead>
         <tbody>
           <tr v-for="t in teams" :key="t.id">
-            <td style="display: flex; align-items: center; gap: 8px">
-              <span :style="{ background: t.color, width: '14px', height: '14px', borderRadius: '50%', display: 'inline-block' }" />
-              {{ t.name }}
+            <td>
+              <div style="display: flex; align-items: center; gap: 10px; font-weight: 700">
+                <TeamBadge :team="t" :size="28" />
+                {{ t.name }}
+                <span :style="{ background: t.color, width: '10px', height: '10px', borderRadius: '50%' }" :title="t.color" />
+              </div>
             </td>
             <td>{{ t.venue }}</td>
             <td>{{ t.playerIds.length }}</td>
-            <td>
-              <router-link :to="`/admin/teams/${t.id}/edit`" class="btn">Edit</router-link>
+            <td style="text-align: right">
+              <router-link :to="`/admin/teams/${t.id}/edit`" class="btn" style="padding: 6px 12px; font-size: 13px">Edit</router-link>
             </td>
           </tr>
         </tbody>

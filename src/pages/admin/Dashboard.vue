@@ -130,7 +130,11 @@ async function deleteGame(game) {
 
     <nav class="dash-actions">
       <router-link to="/admin/games/new" class="card dash-action dash-action-primary">
-        <span class="dash-action-icon" aria-hidden="true">+</span>
+        <span class="dash-action-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </span>
         <span>
           <span class="dash-action-title">Add Game</span>
           <span class="dash-action-sub">Schedule a new matchup</span>
