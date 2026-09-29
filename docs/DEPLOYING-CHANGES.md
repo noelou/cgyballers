@@ -133,14 +133,66 @@ If you need to add a new column/table:
 Player photos (Edit Player → Choose photo → Save) and team featured
 photos for the home page matchup cards (Edit Team → Featured player
 photo → Save) uploaded through the admin panel are saved on the droplet in `/opt/cgyballers/uploads/`,
-not in git — `git pull` and `npm run build` never touch them, but they
-also aren't backed up anywhere else. Copy them down to your computer now
-and then (run this from PowerShell on your own computer):
-
-```bash
-scp -r root@159.223.81.97:/opt/cgyballers/uploads ./uploads-backup
-```
+not in git — `git pull` and `npm run build` never touch them. They're
+included in the nightly backup (see "Backups" below).
 
 Photos added the old way (files committed under `public/player-photos/`)
 keep working unchanged, as do the original featured photos in
 `public/featured/`.
+
+## Backups
+
+Every night at 03:00 Philippine time (19:00 UTC — the droplet's clock is
+UTC), `scripts/backup.sh` saves:
+
+- the whole database → `/root/backups/cgyballers/db-<date>.dump`
+- the uploaded photos → `/root/backups/cgyballers/uploads-<date>.tar.gz`
+
+and deletes copies older than 14 days. It's scheduled in
+`/etc/cron.d/cgyballers-backup`; each run appends one line to
+`/var/log/cgyballers-backup.log`.
+
+These backups live **on the droplet**, so they cover mistakes (a deleted
+game, an overwritten box score) but not losing the droplet itself. Copy
+the latest ones to your computer now and then (PowerShell, on your own
+computer):
+
+```bash
+scp "root@159.223.81.97:/root/backups/cgyballers/*" ./cgyballers-backups/
+```
+
+**Check it's running:**
+
+```bash
+tail -5 /var/log/cgyballers-backup.log
+ls -lh /root/backups/cgyballers/
+```
+
+**Take one right now** (e.g. before a risky change): `/opt/cgyballers/scripts/backup.sh`
+
+### Restoring
+
+Take a fresh backup first, so the restore itself can be undone. Then, on
+the droplet:
+
+```bash
+cd /opt/cgyballers
+/opt/cgyballers/scripts/backup.sh          # safety copy of the current state
+DB_URL=$(grep '^DATABASE_URL=' .env | cut -d= -f2-)
+pm2 stop cgyballers-api
+pg_restore --clean --if-exists --no-owner -d "$DB_URL" /root/backups/cgyballers/db-YYYY-MM-DD_HHMM.dump
+pm2 start cgyballers-api
+```
+
+Photos: `tar -xzf /root/backups/cgyballers/uploads-YYYY-MM-DD_HHMM.tar.gz -C /opt/cgyballers`
+(restores the whole `uploads/` folder as it was).
+
+To pull back just one game or team without rolling everything back, restore
+the dump into a scratch database instead and copy the rows you need:
+
+```bash
+sudo -u postgres createdb cgyballers_restore
+sudo -u postgres pg_restore --no-owner -d cgyballers_restore /root/backups/cgyballers/db-YYYY-MM-DD_HHMM.dump
+sudo -u postgres psql cgyballers_restore     # look around, copy what you need
+sudo -u postgres dropdb cgyballers_restore   # when done
+```
