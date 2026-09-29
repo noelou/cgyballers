@@ -7,7 +7,8 @@ CREATE TABLE teams (
   name  text NOT NULL,
   color text NOT NULL,
   logo  text,
-  venue text
+  venue text,
+  featured_photo text              -- home page matchup card photo; NULL shows the logo
 );
 
 CREATE TABLE players (

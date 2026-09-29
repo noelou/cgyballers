@@ -1,13 +1,15 @@
 <script setup>
 import { computed } from 'vue'
 import TeamBadge from './TeamBadge.vue'
-import { featuredPhotos } from '../data/featuredPlayers'
 import { formatTime } from '../utils/date'
 
 const props = defineProps({
   game: { type: Object, required: true },
   home: { type: Object, default: null },
   away: { type: Object, default: null },
+  // Featured player photo per side (set in Admin → Teams); none shows the logo.
+  homePhoto: { type: String, default: null },
+  awayPhoto: { type: String, default: null },
 })
 
 const isFinal = computed(() => props.game.status === 'final' || props.game.status === 'forfeit')
@@ -21,11 +23,10 @@ const winnerId = computed(() => {
 })
 
 const sides = computed(() => [
-  { key: 'home', team: props.home, name: props.game.homeName, score: props.game.homeScore },
-  { key: 'away', team: props.away, name: props.game.awayName, score: props.game.awayScore },
+  { key: 'home', team: props.home, name: props.game.homeName, score: props.game.homeScore, photo: props.homePhoto },
+  { key: 'away', team: props.away, name: props.game.awayName, score: props.game.awayScore, photo: props.awayPhoto },
 ].map((s) => ({
   ...s,
-  photo: s.team ? featuredPhotos[s.team.id] : null,
   won: isFinal.value && winnerId.value === props.game[s.key],
 })))
 </script>

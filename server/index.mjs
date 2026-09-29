@@ -26,7 +26,9 @@ const COOKIE_NAME = 'cgyballers_session';
 // production, by Vite's dev proxy locally). Not in git — back it up separately.
 const UPLOAD_DIR = path.resolve(process.env.UPLOAD_DIR || 'uploads');
 const PLAYER_PHOTO_DIR = path.join(UPLOAD_DIR, 'player-photos');
+const FEATURED_PHOTO_DIR = path.join(UPLOAD_DIR, 'featured-photos');
 await mkdir(PLAYER_PHOTO_DIR, { recursive: true });
+await mkdir(FEATURED_PHOTO_DIR, { recursive: true });
 app.use('/uploads', express.static(UPLOAD_DIR, { maxAge: '365d', immutable: true }));
 
 const photoUpload = multer({
@@ -86,7 +88,7 @@ app.get('/api/me', requireAuth, (req, res) => {
 app.get('/api/teams', async (req, res) => {
   const result = await pool.query(`
     SELECT
-      t.id, t.name, t.color, t.logo, t.venue,
+      t.id, t.name, t.color, t.logo, t.venue, t.featured_photo AS "featuredPhoto",
       COALESCE(array_agg(p.id ORDER BY p.id) FILTER (WHERE p.id IS NOT NULL), '{}') AS "playerIds"
     FROM teams t
     LEFT JOIN players p ON p.team_id = t.id
@@ -140,6 +142,57 @@ app.put('/api/teams/:teamId', requireAuth, async (req, res) => {
   );
   if (result.rows.length === 0) return res.status(404).json({ error: 'Team not found' });
   res.json({ id: teamId });
+});
+
+// Only deletes files this server uploaded — the original featured photos in
+// public/featured/ ship with the code and are never removed.
+async function removeUploadedFeaturedPhoto(pic) {
+  if (!pic?.startsWith('/uploads/featured-photos/')) return;
+  await unlink(path.join(FEATURED_PHOTO_DIR, path.basename(pic))).catch(() => {});
+}
+
+// Uploads/replaces a team's featured photo (home page matchup cards).
+// Requires login. Cropped to a 640x640 square to match the card, re-encoded
+// as WebP, timestamped filename so a replaced photo never shows stale.
+app.post('/api/teams/:teamId/featured-photo', requireAuth, (req, res, next) => {
+  photoUpload.single('photo')(req, res, (err) => {
+    if (err?.code === 'LIMIT_FILE_SIZE') return res.status(400).json({ error: 'Photo must be 5 MB or smaller' });
+    if (err) return next(err);
+    next();
+  });
+}, async (req, res) => {
+  const { teamId } = req.params;
+  if (!req.file) return res.status(400).json({ error: 'Choose a JPG, PNG or WebP image' });
+
+  const existing = await pool.query('SELECT featured_photo FROM teams WHERE id = $1', [teamId]);
+  if (existing.rows.length === 0) return res.status(404).json({ error: 'Team not found' });
+
+  const filename = `${teamId}-${Date.now()}.webp`;
+  try {
+    await sharp(req.file.buffer)
+      .rotate() // respect phone EXIF orientation
+      .resize(640, 640, { fit: 'cover' })
+      .webp({ quality: 82 })
+      .toFile(path.join(FEATURED_PHOTO_DIR, filename));
+  } catch {
+    return res.status(400).json({ error: 'That file could not be read as an image' });
+  }
+
+  const featuredPhoto = `/uploads/featured-photos/${filename}`;
+  await pool.query('UPDATE teams SET featured_photo = $1 WHERE id = $2', [featuredPhoto, teamId]);
+  await removeUploadedFeaturedPhoto(existing.rows[0].featured_photo);
+  res.json({ featuredPhoto });
+});
+
+// Removes a team's featured photo (the card falls back to the logo). Requires login.
+app.delete('/api/teams/:teamId/featured-photo', requireAuth, async (req, res) => {
+  const { teamId } = req.params;
+  const existing = await pool.query('SELECT featured_photo FROM teams WHERE id = $1', [teamId]);
+  if (existing.rows.length === 0) return res.status(404).json({ error: 'Team not found' });
+
+  await pool.query('UPDATE teams SET featured_photo = NULL WHERE id = $1', [teamId]);
+  await removeUploadedFeaturedPhoto(existing.rows[0].featured_photo);
+  res.json({ featuredPhoto: null });
 });
 
 app.get('/api/players', async (req, res) => {

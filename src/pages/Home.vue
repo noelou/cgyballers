@@ -32,14 +32,25 @@ const gamesEntry = cachedJson('/api/games', [])
 const standingsEntry = cachedJson('/api/standings', [])
 const playersEntry = cachedJson('/api/players', [])
 const statsEntry = cachedJson('/api/player-stats', {})
+// Only needed for the featured photos (editable in the admin); everything
+// else about a team still comes from teams.json.
+const teamsEntry = cachedJson('/api/teams', [])
 
 const schedule = gamesEntry.data
 const standings = standingsEntry.data
 const players = playersEntry.data
 const playerStats = statsEntry.data
+const featuredPhotoById = computed(() =>
+  Object.fromEntries(teamsEntry.data.value.map((t) => [t.id, t.featuredPhoto]))
+)
 
 const loading = computed(
-  () => !gamesEntry.loaded.value || !standingsEntry.loaded.value || !playersEntry.loaded.value || !statsEntry.loaded.value
+  () =>
+    !gamesEntry.loaded.value ||
+    !standingsEntry.loaded.value ||
+    !playersEntry.loaded.value ||
+    !statsEntry.loaded.value ||
+    !teamsEntry.loaded.value
 )
 
 // The next date that still has an unplayed game. All of that day's games
@@ -140,6 +151,8 @@ const leaderRows = computed(() =>
           :game="g"
           :home="teamById[g.home]"
           :away="teamById[g.away]"
+          :home-photo="featuredPhotoById[g.home]"
+          :away-photo="featuredPhotoById[g.away]"
         />
       </div>
       <div v-else class="card gameday-soon">
