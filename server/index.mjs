@@ -595,6 +595,9 @@ app.post('/api/games/:gameId/boxscore', requireAuth, async (req, res) => {
 });
 
 const port = process.env.API_PORT || 3001;
-app.listen(port, () => {
-  console.log(`API server running at http://localhost:${port}`);
+// Loopback only: Nginx (production) and Vite's dev proxy reach the API
+// from the same machine, so there's no reason to expose it to the network.
+const host = process.env.API_HOST || '127.0.0.1';
+app.listen(port, host, () => {
+  console.log(`API server running at http://${host}:${port}`);
 });
