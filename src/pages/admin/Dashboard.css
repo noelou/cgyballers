@@ -1,0 +1,344 @@
+.admin-dash {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Header */
+.dash-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.dash-header .eyebrow {
+  margin-bottom: 4px;
+}
+
+.dash-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.dash-user {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 2px 0 0;
+}
+
+/* Quick-action tiles */
+.dash-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.dash-action {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.dash-action:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+
+.dash-action-icon,
+.dash-action-count {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  font-size: 18px;
+  font-weight: 800;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+}
+
+.dash-action-primary .dash-action-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  font-size: 26px;
+  line-height: 1;
+}
+
+.dash-action-title {
+  display: block;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.dash-action-sub {
+  display: block;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Games header, filter, tabs */
+.dash-games-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.dash-games-head .section-title {
+  margin: 0;
+}
+
+.dash-select {
+  background: var(--bg-elevated);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dash-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.dash-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.dash-tab:hover {
+  color: var(--text);
+}
+
+.dash-tab.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
+.dash-tab-count {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+}
+
+.dash-tab.active .dash-tab-count {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.dash-tab.alert .dash-tab-count {
+  background: var(--loss);
+  color: #fff;
+}
+
+/* Days + game rows */
+.dash-days {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dash-day-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.dash-day-label.today {
+  color: var(--accent-strong);
+}
+
+.dash-day {
+  overflow: hidden;
+}
+
+.dash-game {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 150px auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--border);
+}
+
+.dash-game:first-child {
+  border-top: none;
+}
+
+.dash-game.is-needs {
+  box-shadow: inset 3px 0 0 var(--loss);
+}
+
+.dash-game.is-cancelled .dash-game-teams {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.dash-game-time {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent-strong);
+  white-space: nowrap;
+}
+
+.dash-game-teams {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.dash-team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.dash-team.lost {
+  color: var(--text-dim);
+}
+
+.dash-team-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash-team-score {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.dash-game-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.dash-status {
+  display: inline-flex;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+}
+
+.dash-status-final {
+  color: var(--win);
+  border-color: color-mix(in srgb, var(--win) 40%, transparent);
+  background: color-mix(in srgb, var(--win) 12%, transparent);
+}
+
+.dash-status-forfeit {
+  color: var(--accent-strong);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.dash-status-needs {
+  color: var(--loss);
+  border-color: color-mix(in srgb, var(--loss) 40%, transparent);
+  background: color-mix(in srgb, var(--loss) 12%, transparent);
+}
+
+.dash-game-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.dash-delete {
+  color: var(--loss);
+}
+
+.dash-delete:hover {
+  border-color: var(--loss);
+}
+
+@media (max-width: 900px) {
+  .dash-game {
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+  }
+
+  .dash-game-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .dash-actions {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .dash-action {
+    padding: 14px 16px;
+  }
+
+  .dash-game {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .dash-game-time {
+    grid-column: 1 / -1;
+  }
+
+  .dash-game-meta {
+    align-self: start;
+    justify-content: flex-end;
+  }
+
+  .dash-game-actions {
+    flex-wrap: wrap;
+  }
+
+  .dash-game-actions .btn {
+    flex: 1;
+  }
+}
