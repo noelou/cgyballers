@@ -170,6 +170,9 @@ ls -lh /root/backups/cgyballers/
 
 **Take one right now** (e.g. before a risky change): `/opt/cgyballers/scripts/backup.sh`
 
+The first backup was test-restored into a scratch database on 2026-09-29
+and matched the live data row for row.
+
 ### Restoring
 
 Take a fresh backup first, so the restore itself can be undone. Then, on
@@ -192,7 +195,8 @@ the dump into a scratch database instead and copy the rows you need:
 
 ```bash
 sudo -u postgres createdb cgyballers_restore
-sudo -u postgres pg_restore --no-owner -d cgyballers_restore /root/backups/cgyballers/db-YYYY-MM-DD_HHMM.dump
+# "<" so root reads the file — the postgres user can't open files in /root
+sudo -u postgres pg_restore --no-owner -d cgyballers_restore < /root/backups/cgyballers/db-YYYY-MM-DD_HHMM.dump
 sudo -u postgres psql cgyballers_restore     # look around, copy what you need
 sudo -u postgres dropdb cgyballers_restore   # when done
 ```
