@@ -79,10 +79,14 @@ server {
         client_max_body_size 6m;
     }
 
-    # Admin-uploaded files (player photos), stored in /opt/cgyballers/uploads
-    # and served by the API. Not in git — back this folder up separately.
+    # Admin-uploaded files (player + team featured photos), stored in
+    # /opt/cgyballers/uploads. Not in git — back this folder up separately.
+    # Without this block, /uploads/... falls through to index.html and
+    # uploaded photos never show. Filenames are timestamped, so cache forever.
     location /uploads/ {
-        proxy_pass http://localhost:3001;
+        alias /opt/cgyballers/uploads/;
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=31536000, immutable";
     }
 
     # index.html must always be revalidated: it points at the current
