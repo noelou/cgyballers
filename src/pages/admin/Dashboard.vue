@@ -21,7 +21,7 @@ onMounted(async () => {
 
 // Most recently played/scheduled first, so today's game is easy to find.
 const sortedGames = computed(() =>
-  [...games.value].sort((a, b) => b.date.localeCompare(a.date) || b.time.localeCompare(a.time))
+  [...games.value].sort((a, b) => b.date.localeCompare(a.date) || (b.time ?? '').localeCompare(a.time ?? ''))
 )
 
 async function logout() {

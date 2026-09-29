@@ -19,7 +19,7 @@ const filtered = computed(() => {
   return schedule.value
     .filter((g) => teamFilter.value === 'all' || g.home === teamFilter.value || g.away === teamFilter.value)
     .filter((g) => statusFilter.value === 'all' || g.status === statusFilter.value)
-    .sort((a, b) => b.date.localeCompare(a.date) || a.time.localeCompare(b.time))
+    .sort((a, b) => b.date.localeCompare(a.date) || (a.time ?? '').localeCompare(b.time ?? ''))
 })
 
 const grouped = computed(() => {
