@@ -7,6 +7,8 @@ import { cachedJson } from '../data/apiCache'
 const standingsEntry = cachedJson('/api/standings', [])
 const standings = standingsEntry.data
 const loading = computed(() => !standingsEntry.loaded.value)
+// Teams the league ruled to the bottom (admin: Edit Team > Rank last).
+const rankedLast = computed(() => standings.value.filter((r) => r.rankedLast))
 </script>
 
 <template>
@@ -37,7 +39,7 @@ const loading = computed(() => !standingsEntry.loaded.value)
                 style="display: flex; align-items: center; gap: 8px; font-weight: 700"
               >
                 <TeamBadge :team="teams.find((t) => t.id === row.team)" :size="24" />
-                {{ row.name }}
+                {{ row.name }}<span v-if="row.rankedLast" style="color: var(--text-muted)">*</span>
               </router-link>
             </td>
             <td>{{ row.gp }}</td>
@@ -47,5 +49,11 @@ const loading = computed(() => !standingsEntry.loaded.value)
         </tbody>
       </table>
     </div>
+
+    <p v-if="!loading && rankedLast.length" class="section-sub" style="margin-top: 12px">
+      * {{ rankedLast.map((r) => r.name).join(', ') }}
+      {{ rankedLast.length === 1 ? 'is' : 'are' }} ranked last by league ruling for backing out,
+      regardless of win&ndash;loss record.
+    </p>
   </div>
 </template>

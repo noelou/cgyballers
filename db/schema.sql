@@ -8,7 +8,8 @@ CREATE TABLE teams (
   color text NOT NULL,
   logo  text,
   venue text,
-  featured_photo text              -- home page matchup card photo; NULL shows the logo
+  featured_photo text,             -- home page matchup card photo; NULL shows the logo
+  ranked_last boolean NOT NULL DEFAULT false  -- league ruling (e.g. backed out of a game): sorted to the bottom of the standings
 );
 
 CREATE TABLE players (

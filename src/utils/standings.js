@@ -9,6 +9,7 @@ export function buildStandings(schedule, teams) {
       team: t.id,
       name: t.name,
       color: t.color,
+      rankedLast: !!t.rankedLast,
       wins: 0,
       losses: 0,
       pf: 0,
@@ -66,7 +67,12 @@ export function buildStandings(schedule, teams) {
   // Match the league's official standings graphic: rank by wins, then by
   // fewest losses. (Not win %, so a 4-1 team ranks above a 3-0 team.)
   // Point differential is only a last-resort tiebreak for teams level on W-L.
-  rows.sort((a, b) => b.wins - a.wins || a.losses - b.losses || b.diff - a.diff)
+  // Teams the league has ruled to the bottom (e.g. for backing out of a
+  // game) sit below everyone regardless of record.
+  rows.sort(
+    (a, b) =>
+      a.rankedLast - b.rankedLast || b.wins - a.wins || a.losses - b.losses || b.diff - a.diff
+  )
 
   const leaderWins = rows[0]?.wins ?? 0
   const leaderLosses = rows[0]?.losses ?? 0

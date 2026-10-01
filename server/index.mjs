@@ -89,6 +89,7 @@ app.get('/api/teams', async (req, res) => {
   const result = await pool.query(`
     SELECT
       t.id, t.name, t.color, t.logo, t.venue, t.featured_photo AS "featuredPhoto",
+      t.ranked_last AS "rankedLast",
       COALESCE(array_agg(p.id ORDER BY p.id) FILTER (WHERE p.id IS NOT NULL), '{}') AS "playerIds"
     FROM teams t
     LEFT JOIN players p ON p.team_id = t.id
@@ -133,12 +134,12 @@ app.post('/api/teams', requireAuth, async (req, res) => {
 // same as editing a player). Requires login.
 app.put('/api/teams/:teamId', requireAuth, async (req, res) => {
   const { teamId } = req.params;
-  const { name, color, logo, venue } = req.body;
+  const { name, color, logo, venue, rankedLast } = req.body;
   if (!name) return res.status(400).json({ error: 'name is required' });
 
   const result = await pool.query(
-    'UPDATE teams SET name = $1, color = $2, logo = $3, venue = $4 WHERE id = $5 RETURNING id',
-    [name, color || null, logo || null, venue || null, teamId]
+    'UPDATE teams SET name = $1, color = $2, logo = $3, venue = $4, ranked_last = $5 WHERE id = $6 RETURNING id',
+    [name, color || null, logo || null, venue || null, !!rankedLast, teamId]
   );
   if (result.rows.length === 0) return res.status(404).json({ error: 'Team not found' });
   res.json({ id: teamId });
@@ -445,7 +446,7 @@ app.put('/api/games/:gameId/status', requireAuth, async (req, res) => {
 
 // Everything standings and the playoff bracket are computed from.
 async function loadStandingsInputs() {
-  const teamsResult = await pool.query('SELECT id, name, color FROM teams');
+  const teamsResult = await pool.query('SELECT id, name, color, ranked_last AS "rankedLast" FROM teams');
   const gamesResult = await pool.query(`
     SELECT
       id, date::text AS date, time, stage,

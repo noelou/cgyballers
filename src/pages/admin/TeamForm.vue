@@ -15,6 +15,7 @@ const color = ref('#3dff9e')
 const logo = ref('')
 const venue = ref('I.S. Covered Court')
 const featuredPhoto = ref('')
+const rankedLast = ref(false)
 const photoFile = ref(null) // new photo chosen, uploaded on Save
 const photoPreview = ref('')
 const removePhoto = ref(false)
@@ -37,6 +38,7 @@ onMounted(async () => {
   logo.value = t.logo ?? ''
   venue.value = t.venue ?? ''
   featuredPhoto.value = t.featuredPhoto ?? ''
+  rankedLast.value = !!t.rankedLast
 })
 
 // What the preview shows: the newly chosen file, else the saved photo.
@@ -84,7 +86,13 @@ async function savePhoto(id) {
 async function submit() {
   saving.value = true
   error.value = ''
-  const payload = { name: name.value, color: color.value, logo: logo.value, venue: venue.value }
+  const payload = {
+    name: name.value,
+    color: color.value,
+    logo: logo.value,
+    venue: venue.value,
+    rankedLast: rankedLast.value,
+  }
   try {
     const res = await fetch(isEdit.value ? `/api/teams/${teamId.value}` : '/api/teams', {
       method: isEdit.value ? 'PUT' : 'POST',
@@ -165,6 +173,17 @@ async function submit() {
           Shown on the home page matchup cards. JPG, PNG or WebP, up to 5 MB, cropped to a square
           automatically. Without one, the card shows the team logo.
           {{ photoFile ? 'Click Save to upload.' : removePhoto ? 'Click Save to remove.' : '' }}
+        </small>
+      </div>
+
+      <div v-if="isEdit" class="admin-field">
+        <label style="display: flex; align-items: center; gap: 8px">
+          <input type="checkbox" v-model="rankedLast" style="width: auto" />
+          Rank last in standings
+        </label>
+        <small>
+          League ruling, e.g. the team backed out of a game. Puts them at the bottom of the
+          standings (and the playoff seeding) no matter their record.
         </small>
       </div>
 
