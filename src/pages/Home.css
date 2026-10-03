@@ -80,7 +80,7 @@
   background: #fff;
 }
 
-.hero-content {
+.hero-banner .hero-content {
   position: relative;
   padding-top: 56px;
   padding-bottom: 56px;
@@ -142,7 +142,7 @@
     bottom: 12px;
   }
 
-  .hero-content {
+  .hero-banner .hero-content {
     padding-top: 8px;
     padding-bottom: 36px;
   }
