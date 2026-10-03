@@ -30,6 +30,15 @@ const grouped = computed(() => {
   })
   return [...map.entries()]
 })
+
+// The losing side of a decided game, dimmed so the winner stands out.
+function lost(g, side) {
+  if (g.status === 'final') {
+    const [mine, theirs] = side === 'home' ? [g.homeScore, g.awayScore] : [g.awayScore, g.homeScore]
+    return mine < theirs
+  }
+  return g.status === 'forfeit' && !!g.winner && g.winner !== g[side]
+}
 </script>
 
 <template>
@@ -65,7 +74,7 @@ const grouped = computed(() => {
           :class="['card schedule-row', g.status === 'cancelled' ? 'schedule-row-cancelled' : '']"
         >
           <div class="schedule-time">{{ formatTime(g.time) }}</div>
-          <div class="schedule-team">
+          <div :class="['schedule-team', lost(g, 'home') ? 'lost' : '']">
             <TeamBadge :team="teamById[g.home]" :size="32" />
             <router-link :to="`/teams/${g.home}`">{{ g.homeName }}</router-link>
             <span
@@ -105,7 +114,7 @@ const grouped = computed(() => {
             <span v-else-if="g.status === 'cancelled'" class="schedule-vs">–</span>
             <span v-else class="schedule-vs">@</span>
           </div>
-          <div class="schedule-team schedule-team-right">
+          <div :class="['schedule-team schedule-team-right', lost(g, 'away') ? 'lost' : '']">
             <TeamBadge :team="teamById[g.away]" :size="32" />
             <router-link :to="`/teams/${g.away}`">{{ g.awayName }}</router-link>
             <span

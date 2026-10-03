@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge.vue'
 import Avatar from '../components/Avatar.vue'
@@ -94,6 +94,42 @@ const recent = computed(() =>
     })
 )
 
+// Hero carousel. `pos` is each photo's object-position so the players stay
+// in frame when the photo is cropped to the banner.
+const HERO_SLIDES = [
+  { src: '/banner/banner-animation/1st.webp', pos: '45% 35%' },
+  { src: '/banner/banner-animation/2nd.webp', pos: '50% 21%' },
+  { src: '/banner/banner-animation/3rd.webp', pos: '50% 27%' },
+  { src: '/banner/banner-animation/4th.webp', pos: '45% 45%' },
+  { src: '/banner/banner-animation/5th.webp', pos: '60% 45%' },
+]
+const SLIDE_MS = 3500
+
+const slide = ref(0)
+let slideTimer = null
+
+function startSlides() {
+  stopSlides()
+  // Respect the OS "reduce motion" setting: show the first photo only.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  slideTimer = setInterval(() => {
+    slide.value = (slide.value + 1) % HERO_SLIDES.length
+  }, SLIDE_MS)
+}
+
+function stopSlides() {
+  clearInterval(slideTimer)
+  slideTimer = null
+}
+
+function goToSlide(i) {
+  slide.value = i
+  startSlides()
+}
+
+onMounted(startSlides)
+onUnmounted(stopSlides)
+
 const topStandings = computed(() => standings.value.slice(0, 5))
 
 const leaderRows = computed(() =>
@@ -104,30 +140,50 @@ const leaderRows = computed(() =>
 </script>
 
 <template>
-  <div class="home-banner">
-    <img src="/banner/banner-1.jpg" alt="CGYBallers" />
-  </div>
+  <section class="hero-banner" @mouseenter="stopSlides" @mouseleave="startSlides">
+    <div class="hero-media">
+      <img
+        v-for="(s, i) in HERO_SLIDES"
+        :key="s.src"
+        :src="s.src"
+        :style="{ objectPosition: s.pos }"
+        :class="['hero-slide', { 'is-active': i === slide }]"
+        :fetchpriority="i === 0 ? 'high' : 'auto'"
+        alt=""
+      />
+      <div class="hero-dots" role="tablist" aria-label="Banner photos">
+        <button
+          v-for="(s, i) in HERO_SLIDES"
+          :key="s.src"
+          type="button"
+          role="tab"
+          :aria-selected="i === slide"
+          :aria-label="`Photo ${i + 1} of ${HERO_SLIDES.length}`"
+          :class="['hero-dot', { 'is-active': i === slide }]"
+          @click="goToSlide(i)"
+        ></button>
+      </div>
+    </div>
 
-  <div class="container">
-    <section class="hero">
-      <span class="eyebrow">Season 4 Amlans Cup</span>
+    <div class="container hero-content">
       <h1 class="sr-only">CGYBallers</h1>
-      <p class="hero-sub">
-        Twelve teams. One league. Follow every score, stat line, and standings shift from the
-        CGYBallers season.
-      </p>
+      <span class="hero-season">Season 4 &middot; Amlans Cup</span>
+      <h2 class="hero-title">CGY Play-In</h2>
+      <p class="hero-sub">8 teams battle in the play-in. The top 4 are already waiting in the quarterfinals.</p>
       <div class="hero-actions">
-        <router-link to="/standings" class="btn btn-primary">View Standings</router-link>
+        <router-link to="/playoffs" class="btn btn-primary">View Playoff Standings</router-link>
         <router-link to="/schedule" class="btn">See Schedule</router-link>
-        <a class="btn btn-fb" :href="FACEBOOK_URL" target="_blank" rel="noopener noreferrer">
+        <a class="btn" :href="FACEBOOK_URL" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
             <path :d="FACEBOOK_ICON" />
           </svg>
           Follow on Facebook
         </a>
       </div>
-    </section>
+    </div>
+  </section>
 
+  <div class="container">
     <div v-if="loading" class="empty-state card">Loading&hellip;</div>
 
     <template v-else>

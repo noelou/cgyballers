@@ -64,6 +64,11 @@
   overflow-wrap: anywhere;
 }
 
+.schedule-team.lost a {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
 .schedule-team-right {
   flex-direction: row-reverse;
   justify-content: flex-start;
@@ -90,8 +95,14 @@
   font-weight: 800;
 }
 
+.schedule-score b {
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
 .schedule-score .win {
   color: var(--accent-strong);
+  font-weight: 800;
 }
 
 .schedule-score-link {
@@ -218,8 +229,8 @@
     flex-shrink: 0;
     padding-left: 10px;
     font-size: 15px;
-    font-weight: 800;
-    color: var(--text-muted);
+    font-weight: 600;
+    color: var(--text-dim);
     font-variant-numeric: tabular-nums;
   }
 
@@ -229,6 +240,7 @@
 
   .schedule-team-score.win {
     color: var(--accent-strong);
+    font-weight: 800;
   }
 
   .schedule-footer {

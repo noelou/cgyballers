@@ -10,9 +10,9 @@
   --text-muted: #9aa2ad;
   --text-dim: #6b7280;
 
-  --accent: #ff6a1a;
-  --accent-strong: #ff8341;
-  --accent-text: #17110b;
+  --accent: #f4f5f7;
+  --accent-strong: #ffffff;
+  --accent-text: #0b0d10;
 
   --win: #3dd66a;
   --loss: #ff4f4f;
@@ -43,6 +43,8 @@
   --text-muted: #5b6270;
   --text-dim: #8a909c;
 
+  --accent: #14171c;
+  --accent-strong: #000000;
   --accent-text: #ffffff;
 
   --win: #1f9d4c;
@@ -180,9 +182,9 @@ button {
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: rgba(255, 106, 26, 0.14);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
   color: var(--accent-strong);
-  border: 1px solid rgba(255, 106, 26, 0.3);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
 }
 
 .btn {
@@ -213,8 +215,8 @@ button {
 }
 
 .btn-primary:hover {
-  background: var(--accent-strong);
-  border-color: var(--accent-strong);
+  background: color-mix(in srgb, var(--accent) 85%, var(--bg));
+  border-color: color-mix(in srgb, var(--accent) 85%, var(--bg));
 }
 
 .grid {

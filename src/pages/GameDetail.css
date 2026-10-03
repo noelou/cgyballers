@@ -40,7 +40,7 @@
 }
 
 .game-detail-team.won .game-detail-team-score {
-  color: var(--win);
+  color: var(--accent-strong);
 }
 
 .game-detail-box-title {

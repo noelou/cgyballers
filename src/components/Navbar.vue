@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useTheme } from '../utils/useTheme'
+import cgyBallSvg from '../../public/logos/cgy-ball.svg?raw'
 import './Navbar.css'
 
 const LINKS = [
@@ -29,17 +30,19 @@ function closeMenu() {
 function toggleMenu() {
   open.value = !open.value
 }
+
+// Inlined so the black half follows the theme's text color (white on dark).
+const brandLogo = cgyBallSvg
+  .replace('fill="#000000"', 'fill="currentColor"')
+  .replace(/ width="\d+" height="\d+"/, '')
 </script>
 
 <template>
   <header class="navbar">
     <div class="container navbar-inner">
       <router-link to="/" class="brand" @click="closeMenu">
-        <img
-          src="/logos/cgyballers_transparent.png"
-          alt="CGY Ballers"
-          class="brand-logo"
-        />
+        <span class="brand-logo" aria-hidden="true" v-html="brandLogo"></span>
+        <span class="brand-name">CGY Ballers</span>
       </router-link>
 
       <div class="navbar-right">
