@@ -95,13 +95,15 @@ const recent = computed(() =>
 )
 
 // Hero carousel. `pos` is each photo's object-position so the players stay
-// in frame when the photo is cropped to the banner.
+// in frame when the photo is cropped to the banner. Optional `zoom` scales a
+// photo up from its left edge, nudging the player right (for portrait photos
+// that already fill the banner's width, where `pos` can't move them sideways).
 const HERO_SLIDES = [
   { src: '/banner/banner-animation/1st.webp', pos: '45% 35%' },
   { src: '/banner/banner-animation/2nd.webp', pos: '50% 21%' },
   { src: '/banner/banner-animation/3rd.webp', pos: '50% 27%' },
   { src: '/banner/banner-animation/4th.webp', pos: '45% 45%' },
-  { src: '/banner/banner-animation/5th.webp', pos: '60% 45%' },
+  { src: '/banner/banner-animation/5th.webp', pos: '50% 5%', zoom: 1.15 },
 ]
 const SLIDE_MS = 3500
 
@@ -146,7 +148,11 @@ const leaderRows = computed(() =>
         v-for="(s, i) in HERO_SLIDES"
         :key="s.src"
         :src="s.src"
-        :style="{ objectPosition: s.pos }"
+        :style="{
+          objectPosition: s.pos,
+          transform: s.zoom ? `scale(${s.zoom})` : null,
+          transformOrigin: s.zoom ? 'left top' : null,
+        }"
         :class="['hero-slide', { 'is-active': i === slide }]"
         :fetchpriority="i === 0 ? 'high' : 'auto'"
         alt=""

@@ -27,6 +27,7 @@
   right: 0;
   bottom: 0;
   width: 64%;
+  overflow: hidden;
 }
 
 /* Fades the photo's left edge into the dark background behind the text. */
