@@ -65,7 +65,13 @@ export function buildBracket(standings, games) {
     const teamId = side.seed ? bySeed[side.seed]?.team : done[side.winnerOf]?.winner
     if (!teamId) return { team: null, seed: null, from: side.winnerOf ?? null }
     const row = standings.find((r) => r.team === teamId)
-    return { team: teamId, name: row?.name ?? teamId, seed: teamSeed[teamId], from: side.winnerOf ?? null }
+    return {
+      team: teamId,
+      name: row?.name ?? teamId,
+      seed: teamSeed[teamId],
+      from: side.winnerOf ?? null,
+      backedOut: !!row?.rankedLast,
+    }
   }
 
   const series = BRACKET.map((def) => {
@@ -85,7 +91,14 @@ export function buildBracket(standings, games) {
             .sort((a, b) => a.date.localeCompare(b.date) || (a.time ?? '').localeCompare(b.time ?? ''))
         : []
 
+    // A team the league ruled out for backing out (Admin > Edit Team > Rank
+    // last) forfeits any series it's in: the opponent advances automatically.
     let winner = null
+    let walkover = false
+    if (top.team && bottom.team && top.backedOut !== bottom.backedOut) {
+      winner = top.backedOut ? bottom.team : top.team
+      walkover = true
+    }
     for (const g of seriesGames) {
       if (winner) break
       const w = gameWinner(g)
@@ -103,6 +116,7 @@ export function buildBracket(standings, games) {
       top,
       bottom,
       winner,
+      walkover,
       games: seriesGames.map((g, i) => ({
         id: g.id,
         number: i + 1,

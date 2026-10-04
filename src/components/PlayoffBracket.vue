@@ -55,6 +55,7 @@ function sideState(s, side) {
 function statusLine(s) {
   if (s.winner) {
     const w = s.top.team === s.winner ? s.top : s.bottom
+    if (s.walkover) return `${w.name} advance — opponent backed out`
     return `${w.name} advance${s.stage === 'final' ? ' — Champions' : ''}`
   }
   if (!s.top.team || !s.bottom.team) return s.formatLabel
