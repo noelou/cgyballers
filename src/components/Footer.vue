@@ -2,17 +2,17 @@
 import './Footer.css'
 
 const SPONSORS = [
-  { src: '/sponsors/kagayan-real-estate.jpg', name: 'Kagayan Real Estate' },
-  { src: '/sponsors/scents-and-stuffs.jpg', name: 'Scents and Stuffs' },
-  { src: '/sponsors/tricon.png', name: 'Tricon Steel' },
-  { src: '/sponsors/madman.png', name: 'Madman Construction Supplies' },
-  { src: '/sponsors/cdo-metal-plus.png', name: 'CDO Metal Plus' },
-  { src: '/sponsors/abaday.png', name: 'Abaday' },
-  { src: '/sponsors/fliq.png', name: 'FLIQ Athletics' },
-  { src: '/sponsors/warlyn.png', name: 'Warlyn' },
-  { src: '/sponsors/ets.png', name: 'EasyDrive Transport Service' },
-  { src: '/sponsors/maranding.jpg', name: 'Maranding Auto Parts' },
-  { src: '/sponsors/amlan.jpg', name: 'Amlan Purified Water' }
+  { src: '/sponsors/kagayan-real-estate.webp', name: 'Kagayan Real Estate' },
+  { src: '/sponsors/scents-and-stuffs.webp', name: 'Scents and Stuffs' },
+  { src: '/sponsors/tricon.webp', name: 'Tricon Steel' },
+  { src: '/sponsors/madman.webp', name: 'Madman Construction Supplies' },
+  { src: '/sponsors/cdo-metal-plus.webp', name: 'CDO Metal Plus' },
+  { src: '/sponsors/abaday.webp', name: 'Abaday' },
+  { src: '/sponsors/fliq.webp', name: 'FLIQ Athletics' },
+  { src: '/sponsors/warlyn.webp', name: 'Warlyn' },
+  { src: '/sponsors/ets.webp', name: 'EasyDrive Transport Service' },
+  { src: '/sponsors/maranding.webp', name: 'Maranding Auto Parts' },
+  { src: '/sponsors/amlan.webp', name: 'Amlan Purified Water' }
 ]
 
 const year = new Date().getFullYear()

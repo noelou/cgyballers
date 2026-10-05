@@ -137,7 +137,7 @@ async function submit() {
       </label>
       <label>
         Logo path
-        <input type="text" v-model="logo" placeholder="/logos/team-name.png" />
+        <input type="text" v-model="logo" placeholder="/logos/team-name.webp" />
       </label>
       <label>
         Venue

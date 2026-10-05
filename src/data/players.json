@@ -27,7 +27,7 @@
     "weightKg": 77,
     "age": 23,
     "experience": "3 yrs",
-    "pic": "/player-photos/jacque-jons-roa.png"
+    "pic": "/player-photos/jacque-jons-roa.webp"
   },
   {
     "id": "jacque-jons-mesa",
@@ -57,7 +57,7 @@
     "weightKg": 99,
     "age": 21,
     "experience": "2 yrs",
-    "pic": "/player-photos/jacque-jons-santos.png"
+    "pic": "/player-photos/jacque-jons-santos.webp"
   },
   {
     "id": "jacque-jons-saarenas",
@@ -147,7 +147,7 @@
     "weightKg": 113,
     "age": 28,
     "experience": "6 yrs",
-    "pic": "/player-photos/jacque-jons-abis.png"
+    "pic": "/player-photos/jacque-jons-abis.webp"
   },
   {
     "id": "jacque-jons-sanchez",
@@ -162,7 +162,7 @@
     "weightKg": 76,
     "age": 31,
     "experience": "8 yrs",
-    "pic": "/player-photos/jacque-jons-sanchez.png"
+    "pic": "/player-photos/jacque-jons-sanchez.webp"
   },
   {
     "id": "jacque-jons-baquial",
@@ -192,7 +192,7 @@
     "weightKg": 92,
     "age": 21,
     "experience": "2 yrs",
-    "pic": "/player-photos/stampede-manigsaca.png"
+    "pic": "/player-photos/stampede-manigsaca.webp"
   },
   {
     "id": "stampede-oca",
@@ -207,7 +207,7 @@
     "weightKg": 89,
     "age": 24,
     "experience": "3 yrs",
-    "pic": "/player-photos/stampede-oca.png"
+    "pic": "/player-photos/stampede-oca.webp"
   },
   {
     "id": "stampede-torres",
@@ -237,7 +237,7 @@
     "weightKg": 89,
     "age": 27,
     "experience": "7 yrs",
-    "pic": "/player-photos/stampede-pana.png"
+    "pic": "/player-photos/stampede-pana.webp"
   },
   {
     "id": "stampede-ellevera",
@@ -252,7 +252,7 @@
     "weightKg": 102,
     "age": 20,
     "experience": "1 yr",
-    "pic": "/player-photos/stampede-ellevera.png"
+    "pic": "/player-photos/stampede-ellevera.webp"
   },
   {
     "id": "stampede-cano",
@@ -297,7 +297,7 @@
     "weightKg": 87,
     "age": 23,
     "experience": "3 yrs",
-    "pic": "/player-photos/stampede-sia.png"
+    "pic": "/player-photos/stampede-sia.webp"
   },
   {
     "id": "stampede-yanez",
@@ -312,7 +312,7 @@
     "weightKg": 89,
     "age": 23,
     "experience": "Rookie",
-    "pic": "/player-photos/stampede-yanez.png"
+    "pic": "/player-photos/stampede-yanez.webp"
   },
   {
     "id": "stampede-cabanez",
@@ -327,7 +327,7 @@
     "weightKg": 124,
     "age": 27,
     "experience": "5 yrs",
-    "pic": "/player-photos/stampede-cabanez.png"
+    "pic": "/player-photos/stampede-cabanez.webp"
   },
   {
     "id": "stampede-maandig",
@@ -342,7 +342,7 @@
     "weightKg": 90,
     "age": 31,
     "experience": "8 yrs",
-    "pic": "/player-photos/stampede-maandig.png"
+    "pic": "/player-photos/stampede-maandig.webp"
   },
   {
     "id": "stampede-ortiz",
@@ -372,7 +372,7 @@
     "weightKg": 89,
     "age": 25,
     "experience": "5 yrs",
-    "pic": "/player-photos/jme-jes-jessie.png"
+    "pic": "/player-photos/jme-jes-jessie.webp"
   },
   {
     "id": "jme-jes-ronald",
@@ -402,7 +402,7 @@
     "weightKg": 93,
     "age": 29,
     "experience": "7 yrs",
-    "pic": "/player-photos/jme-jes-daug.png"
+    "pic": "/player-photos/jme-jes-daug.webp"
   },
   {
     "id": "jme-jes-acaylar",
@@ -417,7 +417,7 @@
     "weightKg": 98,
     "age": 28,
     "experience": "8 yrs",
-    "pic": "/player-photos/jme-jes-acaylar.png"
+    "pic": "/player-photos/jme-jes-acaylar.webp"
   },
   {
     "id": "jme-jes-jarjar",
@@ -432,7 +432,7 @@
     "weightKg": 102,
     "age": 29,
     "experience": "6 yrs",
-    "pic": "/player-photos/jme-jes-jarjar.png"
+    "pic": "/player-photos/jme-jes-jarjar.webp"
   },
   {
     "id": "jme-jes-campos",
@@ -447,7 +447,7 @@
     "weightKg": 70,
     "age": 28,
     "experience": "7 yrs",
-    "pic": "/player-photos/jme-jes-campos.png"
+    "pic": "/player-photos/jme-jes-campos.webp"
   },
   {
     "id": "jme-jes-beja",
@@ -462,7 +462,7 @@
     "weightKg": 76,
     "age": 24,
     "experience": "5 yrs",
-    "pic": "/player-photos/jme-jes-beja.png"
+    "pic": "/player-photos/jme-jes-beja.webp"
   },
   {
     "id": "jme-jes-apollo",
@@ -492,7 +492,7 @@
     "weightKg": 105,
     "age": 22,
     "experience": "2 yrs",
-    "pic": "/player-photos/jme-jes-libres.png"
+    "pic": "/player-photos/jme-jes-libres.webp"
   },
   {
     "id": "jme-jes-arquibel",
@@ -507,7 +507,7 @@
     "weightKg": 103,
     "age": 30,
     "experience": "9 yrs",
-    "pic": "/player-photos/jme-jes-arquibel.png"
+    "pic": "/player-photos/jme-jes-arquibel.webp"
   },
   {
     "id": "jme-jes-sario",
@@ -567,7 +567,7 @@
     "weightKg": 76,
     "age": 30,
     "experience": "8 yrs",
-    "pic": "/player-photos/glq-moreno.png"
+    "pic": "/player-photos/glq-moreno.webp"
   },
   {
     "id": "glq-langreo",
@@ -582,7 +582,7 @@
     "weightKg": 90,
     "age": 24,
     "experience": "2 yrs",
-    "pic": "/player-photos/glq-langreo.png"
+    "pic": "/player-photos/glq-langreo.webp"
   },
   {
     "id": "glq-cordova",
@@ -597,7 +597,7 @@
     "weightKg": 90,
     "age": 32,
     "experience": "9 yrs",
-    "pic": "/player-photos/glq-cordova.png"
+    "pic": "/player-photos/glq-cordova.webp"
   },
   {
     "id": "glq-pasigay",
@@ -612,7 +612,7 @@
     "weightKg": 105,
     "age": 29,
     "experience": "7 yrs",
-    "pic": "/player-photos/glq-pasigay.png"
+    "pic": "/player-photos/glq-pasigay.webp"
   },
   {
     "id": "glq-tuto",
@@ -627,7 +627,7 @@
     "weightKg": 124,
     "age": 25,
     "experience": "5 yrs",
-    "pic": "/player-photos/glq-tuto.png"
+    "pic": "/player-photos/glq-tuto.webp"
   },
   {
     "id": "glq-pcatolerin",
@@ -657,7 +657,7 @@
     "weightKg": 75,
     "age": 24,
     "experience": "2 yrs",
-    "pic": "/player-photos/glq-pantonial.png"
+    "pic": "/player-photos/glq-pantonial.webp"
   },
   {
     "id": "glq-quilala",
@@ -672,7 +672,7 @@
     "weightKg": 104,
     "age": 30,
     "experience": "9 yrs",
-    "pic": "/player-photos/glq-quilala.png"
+    "pic": "/player-photos/glq-quilala.webp"
   },
   {
     "id": "glq-micabani",
@@ -687,7 +687,7 @@
     "weightKg": 103,
     "age": 29,
     "experience": "9 yrs",
-    "pic": "/player-photos/glq-micabani.png"
+    "pic": "/player-photos/glq-micabani.webp"
   },
   {
     "id": "glq-lamberang",
@@ -702,7 +702,7 @@
     "weightKg": 112,
     "age": 21,
     "experience": "Rookie",
-    "pic": "/player-photos/glq-lamberang.png"
+    "pic": "/player-photos/glq-lamberang.webp"
   },
   {
     "id": "glq-repulo",
@@ -717,7 +717,7 @@
     "weightKg": 79,
     "age": 22,
     "experience": "Rookie",
-    "pic": "/player-photos/glq-repulo.png"
+    "pic": "/player-photos/glq-repulo.webp"
   },
   {
     "id": "glq-cahilog",
@@ -762,7 +762,7 @@
     "weightKg": 71,
     "age": 29,
     "experience": "9 yrs",
-    "pic": "/player-photos/a-team-tan.png"
+    "pic": "/player-photos/a-team-tan.webp"
   },
   {
     "id": "a-team-handuman",
@@ -777,7 +777,7 @@
     "weightKg": 92,
     "age": 23,
     "experience": "3 yrs",
-    "pic": "/player-photos/a-team-handuman.png"
+    "pic": "/player-photos/a-team-handuman.webp"
   },
   {
     "id": "a-team-vadehueza",
@@ -792,7 +792,7 @@
     "weightKg": 87,
     "age": 24,
     "experience": "2 yrs",
-    "pic": "/player-photos/a-team-vadehueza.png"
+    "pic": "/player-photos/a-team-vadehueza.webp"
   },
   {
     "id": "a-team-abaday",
@@ -807,7 +807,7 @@
     "weightKg": 99,
     "age": 29,
     "experience": "9 yrs",
-    "pic": "/player-photos/a-team-abaday.png"
+    "pic": "/player-photos/a-team-abaday.webp"
   },
   {
     "id": "a-team-gorit",
@@ -822,7 +822,7 @@
     "weightKg": 114,
     "age": 22,
     "experience": "1 yr",
-    "pic": "/player-photos/a-team-gorit.png"
+    "pic": "/player-photos/a-team-gorit.webp"
   },
   {
     "id": "a-team-aguhar",
@@ -837,7 +837,7 @@
     "weightKg": 88,
     "age": 32,
     "experience": "9 yrs",
-    "pic": "/player-photos/a-team-aguhar.png"
+    "pic": "/player-photos/a-team-aguhar.webp"
   },
   {
     "id": "a-team-naliponguit",
@@ -867,7 +867,7 @@
     "weightKg": 98,
     "age": 23,
     "experience": "1 yr",
-    "pic": "/player-photos/a-team-onico.png"
+    "pic": "/player-photos/a-team-onico.webp"
   },
   {
     "id": "a-team-paasa",
@@ -897,7 +897,7 @@
     "weightKg": 104,
     "age": 28,
     "experience": "7 yrs",
-    "pic": "/player-photos/a-team-arcilla.png"
+    "pic": "/player-photos/a-team-arcilla.webp"
   },
   {
     "id": "a-team-abbu",
@@ -912,7 +912,7 @@
     "weightKg": 114,
     "age": 28,
     "experience": "7 yrs",
-    "pic": "/player-photos/a-team-abbu.png"
+    "pic": "/player-photos/a-team-abbu.webp"
   },
   {
     "id": "a-team-pajo",
@@ -942,7 +942,7 @@
     "weightKg": 90,
     "age": 31,
     "experience": "9 yrs",
-    "pic": "/player-photos/a-team-rodrigo.png"
+    "pic": "/player-photos/a-team-rodrigo.webp"
   },
   {
     "id": "ets-x-rlt-valdez",
@@ -987,7 +987,7 @@
     "weightKg": 90,
     "age": 30,
     "experience": "7 yrs",
-    "pic": "/player-photos/ets-x-rlt-ansin.png"
+    "pic": "/player-photos/ets-x-rlt-ansin.webp"
   },
   {
     "id": "ets-x-rlt-estevez",
@@ -1002,7 +1002,7 @@
     "weightKg": 96,
     "age": 20,
     "experience": "1 yr",
-    "pic": "/player-photos/ets-x-rlt-estevez.png"
+    "pic": "/player-photos/ets-x-rlt-estevez.webp"
   },
   {
     "id": "ets-x-rlt-edades",
@@ -1032,7 +1032,7 @@
     "weightKg": 83,
     "age": 29,
     "experience": "8 yrs",
-    "pic": "/player-photos/ets-x-rlt-tan-awon.png"
+    "pic": "/player-photos/ets-x-rlt-tan-awon.webp"
   },
   {
     "id": "ets-x-rlt-bitoy",
@@ -1047,7 +1047,7 @@
     "weightKg": 94,
     "age": 24,
     "experience": "4 yrs",
-    "pic": "/player-photos/ets-x-rlt-bitoy.png"
+    "pic": "/player-photos/ets-x-rlt-bitoy.webp"
   },
   {
     "id": "ets-x-rlt-tutor",
@@ -1062,7 +1062,7 @@
     "weightKg": 104,
     "age": 19,
     "experience": "Rookie",
-    "pic": "/player-photos/ets-x-rlt-tutor.png"
+    "pic": "/player-photos/ets-x-rlt-tutor.webp"
   },
   {
     "id": "ets-x-rlt-gumera",
@@ -1077,7 +1077,7 @@
     "weightKg": 90,
     "age": 25,
     "experience": "4 yrs",
-    "pic": "/player-photos/ets-x-rlt-gumera.png"
+    "pic": "/player-photos/ets-x-rlt-gumera.webp"
   },
   {
     "id": "ets-x-rlt-pcaudan",
@@ -1692,7 +1692,7 @@
     "weightKg": 85,
     "age": 25,
     "experience": "2 yrs",
-    "pic": "/player-photos/grit-montealegre.png"
+    "pic": "/player-photos/grit-montealegre.webp"
   },
   {
     "id": "grit-estevez",
@@ -1707,7 +1707,7 @@
     "weightKg": 95,
     "age": 29,
     "experience": "8 yrs",
-    "pic": "/player-photos/grit-estevez.png"
+    "pic": "/player-photos/grit-estevez.webp"
   },
   {
     "id": "grit-j-nagac",
@@ -1722,7 +1722,7 @@
     "weightKg": 96,
     "age": 28,
     "experience": "9 yrs",
-    "pic": "/player-photos/grit-j-nagac.png"
+    "pic": "/player-photos/grit-j-nagac.webp"
   },
   {
     "id": "grit-bardos",
@@ -1737,7 +1737,7 @@
     "weightKg": 97,
     "age": 22,
     "experience": "2 yrs",
-    "pic": "/player-photos/grit-bardos.png"
+    "pic": "/player-photos/grit-bardos.webp"
   },
   {
     "id": "grit-amper",
@@ -1752,7 +1752,7 @@
     "weightKg": 99,
     "age": 30,
     "experience": "9 yrs",
-    "pic": "/player-photos/grit-amper.png"
+    "pic": "/player-photos/grit-amper.webp"
   },
   {
     "id": "grit-rey",
@@ -1767,7 +1767,7 @@
     "weightKg": 68,
     "age": 29,
     "experience": "7 yrs",
-    "pic": "/player-photos/grit-rey.png"
+    "pic": "/player-photos/grit-rey.webp"
   },
   {
     "id": "grit-pabualan",
@@ -1812,7 +1812,7 @@
     "weightKg": 99,
     "age": 29,
     "experience": "8 yrs",
-    "pic": "/player-photos/grit-nagac.png"
+    "pic": "/player-photos/grit-nagac.webp"
   },
   {
     "id": "grit-pantolio",
@@ -1827,7 +1827,7 @@
     "weightKg": 116,
     "age": 30,
     "experience": "7 yrs",
-    "pic": "/player-photos/grit-pantolio.png"
+    "pic": "/player-photos/grit-pantolio.webp"
   },
   {
     "id": "grit-aycardo",
@@ -1842,7 +1842,7 @@
     "weightKg": 71,
     "age": 26,
     "experience": "6 yrs",
-    "pic": "/player-photos/grit-aycardo.png"
+    "pic": "/player-photos/grit-aycardo.webp"
   },
   {
     "id": "grit-gacusan",
@@ -1857,7 +1857,7 @@
     "weightKg": 91,
     "age": 30,
     "experience": "8 yrs",
-    "pic": "/player-photos/grit-gacusan.png"
+    "pic": "/player-photos/grit-gacusan.webp"
   },
   {
     "id": "rgb-zees-plantado",
@@ -2067,7 +2067,7 @@
     "weightKg": 71,
     "age": 22,
     "experience": "1 yr",
-    "pic": "/player-photos/young-chow-bayon.png"
+    "pic": "/player-photos/young-chow-bayon.webp"
   },
   {
     "id": "young-chow-gaccion",
@@ -2082,7 +2082,7 @@
     "weightKg": 97,
     "age": 22,
     "experience": "1 yr",
-    "pic": "/player-photos/young-chow-gaccion.png"
+    "pic": "/player-photos/young-chow-gaccion.webp"
   },
   {
     "id": "young-chow-halasan",
@@ -2097,7 +2097,7 @@
     "weightKg": 86,
     "age": 23,
     "experience": "4 yrs",
-    "pic": "/player-photos/young-chow-halasan.png"
+    "pic": "/player-photos/young-chow-halasan.webp"
   },
   {
     "id": "young-chow-goopio",
