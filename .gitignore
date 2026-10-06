@@ -4,3 +4,6 @@ dist
 *.local
 .env
 uploads
+
+# database backups copied from the droplet (live data)
+*.dump

@@ -47,10 +47,15 @@ npm install
 #   JWT_SECRET=<generate via: node -e "console.log(require('crypto').randomBytes(48).toString('hex'))">
 #   NODE_ENV=production
 
-# 7. Build the DB + load data
-node scripts/run-schema.mjs
-node scripts/import-data.mjs
-node scripts/create-user.mjs <admin-username> <admin-password>
+# 7. Build the DB + load data, from the latest backup copied to your computer
+#    (see DEPLOYING-CHANGES.md → Backups; a new droplet has no backups of its own).
+#    From your computer: scp db-YYYY-MM-DD_HHMM.dump root@<droplet-ip>:/root/
+#    The backup creates the tables and includes the admin logins, so no
+#    run-schema.mjs or create-user.mjs is needed.
+DB_URL=$(grep '^DATABASE_URL=' .env | cut -d= -f2-)
+pg_restore --no-owner -d "$DB_URL" /root/db-YYYY-MM-DD_HHMM.dump
+#    (Starting a brand-new league with no data instead? Run
+#    `node scripts/run-schema.mjs`, then `node scripts/create-user.mjs <admin-username> <admin-password>`.)
 
 # 8. Build the frontend
 npm run build

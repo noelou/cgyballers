@@ -94,9 +94,10 @@ try {
 }
 ```
 
-If the import crashes halfway through, a transaction means you get
+If the work crashes halfway through, a transaction means you get
 **nothing** instead of half the data, which is much easier to recover
-from.
+from. The server saves each box score this way, so a game never ends up
+with only some of its players' lines saved.
 
 ## "Upsert": `ON CONFLICT ... DO UPDATE`
 
@@ -108,7 +109,8 @@ ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name
 "Insert this row; if a row with that `id` already exists, update it
 instead." `EXCLUDED` means "the values I was trying to insert." This makes
 a script safe to run twice without creating duplicates, but it also means
-it **overwrites** existing rows (see [`import-data.mjs`](./import-data.md)).
+it **overwrites** existing rows (that's how [`create-user.mjs`](./create-user.md)
+resets a password).
 
 ## `pool.end()`
 

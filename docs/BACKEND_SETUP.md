@@ -110,6 +110,8 @@ node scripts/import-data.mjs
 
 Final result after import: 12 teams, 149 players, 49 games, 777 individual box-score stat lines, and 6 news items — all now living in Postgres instead of scattered JSON files.
 
+*This was a one-time move. `import-data.mjs` and the JSON files it read (`players.json`, `schedule.json`, `boxscores/`) have since been deleted: the database is the only source of truth now. To set up a new database, restore a nightly backup instead (see [`scripts/copy-live-data.md`](./scripts/copy-live-data.md)).*
+
 ## The API server
 
 A browser can't talk to a database directly — there's no driver for it, and the database password would be exposed to anyone visiting the site. So `server/index.mjs`, built with **Express** (a Node.js web framework), sits in between:
@@ -192,7 +194,7 @@ sequenceDiagram
 Every "where is X called" question collapses once this chain is automatic:
 
 - `server/index.mjs` is called by **whoever started the Node process** — `npm run server` locally, `pm2` on the droplet (see `DEPLOYING-CHANGES.md`). It is never `import`ed by other app code; it's the entry point.
-- `scripts/db.mjs` is called by **every file that needs to touch the database** — `server/index.mjs` and the one-off scripts in `scripts/` (`import-data.mjs`, `run-schema.mjs`, `create-user.mjs`, `test-db.mjs`). It exports one shared `pool` so the connection logic exists in exactly one place.
+- `scripts/db.mjs` is called by **every file that needs to touch the database** — `server/index.mjs` and the one-off scripts in `scripts/` (`run-schema.mjs`, `create-user.mjs`, `test-db.mjs`, `push-boxscores.mjs`, ...). It exports one shared `pool` so the connection logic exists in exactly one place.
 - Which actual database `pool` talks to isn't decided by the code at all — it's decided by **which machine `DATABASE_URL` in `.env` points at**, which is why identical code produces different results depending on whether it's running on your PC or the droplet (see `DEPLOYING-CHANGES.md`'s "two separate databases" note).
 
 If you can redraw that diagram from memory and explain the last bullet, you can answer almost any "how does this app work" question about the backend.

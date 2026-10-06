@@ -75,7 +75,7 @@ touched:
 | `package.json` (new dependency added) | `npm install` (before building/restarting) |
 | `.env` (new/changed environment variable) | Don't just `pm2 restart` — it doesn't reliably pick up env changes. Instead: `pm2 kill && pm2 start server/index.mjs --name cgyballers-api && pm2 save` |
 | `db/schema.sql` (new table/column) | No automatic step — see "Database schema changes" below, this needs care |
-| Only data files like `players.json`/`teams.json` | These aren't read by the live site directly (see note below) — a plain rebuild is enough if a frontend page imports them statically; if the change should reach the *database*, you need a manual `UPDATE`/`INSERT`, not a re-import (see below) |
+| `src/data/teams.json` or `news.json` | Some pages import these at build time, so `npm run build`. They don't change the database; data in the database is edited through the admin panel |
 
 When in doubt, it's always safe to run all three:
 ```bash
@@ -98,20 +98,18 @@ matters here.
 
 ## Database schema changes — handle with care
 
-`scripts/run-schema.mjs` and `scripts/import-data.mjs` were only meant
-for the **initial** one-time setup. Do not re-run `import-data.mjs`
-against production once it's live — it upserts based on static JSON
-files (`src/data/*.json`) that no longer reflect reality (production has
-its own game results, statuses, and box scores entered through the admin
-panel that aren't in those files). Re-running it risks silently
-overwriting real season data with stale JSON.
+`scripts/run-schema.mjs` only creates tables in an **empty** database; on
+production it just fails with "already exists". Changing the tables of a
+database that already holds the season's data is a separate, careful job.
+(The old `import-data.mjs` that seeded the database from JSON files has
+been deleted; the database is the only source of truth.)
 
 If you need to add a new column/table:
 1. Write the schema change (`ALTER TABLE ...` etc.) as a one-off SQL
    command.
 2. Test it against your local database first.
-3. Run the *exact same* SQL directly against production via `psql`, not
-   through the import scripts. Example pattern used for a one-off fix:
+3. Run the *exact same* SQL directly against production via `psql`.
+   Example pattern used for a one-off fix:
 
    ```bash
    DB_URL=$(grep '^DATABASE_URL=' .env | cut -d= -f2-)

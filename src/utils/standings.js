@@ -1,5 +1,5 @@
 // Pure function: given a list of games and teams (same shape whether they
-// come from schedule.json/teams.json or a Postgres query), compute the
+// come from the API or a Postgres query), compute the
 // standings table. Shared by the API server (server/index.mjs) so the
 // ranking/tiebreak rules only live in one place.
 export function buildStandings(schedule, teams) {

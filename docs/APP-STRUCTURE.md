@@ -34,7 +34,7 @@ output** — things that get served or copied, not edited as code.
 | `components/` | Small reusable pieces used across multiple pages — `Navbar.vue`, `Footer.vue`, `PlayerCard.vue`, `TeamBadge.vue` |
 | `router/` | `index.js` — the single file mapping every URL path to a page component |
 | `utils/` | Plain JS helper functions — `standings.js`, `playerStats.js`, `date.js` — used by both the pages and the API server, which imports the same files directly |
-| `data/` | Legacy static JSON (`teams.json`, `players.json`, etc.) — mostly superseded by Postgres now; see `BACKEND_SETUP.md` for what still uses it |
+| `data/` | Legacy static JSON still imported by some pages (`teams.json`, `news.json`) plus `apiCache.js`. Everything else lives in Postgres now |
 
 ### Inside `server/` and `scripts/`
 
@@ -43,10 +43,9 @@ output** — things that get served or copied, not edited as code.
 | `server/index.mjs` | The whole API — every `/api/...` route, plus the login/auth logic |
 | `scripts/db.mjs` | Exports the one shared Postgres connection `pool`, built from `DATABASE_URL` in `.env` |
 | `scripts/run-schema.mjs` | One-time: applies `db/schema.sql` to create tables in an empty database |
-| `scripts/import-data.mjs` | One-time: seeds the database from the legacy JSON files (never re-run against production — see `DEPLOYING-CHANGES.md`) |
 | `scripts/create-user.mjs` | Creates an admin login (`node scripts/create-user.mjs <username> <password>`) |
 | `scripts/test-db.mjs` | Manual connectivity check — confirms `pool` can reach Postgres |
-| `scripts/restore-games-boxscores.mjs` | Replaces your **local** games + box scores with a production `pg_dump` (never run on the droplet) |
+| `scripts/push-boxscores.mjs` | Copies box scores entered and checked locally up to the live site, through the live API |
 
 Each of these is explained line by line in [`docs/scripts/`](./scripts/README.md), one page per script.
 

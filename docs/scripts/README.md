@@ -30,8 +30,7 @@ only when you need that script.
 | [`scripts/test-db.mjs`](./test-db.md) | Checks that Node can reach Postgres | When the API can't connect and you want to know why | Safe (read-only) |
 | [`scripts/run-schema.mjs`](./run-schema.md) | Creates all tables in an **empty** database | Once, when setting up a new database | Safe (fails if tables already exist) |
 | [`scripts/create-user.mjs`](./create-user.md) | Creates an admin login, or resets its password | When someone new needs dashboard access | Safe |
-| [`scripts/import-data.mjs`](./import-data.md) | Copies the old JSON files into the database | Once, when seeding a fresh database | ⚠️ **Overwrites** DB rows with old JSON data |
-| [`scripts/restore-games-boxscores.mjs`](./restore-games-boxscores.md) | Replaces local games + box scores with a production dump | To make your local DB match production | ⚠️ **Deletes** all games and box scores first |
+| [Copy live data to your laptop](./copy-live-data.md) | Not a script: loads last night's backup into your local database with `pg_restore` | New computer, or to make local match live | ⚠️ **Replaces** your whole local database |
 | [`scripts/push-boxscores.mjs`](./push-boxscores.md) | Copies box scores you entered and checked locally up to the live site | After entering games locally (run with `--check` first) | Safe (never replaces a live box score unless you add `--overwrite`) |
 | [`scripts/migrate-images-to-webp.mjs`](./migrate-images-to-webp.md) | Points image paths in the database at the smaller `.webp` files | Once per database, after the `.webp` files arrive | Safe (dry run unless you add `--apply`) |
 | [`scripts/migrate-add-game-stage.mjs`](./migrate-add-game-stage.md) | Adds the `stage` column (playoffs) to an old database | Only if you see `column "stage" does not exist` | Safe (only adds a column) |
@@ -50,17 +49,11 @@ a terminal, from the project root, and it exits when done.
 
 ## Common recipes
 
-**Set up a brand-new local database from scratch**
+**Set up a new computer, or refresh local data from live**
 
-```
-# 1. create an empty database named cgyballers in pgAdmin
-# 2. copy .env.example to .env and fill in your password + a JWT_SECRET
-node scripts/test-db.mjs                  # connection OK?
-node scripts/run-schema.mjs               # create tables
-node scripts/import-data.mjs              # starter teams/players/games from JSON
-node scripts/restore-games-boxscores.mjs prod_games_boxscores.sql   # optional: real current scores
-node scripts/create-user.mjs admin "your-password"                  # a local login
-```
+Follow [Copy live data to your laptop](./copy-live-data.md): copy last
+night's backup down with `scp`, then load it with `pg_restore`. Afterwards,
+`node scripts/test-db.mjs` confirms the connection works.
 
 **Day-to-day local development** (two terminals)
 
