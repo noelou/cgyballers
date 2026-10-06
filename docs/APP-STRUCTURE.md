@@ -33,7 +33,7 @@ output** — things that get served or copied, not edited as code.
 | `pages/admin/` | The login-protected dashboard pages (`Dashboard.vue`, `BoxScoreEntry.vue`, `GameNew.vue`, ...) — lazy-loaded, see below |
 | `components/` | Small reusable pieces used across multiple pages — `Navbar.vue`, `Footer.vue`, `PlayerCard.vue`, `TeamBadge.vue` |
 | `router/` | `index.js` — the single file mapping every URL path to a page component |
-| `utils/` | Plain JS helper functions — `standings.js`, `playerStats.js`, `date.js` — used by both pages and (via a copy of the logic) the API server |
+| `utils/` | Plain JS helper functions — `standings.js`, `playerStats.js`, `date.js` — used by both the pages and the API server, which imports the same files directly |
 | `data/` | Legacy static JSON (`teams.json`, `players.json`, etc.) — mostly superseded by Postgres now; see `BACKEND_SETUP.md` for what still uses it |
 
 ### Inside `server/` and `scripts/`
@@ -46,7 +46,9 @@ output** — things that get served or copied, not edited as code.
 | `scripts/import-data.mjs` | One-time: seeds the database from the legacy JSON files (never re-run against production — see `DEPLOYING-CHANGES.md`) |
 | `scripts/create-user.mjs` | Creates an admin login (`node scripts/create-user.mjs <username> <password>`) |
 | `scripts/test-db.mjs` | Manual connectivity check — confirms `pool` can reach Postgres |
-| `scripts/generate-data.mjs` | Older data-generation script, predates the Postgres move |
+| `scripts/restore-games-boxscores.mjs` | Replaces your **local** games + box scores with a production `pg_dump` (never run on the droplet) |
+
+Each of these is explained line by line in [`docs/scripts/`](./scripts/README.md), one page per script.
 
 ## What executes first? Two different answers, for two different setups
 
@@ -116,6 +118,8 @@ forwarding to the process that was started once, ahead of time, by `pm2`.
 
 ## See also
 
+- [`scripts/`](./scripts/README.md) — every script and `npm run` command
+  explained line by line, with when (and when not) to run each
 - [`BACKEND_SETUP.md`](./BACKEND_SETUP.md) — the backend's internal
   layers (auth, database, endpoints) in depth, plus a request traced
   through every file for one admin action
