@@ -17,7 +17,7 @@ higher-level map: where everything lives, and in what order it runs.
 | `server/` | The Express API (`index.mjs`) — the one long-running backend process | Run directly by Node (`npm run server` locally, `pm2` in production) |
 | `scripts/` | One-off maintenance scripts, not part of the running app | Run manually, by you, from a terminal, when needed |
 | `db/` | `schema.sql` — the database blueprint (tables, columns, foreign keys) | Run once against an empty database via `scripts/run-schema.mjs`; not touched again unless the schema changes |
-| `public/` | Static files served as-is — images (logos, player photos, sponsors), `favicon.svg` | Copied verbatim into `dist/` on build; referenced directly by URL, e.g. `/logos/team.png` |
+| `public/` | Static files served as-is — images (logos, player photos, sponsors), `favicon.svg` | Copied verbatim into `dist/` on build; referenced directly by URL, e.g. `/logos/grit.webp` |
 | `docs/` | Project documentation (this file and its siblings) | Read by humans; never loaded by the running app |
 | `dist/` | **Generated**, not written by hand — Vite's build output | What Nginx actually serves in production; deleted and rebuilt by `npm run build` |
 

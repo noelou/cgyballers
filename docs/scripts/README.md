@@ -32,9 +32,6 @@ only when you need that script.
 | [`scripts/create-user.mjs`](./create-user.md) | Creates an admin login, or resets its password | When someone new needs dashboard access | Safe |
 | [Copy live data to your laptop](./copy-live-data.md) | Not a script: loads last night's backup into your local database with `pg_restore` | New computer, or to make local match live | ⚠️ **Replaces** your whole local database |
 | [`scripts/push-boxscores.mjs`](./push-boxscores.md) | Copies box scores you entered and checked locally up to the live site | After entering games locally (run with `--check` first) | Safe (never replaces a live box score unless you add `--overwrite`) |
-| [`scripts/migrate-images-to-webp.mjs`](./migrate-images-to-webp.md) | Points image paths in the database at the smaller `.webp` files | Once per database, after the `.webp` files arrive | Safe (dry run unless you add `--apply`) |
-| [`scripts/migrate-add-game-stage.mjs`](./migrate-add-game-stage.md) | Adds the `stage` column (playoffs) to an old database | Only if you see `column "stage" does not exist` | Safe (only adds a column) |
-| [`scripts/migrate-add-team-ranked-last.mjs`](./migrate-add-team-ranked-last.md) | Adds the `ranked_last` column to an old database | Only if you see `column "ranked_last" does not exist` | Safe (only adds a column) |
 | [`scripts/backup.sh`](./backup.md) | Nightly backup of the live database and uploaded photos | Automatically every night, on the droplet | Safe (only deletes its own backups older than 14 days) |
 | [`server/index.mjs`](./server.md) | The API server: the one script that keeps running | Via `npm run server` locally, `pm2` in production | — |
 
