@@ -50,8 +50,7 @@ Postgres password (the one in your `.env`).
 ```
 
 **New computer:** first create an empty database named `cgyballers` in
-pgAdmin, and set up `.env` (copy `.env.example`, fill in your password and
-a `JWT_SECRET`). Then run the same command without `--clean --if-exists`:
+pgAdmin, and set up `.env` (copy `.env.example` and fill in your password). Then run the same command without `--clean --if-exists`:
 
 ```
 & "C:\Program Files\PostgreSQL\18\bin\pg_restore.exe" --no-owner -U postgres -d cgyballers db-2026-10-05_1900.dump

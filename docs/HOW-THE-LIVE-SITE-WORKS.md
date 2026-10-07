@@ -105,7 +105,7 @@ check**, **How to undo**.
 - **Where:**
   - database: new `featured_photo` column on the `teams` table
   - uploaded files: `/opt/cgyballers/uploads/featured-photos/` on the droplet
-  - code: `src/pages/admin/TeamForm.vue`, `server/index.mjs`
+  - code: `src/pages/admin/TeamForm.vue`, `server/routes/teams.mjs`
 - **How to check:** upload a photo, save, refresh the Home page.
 - **How to undo:** click **Remove** on the team's edit page; the card goes
   back to showing the team logo.
@@ -148,7 +148,7 @@ check**, **How to undo**.
   find the site.
 - **Where:** `index.html`, `src/utils/seo.js`, `src/router/index.js`,
   `public/robots.txt`, `public/og-image.jpg`, and the `/sitemap.xml` route
-  in `server/index.mjs` (Nginx passes `/sitemap.xml` to the API).
+  in `server/routes/public.mjs` (Nginx passes `/sitemap.xml` to the API).
 - **How to check:** open
   <https://cgyballers.gacs.me/sitemap.xml> and
   <https://cgyballers.gacs.me/robots.txt>; the browser tab title changes as

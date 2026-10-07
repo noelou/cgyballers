@@ -16,7 +16,7 @@ await pool.end();
 ```
 
 **What it's for:** turning an empty database into one with all the tables
-(`teams`, `players`, `games`, `boxscore_lines`, `users`, `news`). The table
+(`teams`, `players`, `games`, `boxscore_lines`, `users`, `sessions`, `news`). The table
 definitions themselves live in `db/schema.sql`; this script only sends that
 file to Postgres.
 

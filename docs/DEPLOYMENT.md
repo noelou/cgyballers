@@ -44,7 +44,6 @@ npm install
 
 # 6. Production .env (create with `nano .env`, see gotcha #2 about verifying it saved)
 #   DATABASE_URL=postgres://postgres:PASSWORD@localhost:5432/cgyballers
-#   JWT_SECRET=<generate via: node -e "console.log(require('crypto').randomBytes(48).toString('hex'))">
 #   NODE_ENV=production
 
 # 7. Build the DB + load data, from the latest backup copied to your computer
@@ -155,13 +154,13 @@ ufw --force enable
    (`ALTER USER postgres WITH PASSWORD '...'`) and `.env` to match.
 
 2. **`nano` over SSH can silently drop pasted content.** Both the Nginx
-   config and `JWT_SECRET`'s value went missing this way — the file got
+   config and a `.env` secret's value went missing this way — the file got
    created, but the paste didn't fully land. Always verify after saving:
    `cat` the file back (fine for non-secret files like Nginx config) or,
    for `.env`, check specific things without printing the whole file:
    ```bash
    cut -d= -f1 .env                                  # which vars exist
-   grep '^JWT_SECRET=' .env | awk -F= '{print length($2)}'   # is it empty?
+   grep '^DATABASE_URL=' .env | awk -F= '{print length($2)}' # is it empty?
    ```
    For editing `.env` remotely going forward, prefer `cat > file << 'EOF' ... EOF`
    (heredoc) over interactive `nano` paste — it's a single shot, no paste

@@ -1,6 +1,6 @@
 // Pure function: given a list of games and teams (same shape whether they
 // come from the API or a Postgres query), compute the
-// standings table. Shared by the API server (server/index.mjs) so the
+// standings table. Shared by the API server (server/routes/public.mjs) so the
 // ranking/tiebreak rules only live in one place.
 export function buildStandings(schedule, teams) {
   const table = {}

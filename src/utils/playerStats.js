@@ -1,7 +1,7 @@
 // Pure function: given a flat list of box-score lines (same shape as rows
 // from the `boxscore_lines` table — { playerId, pts, reb, ast, blk, stl,
 // tpa, tpm, fta, ftm }), compute each player's season averages. Shared by
-// the API server (server/index.mjs) so this logic only lives in one place.
+// the API server (server/routes/public.mjs) so this logic only lives in one place.
 
 function emptyLine() {
   return { gp: 0, pts: 0, reb: 0, ast: 0, blk: 0, stl: 0, tpa: 0, tpm: 0, fta: 0, ftm: 0 }

@@ -1,7 +1,7 @@
 // Pure function: given the standings (from buildStandings) and every game,
 // work out the whole playoff bracket. Seeds come from the standings; who
 // advances comes from games tagged with a playoff `stage`. Shared by the API
-// server (server/index.mjs), like standings.js.
+// server (server/routes/public.mjs), like standings.js.
 
 export const STAGE_LABELS = {
   elimination: 'Elimination Round',

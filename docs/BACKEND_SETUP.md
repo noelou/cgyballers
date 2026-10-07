@@ -148,8 +148,8 @@ How it works, in order:
 
 1. **`users` table** — holds a username and a password hash. There's no public sign-up form; accounts are created directly with `node scripts/create-user.mjs <username> <password>`.
 2. **Password hashing (`bcrypt`)** — the real password is never stored. `bcrypt.hash()` turns it into a one-way scrambled value; even with full database access, the original password can't be recovered from it.
-3. **Logging in** (`POST /api/login`) — checks the submitted password against the stored hash with `bcrypt.compare()`. If it matches, the server signs a **JWT** (JSON Web Token, a small tamper-proof note saying "this is user X") and sends it back as an **httpOnly cookie** — a cookie JavaScript in the browser can't read, but that the browser automatically resends on every request.
-4. **Checking who's logged in** — any protected endpoint runs a small checkpoint function (`requireAuth`) first: it reads that cookie, verifies the token hasn't been tampered with, and only then lets the request through. No valid cookie means an automatic `401 Unauthorized`.
+3. **Logging in** (`POST /api/login`) — checks the submitted password against the stored hash with `bcrypt.compare()`. If it matches, the server makes a long **random session token**, saves a hash of it in the `sessions` table ("this token belongs to user X until next week"), and sends the token back as an **httpOnly cookie** — a cookie JavaScript in the browser can't read, but that the browser automatically resends on every request.
+4. **Checking who's logged in** — any protected endpoint runs a small checkpoint function (`requireAuth`) first: it reads that cookie, looks the token up in `sessions`, and only lets the request through if it's there and not expired. Logging out deletes the row. No valid cookie means an automatic `401 Unauthorized`.
 5. **The dashboard itself** lives at `/admin` in the same Vue app, just behind a login check — no separate project, so it shares all the same styling and tooling, while its code is lazy-loaded so visitors browsing the public site never download any of it.
 
 ## What the dashboard can do now
@@ -182,7 +182,7 @@ sequenceDiagram
   You->>Vue: fills form, clicks Save
   Vue->>API: fetch POST /api/games/:id/boxscore (cookie attached automatically)
   API->>Auth: requireAuth(req, res, next)
-  Auth-->>API: cookie's JWT is valid → next()
+  Auth-->>API: cookie's session found in DB → next()
   API->>Pool: pool.query('INSERT ... ON CONFLICT DO UPDATE ...')
   Pool->>DB: runs SQL over the connection from DATABASE_URL
   DB-->>Pool: rows written

@@ -1,4 +1,4 @@
-# How `server/index.mjs` works: the flow, step by step
+# How the API server works: the flow, step by step
 
 A beginner's guide to **what happens, in what order**, inside the API
 server. It doesn't go line by line. It answers three questions:
@@ -9,24 +9,28 @@ server. It doesn't go line by line. It answers three questions:
    admin save) travel from the browser to the database and back?
 
 Read [`BACKEND_SETUP.md`](./BACKEND_SETUP.md) first if words like
-"Postgres", "API" or "JWT" are new. For a map of the file, see
-[`scripts/server.md`](./scripts/server.md). Keep
-`server/index.mjs` and `db/schema.sql` open next to this doc while you read.
+"Postgres", "API" or "session" are new. For a map of the files, see
+[`scripts/server.md`](./scripts/server.md). Keep the `server/` folder and
+`db/schema.sql` open next to this doc while you read.
 
-## The one idea that makes the file make sense
+The server is split into a few files: `server/index.mjs` (the entry point),
+`server/auth.mjs` (login), `server/uploads.mjs` (photo setup), and one file
+per topic in `server/routes/`.
 
-The file is read **once, top to bottom**, when you run `npm run server`.
+## The one idea that makes the code make sense
+
+The files are read **once, top to bottom**, when you run `npm run server`.
 But most of the code is not *run* at that moment. It is only **registered**.
 
 ```js
-app.get('/api/teams', async (req, res) => { ... });
+router.get('/api/teams', async (req, res) => { ... });
 ```
 
 This line does **not** fetch teams. It tells Express: *"later, whenever
 someone asks for `GET /api/teams`, run this function."* The function body
 runs zero times at startup, and once for every matching request afterwards.
 
-So the file has two phases:
+So the server has two phases:
 
 | Phase | When | What runs |
 | --- | --- | --- |
@@ -42,35 +46,36 @@ cooking happens per order.
 When you type `npm run server` locally (or pm2 starts it on the droplet),
 Node runs these steps in order:
 
-1. **Imports (lines 1–13).** Loads the libraries, plus three of the
-   project's own files:
-   - `pool` from `scripts/db.mjs`: the database connection pool. Importing
-     it also runs `dotenv.config()`, which reads `.env`, so `DATABASE_URL`
-     and `JWT_SECRET` become available as `process.env.*`.
-   - `buildStandings`, `buildBracket`, `buildPlayerStats` from `src/utils/`:
-     the same calculation code the Vue app uses.
-2. **Create the app (line 15).** `const app = express()` makes an empty
-   server with no routes yet.
-3. **Register global middleware (lines 18–20).** These run on *every*
-   request, in this order (see Phase 2).
-4. **Prepare the uploads folder (lines 27–32).** Creates
-   `uploads/player-photos/` and `uploads/featured-photos/` if they're
-   missing, and serves anything inside at `/uploads/...`.
-5. **Configure multer (lines 34–38).** Settings for photo uploads: keep the
-   file in memory, max 5 MB, only JPG/PNG/WebP. Nothing is uploaded yet.
-6. **Define `requireAuth` (lines 43–52).** Just a function definition. It
-   runs later, per request.
-7. **Register every route (lines 54–596).** Each `app.get/post/put/delete`
-   adds one entry to Express's list of routes. Helper functions like
-   `slugify` and `generatePlayerId` are also defined here, to be called
-   later by those routes.
-8. **Start listening (lines 598–604).** `app.listen(3001, '127.0.0.1')`
-   opens the port and prints `API server running at ...`. From here the
-   process **stays alive** and waits. That's why the terminal doesn't
-   return to a prompt.
+1. **`index.mjs` imports everything.** Node loads each imported file
+   once, before any of `index.mjs`'s own code runs:
+   - `uploads.mjs`: creates `uploads/player-photos/` and
+     `uploads/featured-photos/` if they're missing, and configures multer
+     (photo uploads: keep the file in memory, max 5 MB, only
+     JPG/PNG/WebP). Nothing is uploaded yet.
+   - `auth.mjs` and the four files in `routes/`: each makes an
+     `express.Router()` and **registers** its routes on it. Helpers like
+     `readCookie`, `requireAuth`, `slugify` and `generatePlayerId` are
+     defined, to be called later.
+   - Along the way, `pool` from `scripts/db.mjs` (the database connection
+     pool) is loaded. Importing it also runs `dotenv.config()`, which reads
+     `.env`, so `DATABASE_URL` becomes available as
+     `process.env.DATABASE_URL`. And `buildStandings`, `buildBracket`,
+     `buildPlayerStats` come in from `src/utils/`: the same calculation
+     code the Vue app uses.
+2. **Create the app.** `const app = express()` makes an empty server with
+   no routes yet.
+3. **Register global middleware.** `cors`, `express.json` and the
+   `/uploads` static folder. These run on *every* request, in this order
+   (see Phase 2).
+4. **Plug in the routers.** `app.use(authRoutes)`, `app.use(teamRoutes)`,
+   and so on. Now the app knows every route.
+5. **Start listening.** `app.listen(3001, '127.0.0.1')` opens the port and
+   prints `API server running at ...`. From here the process **stays
+   alive** and waits. That's why the terminal doesn't return to a
+   prompt.
 
 > If startup crashes (missing package, syntax error, port 3001 already in
-> use), step 8 never happens and **every** `/api` call fails. That's the
+> use), step 5 never happens and **every** `/api` call fails. That's the
 > "no server, no API" situation.
 
 > Note: the database is **not** contacted at startup. `pg.Pool` connects
@@ -87,8 +92,7 @@ of things registered in Phase 1, **in the order they were registered**:
 flowchart TD
   A[Request arrives on port 3001] --> B["cors()<br/>adds headers so localhost:5173 may call us"]
   B --> C["express.json()<br/>JSON body → req.body"]
-  C --> D["cookieParser()<br/>Cookie header → req.cookies"]
-  D --> E{"URL starts with /uploads?"}
+  C --> E{"URL starts with /uploads?"}
   E -- yes --> F[express.static sends the file. Done.]
   E -- no --> G{"Find the route matching<br/>method + path"}
   G -- none --> H[404 Not Found]
@@ -108,11 +112,11 @@ Things to notice:
   passes it on by calling `next()`. Anything that calls `res.json(...)` or
   `res.status(...).json(...)` ends the request. Nothing after that runs.
 - **`requireAuth` is just another step in the chain.** In
-  `app.post('/api/teams', requireAuth, async (req, res) => {...})`, Express
+  `router.post('/api/teams', requireAuth, async (req, res) => {...})`, Express
   runs `requireAuth` first; only if it calls `next()` does the handler run.
   Remove that word and the route is open to anyone.
 - **`req` is filled in as it travels.** By the time your handler runs,
-  `req.body` (from `express.json`), `req.cookies` (from `cookieParser`),
+  `req.body` (from `express.json`),
   `req.params` (from the `:gameId` part of the URL) and, on protected
   routes, `req.user` (from `requireAuth`) are all ready.
 - **Errors don't crash the server.** This project uses Express 5: if an
@@ -122,7 +126,7 @@ Things to notice:
 
 ### How the request reaches port 3001 at all
 
-The server only listens on `127.0.0.1` (line 601), meaning "this machine
+The server only listens on `127.0.0.1` (end of `index.mjs`), meaning "this machine
 only". The browser never talks to it directly. Something in between
 forwards `/api/...` to it:
 
@@ -143,11 +147,12 @@ No login, no writes. This is the shape of every `GET` route.
    `cachedJson('/api/standings', [])` (`src/data/apiCache.js`), which runs
    `fetch('/api/standings')`.
 2. **Proxy.** Vite or Nginx forwards it to port 3001.
-3. **Middleware.** `cors`, `express.json`, `cookieParser` run. Nothing to
+3. **Middleware.** `cors` and `express.json` run. Nothing to
    do here; the request is passed on.
-4. **Route match.** `app.get('/api/standings', ...)` (line 492). No
+4. **Route match.** `router.get('/api/standings', ...)` in
+   `routes/public.mjs`. No
    `requireAuth`, so the handler runs straight away.
-5. **Database.** `loadStandingsInputs()` (line 448) runs two queries: all
+5. **Database.** `loadStandingsInputs()` (same file) runs two queries: all
    teams, all games.
 6. **Calculation.** `buildStandings(games, teams)` (in
    `src/utils/standings.js`) works out wins, losses and order in plain
@@ -169,7 +174,7 @@ protected route checks.
    `POST /api/login` with `{ username, password }` as JSON and
    `credentials: 'include'` (meaning "accept and store cookies").
 2. **Middleware.** `express.json()` turns the body into `req.body`.
-3. **Handler (line 54).**
+3. **Handler** (`POST /api/login` in `server/auth.mjs`).
    1. Looks up the user: `SELECT * FROM users WHERE username = $1`.
    2. `bcrypt.compare(password, user.password_hash)`. The database never
       stores the real password, only a one-way hash. bcrypt hashes what
@@ -177,39 +182,46 @@ protected route checks.
    3. Wrong user or wrong password → `401 Invalid username or password`.
       (The same message for both, on purpose, so attackers can't learn
       which usernames exist.)
-   4. Correct → `jwt.sign(...)` creates a **token**: a small string saying
-      "user 1, username X, expires in 7 days", signed with `JWT_SECRET`. If
-      anyone edits the token, the signature no longer matches.
+   4. Correct → `crypto.randomBytes(32)` makes a **session token**: 64
+      random characters that mean nothing on their own and can't be
+      guessed. Its SHA-256 hash is saved in the `sessions` table with the
+      user's id and an expiry 7 days away. (Expired rows are deleted here
+      too, so the table doesn't grow forever.)
    5. `res.cookie(...)` tells the browser to store the token in the
       `cgyballers_session` cookie. `httpOnly` means page JavaScript can't
       read it; the browser just sends it back automatically.
 4. **Browser.** `Login.vue` sees `res.ok` and redirects to `/admin`.
 
 From now on, every request this browser sends to the API carries the
-cookie. On a protected route, `requireAuth` (line 43):
+cookie. On a protected route, `requireAuth` (in `auth.mjs`):
 
-1. reads `req.cookies.cgyballers_session` (missing → 401),
-2. runs `jwt.verify(token, JWT_SECRET)` (forged or expired → 401),
-3. puts the decoded `{ sub, username }` on `req.user` and calls `next()`.
+1. calls `readCookie(req, 'cgyballers_session')` to pull the token out of
+   the raw `Cookie` header (missing → 401),
+2. hashes it and looks it up in `sessions`, joined to `users`, where
+   `expires_at > now()` (made up, deleted or expired → 401),
+3. puts the found `{ id, username }` on `req.user` and calls `next()`.
 
-Nothing about the login is stored on the server. The cookie itself is the
-proof. That's why restarting the server doesn't log anyone out, but
-changing `JWT_SECRET` logs **everyone** out.
+The login lives in the **database**, not in the cookie. The cookie is just
+a ticket number. So restarting the server doesn't log anyone out, and
+deleting rows does: one row logs out one device,
+`DELETE FROM sessions WHERE user_id = 2` logs out one person everywhere,
+and `DELETE FROM sessions` logs out everyone.
 
-`/api/logout` just deletes the cookie. `/api/me` is a protected route that
+`/api/logout` deletes this device's row and clears the cookie, so even a
+copy of the old cookie stops working. `/api/me` is a protected route that
 does nothing but return `req.user.username`; the admin pages call it on
 load to ask "am I still logged in?".
 
 ### Flow 3: an admin save (entering a box score)
 
-The most complete flow in the file: auth, validation, several queries and
+The most complete flow in the server: auth, validation, several queries and
 a **transaction**.
 
 1. **Browser.** `src/pages/admin/BoxScoreEntry.vue` sends
    `POST /api/games/g12/boxscore` with
    `{ lines: { "grit-bardos": { pts: 14, reb: 6, ... }, ... } }`.
    The login cookie rides along automatically.
-2. **Middleware → route match** (line 545). `:gameId` in the path becomes
+2. **Middleware → route match** (`routes/games.mjs`). `:gameId` in the path becomes
    `req.params.gameId = 'g12'`.
 3. **`requireAuth`.** Valid cookie → `next()`.
 4. **Handler, checks first:**
@@ -287,7 +299,8 @@ that changes data, give it `requireAuth`.
 ## Try it yourself
 
 1. **Watch the two phases.** Add `console.log('startup')` near the top of
-   the file and `console.log('request!')` inside the `/api/teams` handler.
+   `server/routes/teams.mjs` and `console.log('request!')` inside its
+   `/api/teams` handler.
    Restart the server: `startup` prints once. Open
    `http://localhost:3001/api/teams` a few times: `request!` prints each
    time.
@@ -296,11 +309,12 @@ that changes data, give it `requireAuth`.
    `{"error":"Not logged in"}`. Log in to the admin in your normal window
    and open the same URL through the site (`http://localhost:5173/api/me`):
    you get your username.
-3. **Write a route.** Add this above `app.listen`, restart, and open
+3. **Write a route.** Add this to `server/routes/public.mjs` above
+   `export default router`, restart, and open
    `http://localhost:3001/api/hello`:
 
    ```js
-   app.get('/api/hello', async (req, res) => {
+   router.get('/api/hello', async (req, res) => {
      const result = await pool.query('SELECT COUNT(*)::int AS teams FROM teams');
      res.json({ hello: 'world', teams: result.rows[0].teams });
    });

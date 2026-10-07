@@ -14,7 +14,7 @@ higher-level map: where everything lives, and in what order it runs.
 | Folder | What's in it | Who reads it, and when |
 | --- | --- | --- |
 | `src/` | The Vue app — every page, component, and route the browser shows | Built by Vite into `dist/`; the browser only ever runs the built output, never these files directly |
-| `server/` | The Express API (`index.mjs`) — the one long-running backend process | Run directly by Node (`npm run server` locally, `pm2` in production) |
+| `server/` | The Express API (entry point `index.mjs`, routes in `auth.mjs` and `routes/`) — the one long-running backend process | Run directly by Node (`npm run server` locally, `pm2` in production) |
 | `scripts/` | One-off maintenance scripts, not part of the running app | Run manually, by you, from a terminal, when needed |
 | `db/` | `schema.sql` — the database blueprint (tables, columns, foreign keys) | Run once against an empty database via `scripts/run-schema.mjs`; not touched again unless the schema changes |
 | `public/` | Static files served as-is — images (logos, player photos, sponsors), `favicon.svg` | Copied verbatim into `dist/` on build; referenced directly by URL, e.g. `/logos/grit.webp` |
@@ -40,7 +40,9 @@ output** — things that get served or copied, not edited as code.
 
 | File | Purpose |
 | --- | --- |
-| `server/index.mjs` | The whole API — every `/api/...` route, plus the login/auth logic |
+| `server/index.mjs` | The API's entry point: sets up the app, plugs in the routes, starts listening |
+| `server/auth.mjs` | Login, logout, sessions, and `requireAuth` |
+| `server/routes/` | Every other `/api/...` route, one file per topic (teams, players, games, public) |
 | `scripts/db.mjs` | Exports the one shared Postgres connection `pool`, built from `DATABASE_URL` in `.env` |
 | `scripts/run-schema.mjs` | One-time: applies `db/schema.sql` to create tables in an empty database |
 | `scripts/create-user.mjs` | Creates an admin login (`node scripts/create-user.mjs <username> <password>`) |

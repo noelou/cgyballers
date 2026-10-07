@@ -38,7 +38,7 @@ one. They're separate databases.
 
 **Why `bcrypt.hash`:** the database never stores the real password, only a
 one-way scrambled version (a **hash**). At login, the server hashes what
-was typed and compares the two (`bcrypt.compare` in `server/index.mjs`). If
+was typed and compares the two (`bcrypt.compare` in `server/auth.mjs`). If
 the database ever leaked, the actual passwords still wouldn't. The `10` is
 the "cost": how slow hashing is on purpose, which makes guessing millions of
 passwords impractical.

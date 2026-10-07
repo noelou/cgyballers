@@ -79,6 +79,18 @@ CREATE TABLE users (
   created_at    timestamptz NOT NULL DEFAULT now()
 );
 
+-- One row per login (per person, per device). The cookie holds a random
+-- token; only its SHA-256 hash is stored here. Deleting a row logs that
+-- device out immediately; deleting a user logs them out everywhere.
+CREATE TABLE sessions (
+  token_hash text PRIMARY KEY,
+  user_id    integer NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  expires_at timestamptz NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_sessions_user_id ON sessions(user_id);
+
 CREATE TABLE news (
   id      text PRIMARY KEY,
   title   text NOT NULL,

@@ -2,7 +2,7 @@
 
 A beginner-friendly walkthrough of every script in this project: the
 `npm run ...` commands in `package.json`, each maintenance script in
-`scripts/`, and a tour of the API server (`server/index.mjs`). Each script
+`scripts/`, and a tour of the API server (`server/`). Each script
 has its own page: **what it's for, when to run it, how to run it, what it
 does line by line, and whether it can hurt your data.**
 
@@ -33,7 +33,7 @@ only when you need that script.
 | [Copy live data to your laptop](./copy-live-data.md) | Not a script: loads last night's backup into your local database with `pg_restore` | New computer, or to make local match live | ⚠️ **Replaces** your whole local database |
 | [`scripts/push-boxscores.mjs`](./push-boxscores.md) | Copies box scores you entered and checked locally up to the live site | After entering games locally (run with `--check` first) | Safe (never replaces a live box score unless you add `--overwrite`) |
 | [`scripts/backup.sh`](./backup.md) | Nightly backup of the live database and uploaded photos | Automatically every night, on the droplet | Safe (only deletes its own backups older than 14 days) |
-| [`server/index.mjs`](./server.md) | The API server: the one script that keeps running | Via `npm run server` locally, `pm2` in production | — |
+| [`server/`](./server.md) | The API server: the one script that keeps running (entry point `server/index.mjs`) | Via `npm run server` locally, `pm2` in production | — |
 
 > **Golden rule:** every script that touches the database uses whatever
 > `DATABASE_URL` is in the `.env` file of the folder you run it from.
@@ -69,7 +69,7 @@ node scripts/create-user.mjs their-name "their-password"
 ## See also
 
 - [`SERVER-FLOW.md`](../SERVER-FLOW.md): how a request travels through
-  `server/index.mjs`, step by step, plus a table of every route
+  the API server, step by step, plus a table of every route
 - [`APP-STRUCTURE.md`](../APP-STRUCTURE.md): what each folder is for, and
   what starts first
 - [`BACKEND_SETUP.md`](../BACKEND_SETUP.md): why the backend exists, auth

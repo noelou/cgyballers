@@ -41,7 +41,6 @@ passwords never end up on GitHub. `.env.example` is the committed template.
 | Variable | Used by | Meaning |
 | --- | --- | --- |
 | `DATABASE_URL` | every DB script + the server | Where Postgres is, plus the username/password to log in |
-| `JWT_SECRET` | the server | Secret key used to sign login cookies. Anyone who knows it could forge a login |
 | `API_PORT` | the server (optional) | Port to listen on; defaults to `3001` |
 | `UPLOAD_DIR` | the server (optional) | Where uploaded player photos go; defaults to `./uploads` |
 | `NODE_ENV` | the server | Set to `production` on the droplet so the login cookie requires HTTPS |
