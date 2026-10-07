@@ -182,7 +182,7 @@ to make new ids.
 
 | Section | What it does |
 | --- | --- |
-| `GET /api/player-stats` | Pulls every box-score line and runs `buildPlayerStats` to produce season averages |
+| `GET /api/player-stats` | Pulls every box-score line (with its game's `stage`) and runs `buildPlayerStats` to produce averages. `?phase=elimination` or `?phase=playoffs` limits it to that part of the season; the play-in counts as playoffs (`phaseOfStage` in `src/utils/playoffs.js`). The website always asks for one phase; without `phase`, every game counts |
 | `loadStandingsInputs` | Helper: loads the teams and games that standings and the bracket are computed from |
 | `GET /api/standings` | Runs `buildStandings` on the loaded teams and games |
 | `GET /api/playoffs` | The playoff bracket: `buildBracket`, seeded from the standings and advanced by playoff games |

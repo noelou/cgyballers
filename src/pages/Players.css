@@ -5,6 +5,10 @@
   flex-wrap: wrap;
 }
 
+.players-phase {
+  margin-bottom: 16px;
+}
+
 .players-filters input,
 .players-filters select {
   background: var(--bg-elevated);

@@ -4,8 +4,10 @@ import teams from '../data/teams.json'
 import TeamBadge from '../components/TeamBadge.vue'
 import Avatar from '../components/Avatar.vue'
 import MatchupCard from '../components/MatchupCard.vue'
+import PhaseToggle from '../components/PhaseToggle.vue'
 import { cachedJson } from '../data/apiCache'
-import { buildLeaders, MIN_GP, REBOUND_MIN_GP } from '../utils/leaders'
+import { useStatsPhase } from '../data/statsPhase'
+import { buildLeaders, minGpFor, MIN_GP, REBOUND_MIN_GP } from '../utils/leaders'
 import { formatDate as formatDateLong, formatDateShort as formatDate } from '../utils/date'
 import './Home.css'
 
@@ -31,7 +33,7 @@ const todayStr = [now.getFullYear(), now.getMonth() + 1, now.getDate()]
 const gamesEntry = cachedJson('/api/games', [])
 const standingsEntry = cachedJson('/api/standings', [])
 const playersEntry = cachedJson('/api/players', [])
-const statsEntry = cachedJson('/api/player-stats', {})
+const { phase, hasPlayoffs, stats: playerStats, loaded: statsLoaded } = useStatsPhase()
 // Only needed for the featured photos (editable in the admin); everything
 // else about a team still comes from teams.json.
 const teamsEntry = cachedJson('/api/teams', [])
@@ -39,7 +41,6 @@ const teamsEntry = cachedJson('/api/teams', [])
 const schedule = gamesEntry.data
 const standings = standingsEntry.data
 const players = playersEntry.data
-const playerStats = statsEntry.data
 const featuredPhotoById = computed(() =>
   Object.fromEntries(teamsEntry.data.value.map((t) => [t.id, t.featuredPhoto]))
 )
@@ -49,7 +50,7 @@ const loading = computed(
     !gamesEntry.loaded.value ||
     !standingsEntry.loaded.value ||
     !playersEntry.loaded.value ||
-    !statsEntry.loaded.value ||
+    !statsLoaded.value ||
     !teamsEntry.loaded.value
 )
 
@@ -136,8 +137,15 @@ const topStandings = computed(() => standings.value.slice(0, 5))
 
 const leaderRows = computed(() =>
   LEADER_CATS
-    .map((c) => ({ ...c, top: buildLeaders(players.value, playerStats.value, c.key, 3, c.minGp ?? MIN_GP) }))
+    .map((c) => ({
+      ...c,
+      top: buildLeaders(players.value, playerStats.value, c.key, 3, minGpFor(phase.value, c.minGp ?? MIN_GP)),
+    }))
     .filter((c) => c.top.length > 0)
+)
+
+const leadersSub = computed(() =>
+  phase.value === 'playoffs' ? 'Playoff leaders, play-in included' : 'Elimination round leaders · qualified players only'
 )
 </script>
 
@@ -292,10 +300,16 @@ const leaderRows = computed(() =>
       </div>
     </section>
 
-    <section v-if="leaderRows.length > 0" style="margin-bottom: 20px">
+    <section v-if="leaderRows.length > 0 || hasPlayoffs" style="margin-bottom: 20px">
       <div class="card home-block">
-        <div class="section-title">League Leaders</div>
-        <div class="section-sub">Season leaders &middot; qualified players only</div>
+        <div class="leaders-header">
+          <div>
+            <div class="section-title">League Leaders</div>
+            <div class="section-sub">{{ leadersSub }}</div>
+          </div>
+          <PhaseToggle v-if="hasPlayoffs" v-model="phase" />
+        </div>
+        <p v-if="leaderRows.length === 0" style="color: var(--text-muted)">No stats yet.</p>
         <div class="leader-list">
           <div v-for="c in leaderRows" :key="c.key" class="leader-group">
             <div class="leader-cat">{{ c.label }}</div>

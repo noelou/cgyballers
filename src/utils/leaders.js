@@ -7,6 +7,12 @@ export const MIN_GP = 5
 // Rebounds averages need a bit more sample before the ranking is meaningful.
 export const REBOUND_MIN_GP = 6
 
+// Playoff runs are short (a play-in team may play only once), so any
+// playoff appearance qualifies.
+export const PLAYOFF_MIN_GP = 1
+
+export const minGpFor = (phase, statMinGp = MIN_GP) => (phase === 'playoffs' ? PLAYOFF_MIN_GP : statMinGp)
+
 export function buildLeaders(players, statsByPlayer, statKey, count = 1, minGp = MIN_GP) {
   return players
     .map((p) => ({ p, s: statsByPlayer[p.id] ?? { gp: 0 } }))

@@ -13,6 +13,10 @@ export const STAGE_LABELS = {
 
 export const STAGES = Object.keys(STAGE_LABELS)
 
+// Player stats are split into two phases. The play-in counts as playoffs.
+export const PHASES = ['elimination', 'playoffs']
+export const phaseOfStage = (stage) => (stage === 'elimination' ? 'elimination' : 'playoffs')
+
 // How many wins each side needs. Twice-to-beat: the higher seed (always the
 // `top` side) advances with one win; the lower seed has to win twice.
 const FORMATS = {

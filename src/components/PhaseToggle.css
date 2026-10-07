@@ -1,0 +1,27 @@
+.phase-toggle {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.phase-tab {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.phase-tab:hover {
+  color: var(--text);
+}
+
+.phase-tab.active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}

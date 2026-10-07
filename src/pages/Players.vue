@@ -1,10 +1,12 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import teams from '../data/teams.json'
 import PlayerCard from '../components/PlayerCard.vue'
+import PhaseToggle from '../components/PhaseToggle.vue'
 import { cachedJson } from '../data/apiCache'
-import { getStats, ZERO_STATS } from '../utils/playerStats'
-import { MIN_GP, REBOUND_MIN_GP } from '../utils/leaders'
+import { useStatsPhase } from '../data/statsPhase'
+import { getStats } from '../utils/playerStats'
+import { minGpFor, MIN_GP, REBOUND_MIN_GP } from '../utils/leaders'
 import './Players.css'
 
 const SORTS = {
@@ -13,21 +15,32 @@ const SORTS = {
   apg: { label: 'Assists', short: 'APG', desc: 'assists per game' },
   spg: { label: 'Steals', short: 'SPG', desc: 'steals per game' },
   bpg: { label: 'Blocks', short: 'BPG', desc: 'blocks per game' },
-  tpm: { label: '3-Pointers Made', short: '3PM', desc: 'three-pointers made (season total)' },
+  tpm: { label: '3-Pointers Made', short: '3PM', desc: 'three-pointers made (total)' },
 }
 
 const playersEntry = cachedJson('/api/players', [])
-const statsEntry = cachedJson('/api/player-stats', {})
+const { phase, hasPlayoffs, stats: playerStats, loaded: statsLoaded } = useStatsPhase()
+// For rankedLast (a team that backed out): it never plays in the playoffs,
+// so its players are left out of that tab.
+const teamsEntry = cachedJson('/api/teams', [])
 const players = playersEntry.data
-const playerStats = statsEntry.data
-const loading = computed(() => !playersEntry.loaded.value || !statsEntry.loaded.value)
+const loading = computed(() => !playersEntry.loaded.value || !statsLoaded.value || !teamsEntry.loaded.value)
+
+const backedOut = computed(() => new Set(teamsEntry.data.value.filter((t) => t.rankedLast).map((t) => t.id)))
+const inPhase = (teamId) => phase.value !== 'playoffs' || !backedOut.value.has(teamId)
+const teamOptions = computed(() => teams.filter((t) => inPhase(t.id)))
 
 const query = ref('')
 const teamFilter = ref('all')
 const sortKey = ref('ppg')
 
+watch(phase, () => {
+  if (!inPhase(teamFilter.value)) teamFilter.value = 'all'
+})
+
 const sort = computed(() => SORTS[sortKey.value])
-const minGp = computed(() => sort.value.minGp ?? MIN_GP)
+const minGp = computed(() => minGpFor(phase.value, sort.value.minGp ?? MIN_GP))
+const phaseLabel = computed(() => (phase.value === 'playoffs' ? 'Playoff' : 'Elimination round'))
 
 const filtered = computed(() => {
   const q = query.value.trim().toLowerCase()
@@ -39,6 +52,7 @@ const filtered = computed(() => {
   const matches = players.value
     .filter((p) => (q ? p.name.toLowerCase().includes(q) : true))
     .filter((p) => (teamFilter.value === 'all' ? true : p.team === teamFilter.value))
+    .filter((p) => inPhase(p.team))
 
   return {
     qualified: matches.filter((p) => getStats(playerStats.value, p.id).gp >= minGp.value).sort(bySort),
@@ -54,14 +68,17 @@ const total = computed(() => filtered.value.qualified.length + filtered.value.un
     <span class="eyebrow">Rosters</span>
     <h1 class="section-title" style="font-size: 28px; margin-top: 8px">Players</h1>
     <p class="section-sub">
-      {{ players.length }} players across 12 teams. Leaders ranked by {{ sort.desc }} &middot; min. {{ minGp }} games played.
+      {{ players.length }} players across 12 teams. {{ phaseLabel }} leaders ranked by {{ sort.desc }} &middot;
+      min. {{ minGp }} {{ minGp === 1 ? 'game' : 'games' }} played.
     </p>
+
+    <PhaseToggle v-if="hasPlayoffs" v-model="phase" class="players-phase" />
 
     <div class="players-filters">
       <input type="text" placeholder="Search player name..." v-model="query" />
       <select v-model="teamFilter">
         <option value="all">All Teams</option>
-        <option v-for="t in teams" :key="t.id" :value="t.id">{{ t.name }}</option>
+        <option v-for="t in teamOptions" :key="t.id" :value="t.id">{{ t.name }}</option>
       </select>
       <select v-model="sortKey">
         <option v-for="(s, key) in SORTS" :key="key" :value="key">Sort: {{ s.label }}</option>
@@ -83,7 +100,9 @@ const total = computed(() => filtered.value.qualified.length + filtered.value.un
       </div>
 
       <template v-if="filtered.unqualified.length > 0">
-        <div class="players-section-label">Not yet qualified &middot; under {{ minGp }} games</div>
+        <div class="players-section-label">
+          {{ phase === 'playoffs' ? 'No playoff games yet' : `Not yet qualified · under ${minGp} games` }}
+        </div>
         <div class="grid players-grid players-grid-dim">
           <PlayerCard
             v-for="p in filtered.unqualified"

@@ -276,7 +276,7 @@ a **transaction**.
 | PUT | `/api/games/:gameId/status` | Login | Set final / forfeit / cancelled / scheduled by hand |
 | GET | `/api/games/:gameId/boxscore` | Public | One game, both rosters, saved stat lines |
 | POST | `/api/games/:gameId/boxscore` | Login | Save all stat lines, set the final score |
-| GET | `/api/player-stats` | Public | Season averages, computed from box scores |
+| GET | `/api/player-stats` | Public | Averages computed from box scores; `?phase=elimination` or `?phase=playoffs` (play-in included) |
 | GET | `/api/standings` | Public | Standings, computed from games |
 | GET | `/api/playoffs` | Public | Playoff bracket, computed from standings + games |
 | GET | `/sitemap.xml` | Public | List of pages for Google, built from the database |

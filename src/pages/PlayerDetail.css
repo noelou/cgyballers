@@ -29,6 +29,10 @@
   margin: 0 0 4px;
 }
 
+.player-phase {
+  margin-bottom: 12px;
+}
+
 .player-stat-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));

@@ -3,17 +3,25 @@
 import express from 'express';
 import { pool } from '../../scripts/db.mjs';
 import { buildStandings } from '../../src/utils/standings.js';
-import { buildBracket } from '../../src/utils/playoffs.js';
+import { buildBracket, PHASES, phaseOfStage } from '../../src/utils/playoffs.js';
 import { buildPlayerStats } from '../../src/utils/playerStats.js';
 
 const router = express.Router();
 
+// ?phase=elimination or ?phase=playoffs (play-in included) limits the stats
+// to that part of the season. Without it, every game counts.
 router.get('/api/player-stats', async (req, res) => {
+  const { phase } = req.query;
+  if (phase !== undefined && !PHASES.includes(phase)) {
+    return res.status(400).json({ error: `phase must be one of: ${PHASES.join(', ')}` });
+  }
   const result = await pool.query(`
-    SELECT player_id AS "playerId", pts, reb, ast, blk, stl, tpa, tpm, fta, ftm
-    FROM boxscore_lines
+    SELECT bl.player_id AS "playerId", bl.pts, bl.reb, bl.ast, bl.blk, bl.stl, bl.tpa, bl.tpm, bl.fta, bl.ftm, g.stage
+    FROM boxscore_lines bl
+    JOIN games g ON g.id = bl.game_id
   `);
-  res.json(buildPlayerStats(result.rows));
+  const lines = phase ? result.rows.filter((l) => phaseOfStage(l.stage) === phase) : result.rows;
+  res.json(buildPlayerStats(lines));
 });
 
 // Everything standings and the playoff bracket are computed from.

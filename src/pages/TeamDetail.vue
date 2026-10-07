@@ -4,7 +4,9 @@ import { useRoute } from 'vue-router'
 import teams from '../data/teams.json'
 import Avatar from '../components/Avatar.vue'
 import TeamBadge from '../components/TeamBadge.vue'
+import PhaseToggle from '../components/PhaseToggle.vue'
 import { cachedJson } from '../data/apiCache'
+import { useStatsPhase } from '../data/statsPhase'
 import { getStats } from '../utils/playerStats'
 import { formatDateShort, formatTime } from '../utils/date'
 import { setPageMeta } from '../utils/seo'
@@ -16,13 +18,12 @@ const team = computed(() => teams.find((t) => t.id === route.params.teamId))
 const standingsEntry = cachedJson('/api/standings', [])
 const gamesEntry = cachedJson('/api/games', [])
 const playersEntry = cachedJson('/api/players', [])
-const statsEntry = cachedJson('/api/player-stats', {})
+const { phase, hasPlayoffs, stats: playerStats, eliminationStats, loaded: statsLoaded } = useStatsPhase()
 const standings = standingsEntry.data
 const schedule = gamesEntry.data
 const players = playersEntry.data
-const playerStats = statsEntry.data
 const loading = computed(
-  () => !standingsEntry.loaded.value || !gamesEntry.loaded.value || !playersEntry.loaded.value || !statsEntry.loaded.value
+  () => !standingsEntry.loaded.value || !gamesEntry.loaded.value || !playersEntry.loaded.value || !statsLoaded.value
 )
 
 const roster = computed(() => {
@@ -41,8 +42,13 @@ const games = computed(() => {
     .sort((a, b) => a.date.localeCompare(b.date))
 })
 
+// A team that backed out (rankedLast) has no playoffs, so only its
+// elimination round stats are shown.
+const backedOut = computed(() => !!record.value?.rankedLast)
+const shownPhase = computed(() => (backedOut.value ? 'elimination' : phase.value))
+
 function rosterStats(playerId) {
-  return getStats(playerStats.value, playerId)
+  return getStats(shownPhase.value === 'playoffs' ? playerStats.value : eliminationStats.value, playerId)
 }
 
 function gameRow(g) {
@@ -136,7 +142,10 @@ watchEffect(() => {
       </table>
     </div>
 
-    <div class="section-title" style="font-size: 18px; margin-top: 32px">Roster</div>
+    <div class="roster-header">
+      <div class="section-title" style="font-size: 18px">Roster</div>
+      <PhaseToggle v-if="hasPlayoffs && !backedOut" v-model="phase" />
+    </div>
     <div v-if="loading" class="empty-state card">Loading&hellip;</div>
     <div v-else class="grid team-roster-grid">
       <router-link v-for="p in roster" :key="p.id" :to="`/players/${p.id}`" class="card roster-row">
@@ -144,7 +153,7 @@ watchEffect(() => {
         <div>
           <div class="roster-name">{{ p.name }}</div>
           <div class="roster-meta">
-            {{ rosterStats(p.id).gp ? `${rosterStats(p.id).ppg} PPG` : 'No games' }}
+            {{ rosterStats(p.id).gp ? `${rosterStats(p.id).ppg} PPG` : shownPhase === 'playoffs' ? 'No playoff games' : 'No games' }}
           </div>
         </div>
       </router-link>

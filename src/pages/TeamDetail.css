@@ -17,6 +17,15 @@
   margin: 0;
 }
 
+.roster-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 32px;
+}
+
 .team-roster-grid {
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   margin-top: 16px;
