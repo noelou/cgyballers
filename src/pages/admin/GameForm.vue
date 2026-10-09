@@ -1,11 +1,17 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { STAGE_LABELS } from '../../utils/playoffs'
 import './admin.css'
 
+const route = useRoute()
 const router = useRouter()
+// undefined when adding a new game.
+const gameId = route.params.gameId
+const isEdit = !!gameId
 const teams = ref([])
+// Teams can't change once a box score exists (the server rejects it too).
+const hasBoxscore = ref(false)
 
 const date = ref('')
 const time = ref('')
@@ -17,16 +23,30 @@ const saving = ref(false)
 const error = ref('')
 
 onMounted(async () => {
-  const res = await fetch('/api/teams')
-  teams.value = await res.json()
+  const [teamsRes, gamesRes] = await Promise.all([fetch('/api/teams'), isEdit ? fetch('/api/games') : null])
+  teams.value = await teamsRes.json()
+  if (!isEdit) return
+
+  const g = (await gamesRes.json()).find((game) => game.id === gameId)
+  if (!g) {
+    error.value = 'Game not found'
+    return
+  }
+  date.value = g.date
+  time.value = g.time?.slice(0, 5) ?? ''
+  venue.value = g.venue ?? ''
+  home.value = g.home
+  away.value = g.away
+  stage.value = g.stage ?? 'elimination'
+  hasBoxscore.value = g.hasBoxscore
 })
 
 async function submit() {
   saving.value = true
   error.value = ''
   try {
-    const res = await fetch('/api/games', {
-      method: 'POST',
+    const res = await fetch(isEdit ? `/api/games/${gameId}` : '/api/games', {
+      method: isEdit ? 'PUT' : 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body: JSON.stringify({
@@ -52,7 +72,7 @@ async function submit() {
 <template>
   <div class="container" style="max-width: 420px">
     <router-link to="/admin" class="admin-back">&larr; Back to Dashboard</router-link>
-    <h1 class="admin-title">Add Game</h1>
+    <h1 class="admin-title">{{ isEdit ? 'Edit Game' : 'Add Game' }}</h1>
 
     <form @submit.prevent="submit" class="card admin-form">
       <label>
@@ -75,22 +95,23 @@ async function submit() {
       </label>
       <label>
         Home team
-        <select v-model="home" required>
+        <select v-model="home" required :disabled="hasBoxscore">
           <option value="" disabled>Select team...</option>
           <option v-for="t in teams" :key="t.id" :value="t.id">{{ t.name }}</option>
         </select>
       </label>
       <label>
         Away team
-        <select v-model="away" required>
+        <select v-model="away" required :disabled="hasBoxscore">
           <option value="" disabled>Select team...</option>
           <option v-for="t in teams" :key="t.id" :value="t.id">{{ t.name }}</option>
         </select>
       </label>
+      <p v-if="hasBoxscore" class="admin-hint">Teams are locked because this game already has a box score.</p>
 
       <p v-if="error" class="admin-error">{{ error }}</p>
       <button type="submit" class="btn btn-primary" :disabled="saving">
-        {{ saving ? 'Saving...' : 'Add Game' }}
+        {{ saving ? 'Saving...' : isEdit ? 'Save Changes' : 'Add Game' }}
       </button>
     </form>
   </div>

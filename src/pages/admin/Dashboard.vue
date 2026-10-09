@@ -223,6 +223,7 @@ async function deleteGame(game) {
                 >
                   {{ g.hasBoxscore ? 'Edit' : 'Enter' }} box score
                 </router-link>
+                <router-link :to="`/admin/games/${g.id}/edit`" class="btn btn-sm">Edit game</router-link>
                 <router-link :to="`/admin/games/${g.id}/status`" class="btn btn-sm">Score / status</router-link>
                 <button class="btn btn-sm dash-delete" :aria-label="`Delete ${g.homeName} vs ${g.awayName}`" @click="deleteGame(g)">
                   Delete

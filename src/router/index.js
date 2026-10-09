@@ -57,7 +57,12 @@ const routes = [
   { path: '/teams/:teamId', name: 'team-detail', component: TeamDetail, meta: { seo: { title: 'Team' } } },
   { path: '/admin/login', name: 'admin-login', component: () => import('../pages/admin/Login.vue') },
   { path: '/admin', name: 'admin-dashboard', component: () => import('../pages/admin/Dashboard.vue') },
-  { path: '/admin/games/new', name: 'admin-game-new', component: () => import('../pages/admin/GameNew.vue') },
+  { path: '/admin/games/new', name: 'admin-game-new', component: () => import('../pages/admin/GameForm.vue') },
+  {
+    path: '/admin/games/:gameId/edit',
+    name: 'admin-game-edit',
+    component: () => import('../pages/admin/GameForm.vue'),
+  },
   {
     path: '/admin/games/:gameId/boxscore',
     name: 'admin-boxscore',

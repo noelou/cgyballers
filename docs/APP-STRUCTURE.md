@@ -30,7 +30,7 @@ output** — things that get served or copied, not edited as code.
 | Subfolder | Purpose |
 | --- | --- |
 | `pages/` | One file per route — `Home.vue`, `Schedule.vue`, `Players.vue`, etc. |
-| `pages/admin/` | The login-protected dashboard pages (`Dashboard.vue`, `BoxScoreEntry.vue`, `GameNew.vue`, ...) — lazy-loaded, see below |
+| `pages/admin/` | The login-protected dashboard pages (`Dashboard.vue`, `BoxScoreEntry.vue`, `GameForm.vue`, ...) — lazy-loaded, see below |
 | `components/` | Small reusable pieces used across multiple pages — `Navbar.vue`, `Footer.vue`, `PlayerCard.vue`, `TeamBadge.vue` |
 | `router/` | `index.js` — the single file mapping every URL path to a page component |
 | `utils/` | Plain JS helper functions — `standings.js`, `playerStats.js`, `date.js` — used by both the pages and the API server, which imports the same files directly |

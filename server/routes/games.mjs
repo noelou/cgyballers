@@ -61,6 +61,54 @@ router.post('/api/games', requireAuth, async (req, res) => {
   res.status(201).json({ id });
 });
 
+// Edits a game's schedule details (date, time, venue, teams, stage) — for
+// reschedules or fixing a typo without deleting and re-adding. Requires login.
+router.put('/api/games/:gameId', requireAuth, async (req, res) => {
+  const { gameId } = req.params;
+  const { date, time, venue, home, away, stage = 'elimination' } = req.body;
+
+  if (!date || !time || !home || !away) {
+    return res.status(400).json({ error: 'date, time, home, and away are required' });
+  }
+  if (!STAGES.includes(stage)) {
+    return res.status(400).json({ error: `stage must be one of: ${STAGES.join(', ')}` });
+  }
+  if (home === away) {
+    return res.status(400).json({ error: 'home and away must be different teams' });
+  }
+
+  const gameResult = await pool.query(
+    `SELECT home_team_id AS home, away_team_id AS away,
+            EXISTS (SELECT 1 FROM boxscore_lines bl WHERE bl.game_id = g.id) AS "hasBoxscore"
+     FROM games g WHERE id = $1`,
+    [gameId]
+  );
+  const game = gameResult.rows[0];
+  if (!game) return res.status(404).json({ error: 'Game not found' });
+
+  const teamsChanged = home !== game.home || away !== game.away;
+  // Box score lines belong to the original teams' players, so swapping a
+  // team would leave stats on the wrong game.
+  if (teamsChanged && game.hasBoxscore) {
+    return res.status(400).json({ error: 'This game has a box score — delete it before changing the teams' });
+  }
+
+  const teamsResult = await pool.query('SELECT id FROM teams WHERE id IN ($1, $2)', [home, away]);
+  if (teamsResult.rows.length !== 2) {
+    return res.status(400).json({ error: 'Unknown team' });
+  }
+
+  // A forfeit winner must still be one of the two teams.
+  await pool.query(
+    `UPDATE games SET date = $1, time = $2, venue = $3, home_team_id = $4, away_team_id = $5, stage = $6,
+       winner = CASE WHEN winner IN ($4, $5) THEN winner ELSE NULL END
+     WHERE id = $7`,
+    [date, time, venue || null, home, away, stage, gameId]
+  );
+
+  res.json({ ok: true });
+});
+
 // Removes a game from the schedule. Any box score for it is removed too
 // (boxscore_lines cascades on games.id).
 router.delete('/api/games/:gameId', requireAuth, async (req, res) => {
