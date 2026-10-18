@@ -101,7 +101,7 @@ const recent = computed(() =>
 // that already fill the banner's width, where `pos` can't move them sideways).
 const HERO_SLIDES = [
   { src: '/banner/banner-animation/1st.webp', pos: '45% 35%' },
-  { src: '/banner/banner-animation/2nd.webp', pos: '50% 21%' },
+  { src: '/banner/banner-animation/2nd.webp', pos: '68% 21%' },
   { src: '/banner/banner-animation/3rd.webp', pos: '50% 27%' },
   { src: '/banner/banner-animation/4th.webp', pos: '45% 45%' },
   { src: '/banner/banner-animation/5th.webp', pos: '50% 5%', zoom: 1.15 },
