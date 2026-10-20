@@ -9,6 +9,7 @@ import { cachedJson } from '../data/apiCache'
 import { useStatsPhase } from '../data/statsPhase'
 import { buildLeaders, minGpFor, MIN_GP, REBOUND_MIN_GP } from '../utils/leaders'
 import { formatDate as formatDateLong, formatDateShort as formatDate } from '../utils/date'
+import { STAGE_LABELS } from '../utils/playoffs'
 import './Home.css'
 
 const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61562394387119'
@@ -37,6 +38,7 @@ const { phase, hasPlayoffs, stats: playerStats, loaded: statsLoaded } = useStats
 // Only needed for the featured photos (editable in the admin); everything
 // else about a team still comes from teams.json.
 const teamsEntry = cachedJson('/api/teams', [])
+const bracketEntry = cachedJson('/api/playoffs', { projected: true, ready: false, series: [] })
 
 const schedule = gamesEntry.data
 const standings = standingsEntry.data
@@ -51,7 +53,8 @@ const loading = computed(
     !standingsEntry.loaded.value ||
     !playersEntry.loaded.value ||
     !statsLoaded.value ||
-    !teamsEntry.loaded.value
+    !teamsEntry.loaded.value ||
+    !bracketEntry.loaded.value
 )
 
 // The next date that still has an unplayed game. All of that day's games
@@ -135,6 +138,29 @@ onUnmounted(stopSlides)
 
 const topStandings = computed(() => standings.value.slice(0, 5))
 
+// The second home block shows Standings during the elimination round, then
+// switches to the current playoff round once the seeds are locked. The
+// current round is the first one with an undecided series; when every
+// series is decided, it stays on the Finals and shows the champion.
+const PLAYOFF_ROUNDS = ['playin', 'qf', 'sf', 'final']
+
+const playoffRound = computed(() => {
+  const b = bracketEntry.data.value
+  if (!b.ready || b.projected) return null
+  const byStage = (stage) => b.series.filter((s) => s.stage === stage)
+  const stage = PLAYOFF_ROUNDS.find((st) => byStage(st).some((s) => !s.winner)) ?? 'final'
+  const series = byStage(stage)
+  const final = series[0]
+  return {
+    label: STAGE_LABELS[stage],
+    sub: series[0].format === 'bo3' ? 'Best of 3' : 'Higher seed is twice-to-beat',
+    series,
+    champion: stage === 'final' && final.winner ? (final.top.team === final.winner ? final.top : final.bottom) : null,
+  }
+})
+
+const sideLabel = (side) => side.name ?? `Winner of ${side.from}`
+
 const leaderRows = computed(() =>
   LEADER_CATS
     .map((c) => ({
@@ -182,8 +208,8 @@ const leadersSub = computed(() =>
     <div class="container hero-content">
       <h1 class="sr-only">CGYBallers</h1>
       <span class="hero-season">Season 4 &middot; Amlans Cup</span>
-      <h2 class="hero-title">CGY Play-In</h2>
-      <p class="hero-sub">8 teams battle in the play-in. The top 4 are already waiting in the quarterfinals.</p>
+      <h2 class="hero-title">CGY Semifinals</h2>
+      <p class="hero-sub">4 teams battle for the finals.</p>
       <div class="hero-actions">
         <router-link to="/playoffs" class="btn btn-primary">View Playoff Standings</router-link>
         <router-link to="/schedule" class="btn">See Schedule</router-link>
@@ -240,7 +266,6 @@ const leadersSub = computed(() =>
     <section class="home-grid">
       <div class="card home-block">
         <div class="section-title">Recent Results</div>
-        <div class="section-sub">Latest final scores</div>
         <p v-if="recent.length === 0" style="color: var(--text-muted)">No final scores yet.</p>
         <ul class="result-list">
           <li v-for="g in recent" :key="g.id">
@@ -265,9 +290,38 @@ const leadersSub = computed(() =>
         <router-link to="/schedule" class="see-all">See full schedule &rarr;</router-link>
       </div>
 
-      <div class="card home-block">
+      <div v-if="playoffRound" class="card home-block">
+        <div class="section-title">{{ playoffRound.label }}</div>
+        <div class="section-sub">{{ playoffRound.sub }}</div>
+        <div v-if="playoffRound.champion" class="home-champion">
+          <svg class="home-champion-trophy" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M7 3h10v2h3a1 1 0 0 1 1 1v2a5 5 0 0 1-4.6 5A5 5 0 0 1 13 15.9V18h3a1 1 0 0 1 1 1v2H7v-2a1 1 0 0 1 1-1h3v-2.1A5 5 0 0 1 7.6 13 5 5 0 0 1 3 8V6a1 1 0 0 1 1-1h3V3Zm0 4H5v1a3 3 0 0 0 2 2.8V7Zm10 0v3.8A3 3 0 0 0 19 8V7h-2Z"
+            />
+          </svg>
+          <span>Champion: <b>{{ playoffRound.champion.name }}</b></span>
+        </div>
+        <ul class="series-list">
+          <li v-for="s in playoffRound.series" :key="s.id" class="series">
+            <div
+              v-for="side in [s.top, s.bottom]"
+              :key="side.team ?? side.from"
+              :class="['series-side', { won: s.winner && s.winner === side.team, lost: s.winner && s.winner !== side.team }]"
+            >
+              <span class="series-seed">{{ side.seed ?? '' }}</span>
+              <TeamBadge v-if="side.team" :team="teamById[side.team]" :size="24" />
+              <router-link v-if="side.team" :to="`/teams/${side.team}`" class="series-name">{{ sideLabel(side) }}</router-link>
+              <span v-else class="series-name series-tbd">{{ sideLabel(side) }}</span>
+              <span class="series-wins">{{ side.team ? side.wins : '' }}</span>
+            </div>
+          </li>
+        </ul>
+        <router-link to="/playoffs" class="see-all">Full bracket &rarr;</router-link>
+      </div>
+
+      <div v-else class="card home-block">
         <div class="section-title">Standings</div>
-        <div class="section-sub">Top of the table</div>
         <div class="table-scroll">
           <table>
             <thead>
