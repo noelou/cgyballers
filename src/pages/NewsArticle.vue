@@ -1,11 +1,17 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import news from '../data/news.json'
 import { formatDate } from '../utils/date'
+import { setPageMeta } from '../utils/seo'
 
 const route = useRoute()
 const article = computed(() => news.find((n) => n.id === route.params.newsId))
+
+watchEffect(() => {
+  const a = article.value
+  if (a) setPageMeta({ title: a.title, description: a.excerpt })
+})
 </script>
 
 <template>
@@ -32,5 +38,12 @@ const article = computed(() => news.find((n) => n.id === route.params.newsId))
       {{ formatDate(article.date) }}
     </p>
     <p style="font-size: 16px; color: var(--text-muted); line-height: 1.7">{{ article.body }}</p>
+
+    <div v-if="article.details" class="card" style="padding: 20px; margin-top: 24px">
+      <h2 style="font-size: 16px; font-weight: 800; margin: 0 0 12px">{{ article.detailsTitle }}</h2>
+      <ul style="margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 15px; line-height: 1.9">
+        <li v-for="d in article.details" :key="d">{{ d }}</li>
+      </ul>
+    </div>
   </div>
 </template>

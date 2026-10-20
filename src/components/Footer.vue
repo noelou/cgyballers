@@ -31,8 +31,11 @@ const year = new Date().getFullYear()
       </div>
 
       <div class="footer-bottom">
-        <span class="footer-dim">&copy; {{ year }} CGYBallers League</span>
-        <span class="footer-dim">Built for hoopers, by hoopers.</span>
+        <span class="footer-dim">
+          &copy; {{ year }} CGYBallers League &middot;
+          <router-link to="/about" class="footer-link">About Us</router-link>
+        </span>
+        <span class="footer-dim">Powered by Jan Nagac</span>
       </div>
     </div>
   </footer>

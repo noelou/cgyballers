@@ -53,7 +53,7 @@ router.get('/api/playoffs', async (req, res) => {
 // /sitemap.xml here. Games are only listed once they have a box score —
 // before that their page is empty.
 const SITE_URL = 'https://cgyballers.gacs.me';
-const STATIC_PAGES = ['/', '/schedule', '/standings', '/playoffs', '/players', '/teams'];
+const STATIC_PAGES = ['/', '/schedule', '/standings', '/playoffs', '/players', '/teams', '/history', '/news', '/about'];
 
 router.get('/sitemap.xml', async (req, res) => {
   const [teams, players, games] = await Promise.all([

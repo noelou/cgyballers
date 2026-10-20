@@ -7,12 +7,14 @@ import './Navbar.css'
 
 const LINKS = [
   { to: '/', label: 'Home', end: true },
-  // { to: '/news', label: 'News' }, // hidden for now — pending league sign-off
+  { to: '/news', label: 'News' },
   { to: '/schedule', label: 'Schedule' },
   { to: '/standings', label: 'Standings' },
   { to: '/playoffs', label: 'Playoffs' },
   { to: '/players', label: 'Players' },
   { to: '/teams', label: 'Teams' },
+  { to: '/history', label: 'History' },
+  { to: '/about', label: 'About' },
 ]
 
 const open = ref(false)

@@ -9,9 +9,8 @@ const sorted = computed(() => [...news].sort((a, b) => b.date.localeCompare(a.da
 
 <template>
   <div class="container">
-    <span class="eyebrow">League Wire</span>
-    <h1 class="section-title" style="font-size: 28px; margin-top: 8px">News</h1>
-    <p class="section-sub">Updates, storylines, and headlines from around CGYBallers.</p>
+    <h1 class="section-title" style="font-size: 34px">News</h1>
+    <p class="section-sub">Announcements from the club.</p>
 
     <div class="news-grid">
       <router-link v-for="n in sorted" :key="n.id" :to="`/news/${n.id}`" class="card news-card">

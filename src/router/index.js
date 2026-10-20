@@ -10,18 +10,20 @@ import Players from '../pages/Players.vue'
 import PlayerDetail from '../pages/PlayerDetail.vue'
 import Teams from '../pages/Teams.vue'
 import TeamDetail from '../pages/TeamDetail.vue'
+import History from '../pages/History.vue'
+import About from '../pages/About.vue'
 import NotFound from '../pages/NotFound.vue'
 import { setPageMeta } from '../utils/seo'
 
 const routes = [
   { path: '/', name: 'home', component: Home, meta: { seo: {} } },
-  { path: '/news', name: 'news', component: News, meta: { seo: { title: 'News', noindex: true } } },
   {
-    path: '/news/:newsId',
-    name: 'news-article',
-    component: NewsArticle,
-    meta: { seo: { title: 'News', noindex: true } },
+    path: '/news',
+    name: 'news',
+    component: News,
+    meta: { seo: { title: 'News', description: 'CGYBallers announcements and league news.' } },
   },
+  { path: '/news/:newsId', name: 'news-article', component: NewsArticle, meta: { seo: { title: 'News' } } },
   {
     path: '/schedule',
     name: 'schedule',
@@ -55,6 +57,23 @@ const routes = [
     meta: { seo: { title: 'Teams', description: 'All CGYBallers teams, rosters and records.' } },
   },
   { path: '/teams/:teamId', name: 'team-detail', component: TeamDetail, meta: { seo: { title: 'Team' } } },
+  {
+    path: '/history',
+    name: 'history',
+    component: History,
+    meta: { seo: { title: 'History', description: 'Every CGYBallers league champion, season by season.' } },
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: About,
+    meta: {
+      seo: {
+        title: 'About Us',
+        description: 'CGYBallers is a local basketball club in Cagayan de Oro, with regular games every Wednesday, 5:30 to 8 PM.',
+      },
+    },
+  },
   { path: '/admin/login', name: 'admin-login', component: () => import('../pages/admin/Login.vue') },
   { path: '/admin', name: 'admin-dashboard', component: () => import('../pages/admin/Dashboard.vue') },
   { path: '/admin/games/new', name: 'admin-game-new', component: () => import('../pages/admin/GameForm.vue') },

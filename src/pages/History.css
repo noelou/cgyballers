@@ -1,0 +1,132 @@
+/* One season per row, every photo the same 16:9 shape. */
+.history-grid {
+  grid-template-columns: 1fr;
+  max-width: 820px;
+}
+
+.history-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.history-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.history-photo-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+/* Full-screen photo viewer */
+.history-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 16px 16px;
+  background: rgba(0, 0, 0, 0.92);
+  overflow: auto;
+}
+
+.history-viewer-img {
+  max-width: 100%;
+  max-height: calc(100vh - 110px);
+  cursor: zoom-in;
+}
+
+/* Zoomed: about 2.5x the screen width (capped at the photo's real 2048px),
+   scroll/drag to pan. `margin: auto` keeps the photo reachable from its
+   top-left corner when it's bigger than the screen. */
+.history-viewer.is-zoomed {
+  display: block;
+  padding: 16px;
+}
+
+.history-viewer.is-zoomed .history-viewer-img {
+  display: block;
+  width: min(2048px, 250vw);
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  cursor: zoom-out;
+}
+
+.history-viewer.is-zoomed .history-viewer-hint {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+}
+
+.history-viewer-hint {
+  margin: 12px 0 0;
+  color: #c7ccd4;
+  font-size: 13px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.history-viewer-close {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+}
+
+.history-viewer-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.history-body {
+  padding: 18px;
+}
+
+.history-season {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.history-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.history-trophy {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.history-team {
+  font-weight: 800;
+  font-size: 20px;
+  margin-top: 2px;
+}
