@@ -48,6 +48,7 @@ single server like ours. The main alternatives:
 *before* `systemctl reload nginx`. A typo then can't take the site down.
 
 ## Go deeper
+- [2b. Our Nginx config, line by line](./02b-nginx-config-explained.md) — every instruction explained for beginners
 - [`../DEPLOYMENT.md`](../DEPLOYMENT.md) — the full config with comments
 - [`../STATIC-ASSET-ROUTE-COLLISIONS.md`](../STATIC-ASSET-ROUTE-COLLISIONS.md)
   — a real bug caused by how Nginx matches folders vs. pages
