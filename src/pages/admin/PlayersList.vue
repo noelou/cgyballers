@@ -161,7 +161,7 @@ const addPlayerLink = computed(() =>
 
 .players-team-count {
   padding: 1px 8px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   font-size: 12px;
   font-weight: 700;
   color: var(--text-muted);

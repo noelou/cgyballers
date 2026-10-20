@@ -43,9 +43,8 @@ function lost(g, side) {
 
 <template>
   <div class="container">
-    <span class="eyebrow">Season 4 Amlans Cup</span>
-    <h1 class="section-title" style="font-size: 28px; margin-top: 8px">Schedule</h1>
-    <p class="section-sub">Every matchup on the CGYBallers calendar.</p>
+    <h1 class="section-title" style="font-size: 34px">Schedule</h1>
+    <p class="section-sub">Season 4, Amlans Cup. All games and results.</p>
 
     <div class="schedule-filters">
       <select v-model="teamFilter">

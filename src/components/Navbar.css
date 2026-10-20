@@ -1,10 +1,11 @@
+/* The header uses its own --nav-* colors (index.css): black in both themes. */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: var(--navbar-bg);
+  background: var(--nav-bg);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--nav-border);
 }
 
 .navbar-inner {
@@ -24,7 +25,7 @@
   width: 40px;
   height: 40px;
   display: block;
-  color: var(--text);
+  color: var(--nav-text);
 }
 
 .brand-name {
@@ -32,7 +33,7 @@
   font-size: 19px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--text);
+  color: var(--nav-text);
   white-space: nowrap;
 }
 
@@ -50,7 +51,7 @@
   width: 36px;
   height: 36px;
   background: transparent;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--nav-border);
   border-radius: var(--radius-sm);
   cursor: pointer;
 }
@@ -60,7 +61,7 @@
   width: 16px;
   height: 2px;
   margin: 0 auto;
-  background: var(--text);
+  background: var(--nav-text);
 }
 
 .navbar-right {
@@ -82,38 +83,39 @@
   height: 36px;
   margin-left: 8px;
   background: transparent;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--nav-border);
   border-radius: var(--radius-sm);
-  color: var(--text);
+  color: var(--nav-text);
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .theme-toggle:hover {
-  background: var(--bg-card);
-  border-color: var(--accent);
+  background: var(--nav-hover);
+  border-color: var(--nav-text);
 }
 
 .nav-link {
   padding: 8px 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--nav-muted);
   transition: color 0.15s ease, background 0.15s ease;
 }
 
 .nav-link:hover {
-  color: var(--text);
-  background: var(--bg-card);
+  color: var(--nav-text);
+  background: var(--nav-hover);
 }
 
 .nav-link.is-active {
-  color: var(--accent-text);
-  background: var(--accent);
+  color: var(--nav-active-text);
+  background: var(--nav-active-bg);
 }
 
-@media (max-width: 760px) {
+/* Nine links plus the brand need ~1020px; below that, use the menu button. */
+@media (max-width: 1080px) {
   .nav-toggle {
     display: flex;
   }
@@ -123,8 +125,8 @@
     top: 84px;
     left: 0;
     right: 0;
-    background: var(--bg-elevated);
-    border-bottom: 1px solid var(--border);
+    background: var(--nav-bg-solid);
+    border-bottom: 1px solid var(--nav-border);
     flex-direction: column;
     align-items: stretch;
     padding: 8px 16px 16px;

@@ -25,9 +25,7 @@
   font-size: 14px;
   font-weight: 800;
   color: var(--text-muted);
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  margin-bottom: 10px;
 }
 
 .schedule-day {
@@ -138,11 +136,6 @@
   font-weight: 700;
   font-size: 13px;
   width: max-content;
-}
-
-.schedule-boxscore-btn::after {
-  content: '\203A';
-  font-weight: 900;
 }
 
 .schedule-boxscore-btn:hover {

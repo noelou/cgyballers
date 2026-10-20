@@ -104,7 +104,7 @@
 .bracket-adv {
   flex-shrink: 0;
   padding: 1px 6px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   font-size: 10px;
   font-weight: 800;
   color: var(--accent-strong);
@@ -173,10 +173,8 @@
 }
 
 .bracket-champion-label {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 800;
   color: var(--accent-strong);
 }
 

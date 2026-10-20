@@ -10,10 +10,9 @@ const loading = computed(() => !bracketEntry.loaded.value)
 
 <template>
   <div class="container">
-    <span class="eyebrow">Season 4 Amlans Cup</span>
-    <h1 class="section-title" style="font-size: 28px; margin-top: 8px">Playoffs</h1>
+    <h1 class="section-title" style="font-size: 34px">Playoffs</h1>
     <p class="section-sub">
-      Top 4 go straight to the Quarterfinals. Seeds 5–8 face seeds 9–12 in the Play-In. The higher seed is
+      Season 4, Amlans Cup. Top 4 go straight to the Quarterfinals. Seeds 5–8 face seeds 9–12 in the Play-In. The higher seed is
       twice-to-beat (<b>2×</b>) in both rounds. Semifinals and Finals are best of 3.
     </p>
 

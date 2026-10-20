@@ -6,7 +6,7 @@
 
 .phase-tab {
   padding: 6px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-strong);
   background: transparent;
   color: var(--text-muted);

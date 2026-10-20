@@ -6,10 +6,8 @@
 
 .footer-heading {
   display: block;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--text-dim);
   margin-bottom: 12px;
 }
@@ -54,5 +52,14 @@
 .footer-dim {
   color: var(--text-dim);
   font-size: 14px;
+}
+
+.footer-link {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.footer-link:hover {
+  color: var(--text);
 }
 

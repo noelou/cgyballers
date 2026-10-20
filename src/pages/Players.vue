@@ -65,8 +65,7 @@ const total = computed(() => filtered.value.qualified.length + filtered.value.un
 
 <template>
   <div class="container">
-    <span class="eyebrow">Rosters</span>
-    <h1 class="section-title" style="font-size: 28px; margin-top: 8px">Players</h1>
+    <h1 class="section-title" style="font-size: 34px">Players</h1>
     <p class="section-sub">
       {{ players.length }} players across 12 teams. {{ phaseLabel }} leaders ranked by {{ sort.desc }} &middot;
       min. {{ minGp }} {{ minGp === 1 ? 'game' : 'games' }} played.

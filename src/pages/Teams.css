@@ -7,12 +7,11 @@
   align-items: center;
   gap: 14px;
   padding: 18px;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease;
 }
 
 .team-card:hover {
   border-color: var(--accent);
-  transform: translateY(-2px);
 }
 
 .team-card-name {

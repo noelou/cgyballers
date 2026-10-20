@@ -150,7 +150,7 @@ async function submit() {
             :style="{
               width: '72px',
               height: '72px',
-              borderRadius: '8px',
+              borderRadius: 'var(--radius-md)',
               overflow: 'hidden',
               flexShrink: 0,
               background: color,

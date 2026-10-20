@@ -13,9 +13,8 @@ const rankedLast = computed(() => standings.value.filter((r) => r.rankedLast))
 
 <template>
   <div class="container">
-    <span class="eyebrow">Season 4 Amlans Cup</span>
-    <h1 class="section-title" style="font-size: 28px; margin-top: 8px">Standings</h1>
-    <p class="section-sub">League table.</p>
+    <h1 class="section-title" style="font-size: 34px">Standings</h1>
+    <p class="section-sub">Season 4, Amlans Cup.</p>
 
     <div v-if="loading" class="empty-state card">Loading&hellip;</div>
 

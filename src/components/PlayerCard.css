@@ -1,13 +1,12 @@
 .player-card {
   display: block;
   padding: 18px;
-  transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .player-card:hover {
   border-color: var(--accent);
   background: var(--bg-card-hover);
-  transform: translateY(-2px);
 }
 
 .player-card-top {

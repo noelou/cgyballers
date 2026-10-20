@@ -14,9 +14,8 @@ const loading = computed(() => !teamsEntry.loaded.value || !standingsEntry.loade
 
 <template>
   <div class="container">
-    <span class="eyebrow">League</span>
-    <h1 class="section-title" style="font-size: 28px; margin-top: 8px">Teams</h1>
-    <p class="section-sub">All 12 teams competing this season.</p>
+    <h1 class="section-title" style="font-size: 34px">Teams</h1>
+    <p class="section-sub">The 12 teams of Season 4.</p>
 
     <div v-if="loading" class="empty-state card">Loading&hellip;</div>
 
