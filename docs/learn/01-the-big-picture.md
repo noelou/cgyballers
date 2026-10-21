@@ -21,8 +21,13 @@ everything. Split up, each piece is simpler and can fail on its own.
 
 ## What happens when someone visits
 1. The browser asks for `https://cgyballers.gacs.me`.
-2. The domain points to the droplet's IP address (`159.223.81.97`).
-3. The **firewall** lets the request in (port 443 = HTTPS).
+2. The browser first asks GoDaddy's DNS "where is cgyballers.gacs.me?",
+   like looking up a phone number before calling. The answer is the
+   droplet's IP address (`159.223.81.97`), and the request travels
+   there over the internet into DigitalOcean's data center.
+3. The **firewall** (`ufw`) lets the request in (port 443 = HTTPS).
+   It runs *inside* the droplet as part of Linux, like a guard at the
+   building's entrance, not somewhere in DigitalOcean's network.
 4. **Nginx** looks at the URL:
    - A page or file → sends it from `dist/`, done.
    - A photo → sends it from `uploads/`, done.

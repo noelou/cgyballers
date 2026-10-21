@@ -120,6 +120,14 @@ server {
 ```bash
 ln -s /etc/nginx/sites-available/cgyballers /etc/nginx/sites-enabled/
 rm /etc/nginx/sites-enabled/default
+
+# Hide the Nginx version from the "Server" response header.
+# Ubuntu's /etc/nginx/nginx.conf ships with "# server_tokens off;" inside
+# the http { } block; this removes the "#". Set there, it covers every
+# server { } block, including the HTTP->HTTPS redirect Certbot adds later.
+sed -i 's/# *server_tokens off;/server_tokens off;/' /etc/nginx/nginx.conf
+grep -n server_tokens /etc/nginx/nginx.conf   # should show it with no "#"
+
 nginx -t
 systemctl reload nginx
 

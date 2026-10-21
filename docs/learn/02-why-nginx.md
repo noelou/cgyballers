@@ -37,6 +37,40 @@ single server like ours. The main alternatives:
   own "Nginx" for you, so you never see it. Easier, but less control and
   usually costs more as you grow.
 
+## Does Nginx handle TCP packets?
+Not directly. **Linux** (the droplet's operating system) handles the
+packets, and Nginx only gets the finished message.
+
+**Analogy: a letter sent as postcards.** A visitor's request
+(`GET /standings`) is a letter. The internet can't carry a whole letter
+at once, so it's cut into small numbered postcards. Those postcards are
+the **TCP packets**.
+1. The visitor's phone cuts the letter into postcards and sends them.
+2. They cross the internet, maybe by different routes, maybe out of order.
+3. The droplet's post office (Linux) collects them, asks again for any
+   lost ones, and puts them back in order.
+4. Linux hands **the whole letter** to Nginx, which reads it: "they want
+   `/standings`."
+
+Where TCP shows up in our setup:
+
+| Thing you know | The TCP part |
+|---|---|
+| `listen 443` | 443 is a **TCP port**. Nginx tells Linux: "give me letters for door 443" |
+| `proxy_pass http://127.0.0.1:3001` | Nginx opens a **new TCP connection** to Node, inside the droplet |
+| Node → Postgres | Another TCP connection, on port 5432 |
+| `ufw` firewall (allows 22/80/443) | Works at the **postcard level**: packets for other doors are thrown away before Nginx ever sees them |
+
+The layers, bottom to top:
+```
+HTTP   "GET /standings"          ← Nginx and Node read this
+TLS    the encryption (HTTPS)    ← Nginx unlocks it with the Certbot certificate
+TCP    numbered packets          ← Linux handles this
+IP     addresses (159.223.81.97) ← Linux and the routers
+```
+We never configure TCP ourselves. We only see it as **port numbers**
+(80, 443, 3001, 5432). Every one of those is a TCP door.
+
 ## Where it lives
 - **Live file (the real one):** `/etc/nginx/sites-available/cgyballers`
   on the droplet. View it with

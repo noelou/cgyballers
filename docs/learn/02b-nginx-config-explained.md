@@ -59,6 +59,46 @@ index index.html;
 "The website files are in this folder" (`dist/`, created by `npm run build`).
 If someone asks for a folder, give them its `index.html`.
 
+## Hiding the version: `server_tokens off;`
+
+Every response carries a name tag, the `Server` header. By default
+Nginx writes its exact version on it:
+
+```
+Server: nginx/1.24.0 (Ubuntu)
+```
+
+That's like a guard wearing a badge that says which lock model the
+building uses. If a weakness is ever found in 1.24.0, attackers know
+we have it. `server_tokens off;` shortens the tag to just `Server: nginx`.
+
+This line is **not in our site file**. It's in the main Nginx settings,
+`/etc/nginx/nginx.conf`, inside the `http { }` block, so it covers every
+`server { }` block at once (including Certbot's redirect block). Ubuntu
+ships it already written but switched off with a `#` in front.
+
+To turn it on (see [Changing the config safely](#changing-the-config-safely)):
+
+```bash
+ssh root@159.223.81.97
+sed -i 's/# *server_tokens off;/server_tokens off;/' /etc/nginx/nginx.conf
+grep -n server_tokens /etc/nginx/nginx.conf   # should show it with no "#"
+nginx -t
+systemctl reload nginx
+```
+
+`sed` finds `# server_tokens off;` and rewrites it without the `#`. If
+`grep` shows nothing at all, the line isn't there: open the file with
+`nano /etc/nginx/nginx.conf` and add `server_tokens off;` on its own line
+just under `http {`.
+
+Check it worked, from your laptop:
+```bash
+curl -sI https://cgyballers.gacs.me | grep -i server
+```
+You should see `Server: nginx` with no number. (Or in Chrome: F12 →
+Network → refresh → click the first row → Response Headers.)
+
 ## Rule 1: `/api/` → send it to the Node API
 
 ```nginx
@@ -80,6 +120,34 @@ location /api/ {
 
 **Analogy:** the guard doesn't answer stats questions. They walk you to
 the scorer's room in the back (the API).
+
+### What is `http://127.0.0.1:3001`?
+
+`127.0.0.1` (nickname: **localhost**) always means **"this same
+computer."** It's like the word "me" (Bisaya: *"ako"*): the same word
+for everyone, but it points to whoever says it.
+
+| Where | Who's saying it | Means |
+|---|---|---|
+| Live Nginx config | Nginx on the droplet | The Node API **on the droplet**, door 3001 |
+| `vite.config.js` | Vite on your laptop | The Node API **on your laptop**, door 3001 |
+
+That's why the same line works in both places. Each machine talks to its
+own API (and its own database).
+
+Reading the full address:
+- `http://`: the language (protocol)
+- `127.0.0.1`: which computer ("myself")
+- `:3001`: which door. This number isn't an official standard. Our code
+  picked it, in `server/index.mjs` (`process.env.API_PORT || 3001`)
+
+On the live site, the request never leaves the droplet. Nginx just walks
+down the hallway to door 3001 in the same building. That's why plain
+`http` is fine for this step: nobody is in between to snoop.
+
+A visitor's phone can't use this address. On their phone, `127.0.0.1`
+would mean *their phone*. They have to use `cgyballers.gacs.me`, which
+takes them to Nginx's front door.
 
 ## Rule 2: `/sitemap.xml` → also from the API
 
@@ -210,6 +278,7 @@ Leave all of these lines alone. Certbot manages and renews them.
 | `proxy_pass` | "Pass this to another program" |
 | `add_header` | Attach a note to the response (e.g. caching) |
 | `=` after `location` | Exact match only |
+| `server_tokens off` | Hide the Nginx version number (set in `nginx.conf`) |
 
 ## Changing the config safely
 
