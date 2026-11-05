@@ -15,11 +15,11 @@ const SORTS = {
   apg: { label: 'Assists', short: 'APG', desc: 'assists per game' },
   spg: { label: 'Steals', short: 'SPG', desc: 'steals per game' },
   bpg: { label: 'Blocks', short: 'BPG', desc: 'blocks per game' },
-  tpm: { label: '3-Pointers Made', short: '3PM', desc: 'three-pointers made (total)' },
+  tpm: { label: '3-Pointers Made', short: '3PM', desc: 'three-pointers made (total)', total: true },
 }
 
 const playersEntry = cachedJson('/api/players', [])
-const { phase, hasPlayoffs, stats: playerStats, loaded: statsLoaded } = useStatsPhase()
+const { phase, hasPlayoffs, playoffMin, stats: playerStats, loaded: statsLoaded } = useStatsPhase()
 // For rankedLast (a team that backed out): it never plays in the playoffs,
 // so its players are left out of that tab.
 const teamsEntry = cachedJson('/api/teams', [])
@@ -39,7 +39,9 @@ watch(phase, () => {
 })
 
 const sort = computed(() => SORTS[sortKey.value])
-const minGp = computed(() => minGpFor(phase.value, sort.value.minGp ?? MIN_GP))
+const minGp = computed(() =>
+  minGpFor(phase.value, sort.value.minGp ?? MIN_GP, { playoffMin: playoffMin.value, total: sort.value.total })
+)
 const phaseLabel = computed(() => (phase.value === 'playoffs' ? 'Playoff' : 'Elimination round'))
 
 const filtered = computed(() => {
@@ -69,6 +71,9 @@ const total = computed(() => filtered.value.qualified.length + filtered.value.un
     <p class="section-sub">
       {{ players.length }} players across 12 teams. {{ phaseLabel }} leaders ranked by {{ sort.desc }} &middot;
       min. {{ minGp }} {{ minGp === 1 ? 'game' : 'games' }} played.
+      <template v-if="phase === 'playoffs' && !sort.total">
+        In the playoffs, that's half the games of the team that has played the most, so one big game isn't enough to lead.
+      </template>
     </p>
 
     <PhaseToggle v-if="hasPlayoffs" v-model="phase" class="players-phase" />
@@ -100,7 +105,7 @@ const total = computed(() => filtered.value.qualified.length + filtered.value.un
 
       <template v-if="filtered.unqualified.length > 0">
         <div class="players-section-label">
-          {{ phase === 'playoffs' ? 'No playoff games yet' : `Not yet qualified · under ${minGp} games` }}
+          Not yet qualified &middot; under {{ minGp }} {{ phase === 'playoffs' ? 'playoff ' : '' }}{{ minGp === 1 ? 'game' : 'games' }}
         </div>
         <div class="grid players-grid players-grid-dim">
           <PlayerCard

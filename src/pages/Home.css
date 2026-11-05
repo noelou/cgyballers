@@ -166,6 +166,32 @@
   align-self: flex-start;
 }
 
+/* Finals poster between the hero and Game Day. */
+.finals-banner {
+  display: block;
+  margin: 20px 0 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.finals-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.finals-story {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.finals-story b {
+  color: var(--text);
+}
+
 .gameday {
   margin-bottom: 20px;
 }

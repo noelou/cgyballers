@@ -22,7 +22,7 @@ const LEADER_CATS = [
   { key: 'ppg', label: 'Points', fmt: (p) => p.value.toFixed(1) },
   { key: 'rpg', label: 'Rebounds', fmt: (p) => p.value.toFixed(1), minGp: REBOUND_MIN_GP },
   { key: 'apg', label: 'Assists', fmt: (p) => p.value.toFixed(1) },
-  { key: 'tpm', label: 'Threes', fmt: (p) => String(p.value) },
+  { key: 'tpm', label: 'Threes', fmt: (p) => String(p.value), total: true },
 ]
 
 // Local date (not UTC), so games don't roll over at 8am Philippine time.
@@ -34,7 +34,7 @@ const todayStr = [now.getFullYear(), now.getMonth() + 1, now.getDate()]
 const gamesEntry = cachedJson('/api/games', [])
 const standingsEntry = cachedJson('/api/standings', [])
 const playersEntry = cachedJson('/api/players', [])
-const { phase, hasPlayoffs, stats: playerStats, loaded: statsLoaded } = useStatsPhase()
+const { phase, hasPlayoffs, playoffMin, stats: playerStats, loaded: statsLoaded } = useStatsPhase()
 // Only needed for the featured photos (editable in the admin); everything
 // else about a team still comes from teams.json.
 const teamsEntry = cachedJson('/api/teams', [])
@@ -165,13 +165,21 @@ const leaderRows = computed(() =>
   LEADER_CATS
     .map((c) => ({
       ...c,
-      top: buildLeaders(players.value, playerStats.value, c.key, 3, minGpFor(phase.value, c.minGp ?? MIN_GP)),
+      top: buildLeaders(
+        players.value,
+        playerStats.value,
+        c.key,
+        3,
+        minGpFor(phase.value, c.minGp ?? MIN_GP, { playoffMin: playoffMin.value, total: c.total })
+      ),
     }))
     .filter((c) => c.top.length > 0)
 )
 
 const leadersSub = computed(() =>
-  phase.value === 'playoffs' ? 'Playoff leaders, play-in included' : 'Elimination round leaders · qualified players only'
+  phase.value === 'playoffs'
+    ? `Playoff leaders, play-in included · averages need ${playoffMin.value}+ ${playoffMin.value === 1 ? 'game' : 'games'}`
+    : 'Elimination round leaders · qualified players only'
 )
 </script>
 
@@ -208,8 +216,8 @@ const leadersSub = computed(() =>
     <div class="container hero-content">
       <h1 class="sr-only">CGYBallers</h1>
       <span class="hero-season">Season 4 &middot; Amlans Cup</span>
-      <h2 class="hero-title">CGY Semifinals</h2>
-      <p class="hero-sub">4 teams battle for the finals.</p>
+      <h2 class="hero-title">CGY Finals</h2>
+      <p class="hero-sub">Jacque Jons vs Stampede. Best of 3 for the Season 4 crown.</p>
       <div class="hero-actions">
         <router-link to="/playoffs" class="btn btn-primary">View Playoff Standings</router-link>
         <router-link to="/schedule" class="btn">See Schedule</router-link>
@@ -224,6 +232,18 @@ const leadersSub = computed(() =>
   </section>
 
   <div class="container">
+    <!-- Finals poster: the wide version on desktop, the tall one on phones. -->
+    <router-link to="/playoffs" class="finals-banner" aria-label="Finals: Stampede vs Jacque Jons. View the playoff bracket">
+      <picture>
+        <source media="(max-width: 640px)" srcset="/banner/finals-banner-mobile.webp" width="1080" height="1200" />
+        <img src="/banner/finals-banner-desktop.webp" width="1920" height="560" alt="CGYBallers Finals: Stampede vs Jacque Jons" />
+      </picture>
+    </router-link>
+    <p class="finals-story">
+      <b>Jacque Jons</b> are chasing a three-peat after winning Seasons 2 and 3. <b>Stampede</b>, in their 2nd
+      Finals, are going for their first championship.
+    </p>
+
     <div v-if="loading" class="empty-state card">Loading&hellip;</div>
 
     <template v-else>

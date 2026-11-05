@@ -4,12 +4,14 @@
 // Playoffs once any playoff box score exists, otherwise Elimination Round.
 import { computed, ref } from 'vue'
 import { cachedJson } from './apiCache'
+import { playoffMinGp } from '../utils/leaders'
 
 const chosen = ref(null)
 
 export function useStatsPhase() {
   const elimination = cachedJson('/api/player-stats?phase=elimination', {})
   const playoffs = cachedJson('/api/player-stats?phase=playoffs', {})
+  const games = cachedJson('/api/games', [])
 
   const hasPlayoffs = computed(() => Object.keys(playoffs.data.value).length > 0)
   const phase = computed({
@@ -22,6 +24,8 @@ export function useStatsPhase() {
     hasPlayoffs,
     stats: computed(() => (phase.value === 'playoffs' ? playoffs : elimination).data.value),
     eliminationStats: elimination.data,
-    loaded: computed(() => elimination.loaded.value && playoffs.loaded.value),
+    // Minimum playoff games for averages to count (see playoffMinGp).
+    playoffMin: computed(() => playoffMinGp(games.data.value)),
+    loaded: computed(() => elimination.loaded.value && playoffs.loaded.value && games.loaded.value),
   }
 }

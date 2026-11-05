@@ -2,9 +2,25 @@
 
 Running log of updates to the CGYBallers site. Newest entry on top.
 
+## 2026-11-05 — Fairer playoff stat leaders, semifinal box scores
+
+**Playoff stat leaders**
+- Problem: playoff averages only needed 1 game, so a player from a team knocked out in the play-in (Aguhar, 36 pts in 1 game) led ahead of players on deep runs
+- New rule: playoff averages (PPG, RPG, APG, SPG, BPG) need at least **half as many playoff games as the team that has played the most, rounded up**. It starts at 1 and grows on its own (3 after the semifinals)
+- Totals (3-pointers made) only need 1 playoff game, since they already reward playing more
+- Elimination round minimums are unchanged (5 games, 6 for rebounds)
+- Rule shown on the Players page, the home leaders, and a new "Playoff Rules" card on the Playoffs page (with twice-to-beat / best-of-3 explained)
+- Code: `playoffMinGp()` in `src/utils/leaders.js`, passed through `src/data/statsPhase.js`
+
+**League data** (local database only, not yet pushed to live)
+- Box scores entered from the scoresheets for `g78`–`g84`: Oct 18 (GLQ–Howon QF, Jacque Jons–ETS SF), Oct 21 and Oct 23 (both semis), Nov 4 (GLQ–Stampede SF game 3). Every playoff game so far now has a box score
+- Oct 23 Jacque Jons: Villanueva's steal entered as a 2nd 3-point attempt so the rows match the sheet's totals
+- Sheet errors kept as printed: Gumera (Oct 21), Ucab (Oct 21), Paña (Oct 23) points don't fit their 3PM/FTM
+- To push: `node scripts/push-boxscores.mjs g78 g79 g80 g81 g82 g83 g84`
+
 ## 2026-09-29 — Forfeits, featured photos, admin redesign, SEO, backups, firewall
 
-Plain-language walkthrough of all of this: [`docs/HOW-THE-LIVE-SITE-WORKS.md`](docs/HOW-THE-LIVE-SITE-WORKS.md).
+Plain-language walkthrough of all of this: [`docs/deploy/01-how-the-live-site-works.md`](./docs/deploy/01-how-the-live-site-works.md).
 
 **League data**
 - JME-JES dropped out: their 5 unscheduled games added as forfeit wins for the opponent (`g63`–`g67`, Sep 11, no time/venue)
