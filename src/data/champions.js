@@ -22,4 +22,10 @@ export const CHAMPIONS = [
     fullPhoto: '/champions/season-3-full.webp',
     focus: 'center 80%',
   },
+  {
+    season: 4,
+    team: 'Stampede',
+    photo: '/champions/stampede_champions.webp',
+    fullPhoto: '/champions/stampede_champions.webp',
+  },
 ]

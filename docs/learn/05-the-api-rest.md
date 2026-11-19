@@ -1,4 +1,4 @@
-# 4. The API (REST)
+# 5. The API (REST)
 
 ## In one sentence
 The API is the Node/Express program in `server/` that the Vue app talks
@@ -63,7 +63,7 @@ but not needed here.
 | `server/routes/public.mjs` | Stats, standings, playoffs, sitemap |
 
 ## Go deeper
-- [`../SERVER-FLOW.md`](../SERVER-FLOW.md) — step by step, with the login
+- [`../architecture/server-flow.md`](../architecture/server-flow.md) — step by step, with the login
   flow and a table of every route
 
-Next: [5. The database →](./05-the-database.md)
+Next: [6. The database →](./06-the-database.md)

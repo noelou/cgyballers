@@ -1,4 +1,4 @@
-# 2b. Our Nginx config, line by line
+# 3b. Our Nginx config, line by line
 
 You don't need to read all of the Nginx docs. Our site uses about 10
 different instructions, and this page explains each one. If you
@@ -9,12 +9,59 @@ someone asks for X, do Y."
 
 ## Where the file is
 - **Live (the real one):** `/etc/nginx/sites-available/cgyballers` on the droplet
-- **Copy in the repo:** `docs/DEPLOYMENT.md`, step 9 (no HTTPS lines,
+- **Copy in the repo:** `docs/deploy/03-first-time-setup.md`, step 9 (no HTTPS lines,
   see [the HTTPS part](#the-https-part-written-by-certbot) below)
 
 This page was checked against the live file on 2026-10-20. The rules are
 the same; the live file lists them in a different order, which doesn't
 matter (see [How Nginx picks a rule](#how-nginx-picks-a-rule)).
+
+## How this file got onto the server
+
+Nginx isn't "connected" to DigitalOcean. The droplet is just a rented
+Linux computer, and Nginx is a program **installed inside it**. Think of
+the droplet as a rented house and Nginx as the receptionist living there.
+The domain name is a separate thing: a phonebook entry (at GoDaddy) that
+gives out the house's address.
+
+This is how it was set up, once. The full commands are in
+[`../deploy/03-first-time-setup.md`](../deploy/03-first-time-setup.md) (step 9) and
+[`../deploy/04-dns-subdomain-setup.md`](../deploy/04-dns-subdomain-setup.md) (steps 3–6).
+
+1. **Log in to the droplet** from cmd on your computer:
+   `ssh root@159.223.81.97`. This is the only command that runs on your
+   PC. After it, every command runs **on the droplet**.
+2. **Install Nginx:** `apt-get install -y nginx`. (`apt-get` is
+   Ubuntu's app store.)
+3. **Write the config:** `nano /etc/nginx/sites-available/cgyballers`,
+   then paste in the rules. At this point it only had `listen 80`
+   (plain HTTP, no encryption).
+4. **Turn it on:** `ln -s` puts a shortcut to the file in
+   `/etc/nginx/sites-enabled/`. Nginx only reads what's in
+   `sites-enabled`. `sites-available` is just the drawer where configs
+   are kept. Then `nginx -t` and `systemctl reload nginx`.
+5. **Point the domain at the droplet.** This is done on the GoDaddy
+   website, not with a command: add an **A record**, `cgyballers` →
+   `159.223.81.97`. This is the actual link between the name and the
+   droplet. Then `server_name _;` in the config was changed to
+   `server_name cgyballers.gacs.me;`.
+6. **Add HTTPS:** `certbot --nginx -d cgyballers.gacs.me`. Certbot gets
+   the certificate from Let's Encrypt and **edits this file for you**:
+   it adds the `ssl` lines and the HTTP→HTTPS redirect. That's why
+   those lines say `# managed by Certbot` (see
+   [the HTTPS part](#the-https-part-written-by-certbot)).
+
+```
+Your PC (cmd) ──ssh──► Droplet (Ubuntu)
+                         ├─ apt-get install nginx     → install the receptionist
+                         ├─ nano sites-available/...  → write its instructions
+                         ├─ ln -s + reload            → turn them on
+                         └─ certbot --nginx           → adds the HTTPS lines
+GoDaddy website ───────► A record: cgyballers → 159.223.81.97
+```
+
+You don't need to repeat any of this. To change the config later, see
+[Changing the config safely](#changing-the-config-safely).
 
 ## The shape of the file
 
@@ -98,6 +145,61 @@ curl -sI https://cgyballers.gacs.me | grep -i server
 ```
 You should see `Server: nginx` with no number. (Or in Chrome: F12 →
 Network → refresh → click the first row → Response Headers.)
+
+## How Nginx knows a file is CSS, HTML, or a photo: `mime.types`
+
+We didn't set this up. It came with Nginx when it was installed. Like
+`server_tokens`, it's in the main settings file `/etc/nginx/nginx.conf`,
+inside the `http { }` block:
+
+```nginx
+include /etc/nginx/mime.types;
+default_type application/octet-stream;
+```
+
+`mime.types` is a ready-made table that pairs **file extensions** with
+**content types**:
+
+```nginx
+types {
+    text/html                 html htm;
+    text/css                  css;
+    application/javascript    js;
+    image/jpeg                jpeg jpg;
+    image/png                 png;
+    ...
+}
+```
+
+Think of it as a label maker at the guard's desk. Before handing over a
+file, Nginx looks at its name: `.css` gets the label "this is CSS," `.jpg`
+gets "this is a JPEG photo." The label goes to the browser as a header:
+
+```
+Content-Type: text/css
+```
+
+The browser reads the label to decide what to do: apply it as styles, run
+it as JavaScript, or show it as a picture. `default_type` is the fallback
+for an extension that isn't in the table. `application/octet-stream`
+means "unknown file," and the browser usually just downloads it.
+
+**The API is different.** For `/api/` and `/sitemap.xml`, Nginx doesn't
+serve a file. It passes the request to Node
+([Rule 1](#rule-1-api--send-it-to-the-node-api)), and **Node writes the
+label itself** (e.g. `Content-Type: application/json`). Nginx passes it
+along unchanged.
+
+| What | Who sets `Content-Type` |
+|---|---|
+| Files: `index.html`, `/assets/`, `/uploads/` | Nginx, from `mime.types` |
+| `/api/...`, `/sitemap.xml` | The Node API |
+
+Nothing to change here. To see it, from your laptop:
+```bash
+curl -sI https://cgyballers.gacs.me | grep -i content-type   # text/html
+```
+On the droplet, `cat /etc/nginx/mime.types` shows the whole table.
 
 ## Rule 1: `/api/` → send it to the Node API
 
@@ -213,7 +315,7 @@ so Nginx sends `index.html` and Vue shows that player.
 
 **Warning:** because a real file or folder wins, never name a folder in
 `public/` the same as a page (e.g. `public/players/`). See
-[`../STATIC-ASSET-ROUTE-COLLISIONS.md`](../STATIC-ASSET-ROUTE-COLLISIONS.md).
+[`../deploy/05-bug-static-asset-routes.md`](../deploy/05-bug-static-asset-routes.md).
 
 ## How Nginx picks a rule
 
@@ -226,7 +328,7 @@ When a URL could match more than one rule:
 ## The HTTPS part (written by Certbot)
 
 We didn't type these. `certbot --nginx -d cgyballers.gacs.me` added them
-(see [`../DNS-SUBDOMAIN-SETUP.md`](../DNS-SUBDOMAIN-SETUP.md), step 6).
+(see [`../deploy/04-dns-subdomain-setup.md`](../deploy/04-dns-subdomain-setup.md), step 6).
 Each one ends with `# managed by Certbot`.
 
 **Inside the main `server { }` block:**
@@ -279,6 +381,7 @@ Leave all of these lines alone. Certbot manages and renews them.
 | `add_header` | Attach a note to the response (e.g. caching) |
 | `=` after `location` | Exact match only |
 | `server_tokens off` | Hide the Nginx version number (set in `nginx.conf`) |
+| `mime.types` | Extension → content type table, e.g. `.css` → `text/css` (set in `nginx.conf`) |
 
 ## Changing the config safely
 
@@ -291,7 +394,7 @@ systemctl reload nginx                       # apply (no downtime)
 If `nginx -t` shows an error, fix it before reloading. The old config
 keeps running until a reload succeeds, so a typo can't take the site down.
 
-Also update the copy in `docs/DEPLOYMENT.md` so the repo stays accurate.
+Also update the copy in `docs/deploy/03-first-time-setup.md` so the repo stays accurate.
 
 ## When you need something new
 Search for it in plain words, e.g. "nginx redirect www to non-www" or
@@ -299,4 +402,4 @@ Search for it in plain words, e.g. "nginx redirect www to non-www" or
 ([nginx.org/en/docs](https://nginx.org/en/docs/)) is for looking up one
 word at a time, like a dictionary.
 
-Next: [3. Why pm2 →](./03-why-pm2.md)
+Next: [4. Why pm2 →](./04-why-pm2.md)

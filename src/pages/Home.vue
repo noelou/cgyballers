@@ -216,10 +216,10 @@ const leadersSub = computed(() =>
     <div class="container hero-content">
       <h1 class="sr-only">CGYBallers</h1>
       <span class="hero-season">Season 4 &middot; Amlans Cup</span>
-      <h2 class="hero-title">CGY Finals</h2>
-      <p class="hero-sub">Jacque Jons vs Stampede. Best of 3 for the Season 4 crown.</p>
+      <h2 class="hero-title">Stampede are Champions</h2>
+      <p class="hero-sub">Stampede beat Jacque Jons in the Finals to win the Season 4 crown.</p>
       <div class="hero-actions">
-        <router-link to="/playoffs" class="btn btn-primary">View Playoff Standings</router-link>
+        <router-link to="/playoffs" class="btn btn-primary">View Playoff Bracket</router-link>
         <router-link to="/schedule" class="btn">See Schedule</router-link>
         <a class="btn" :href="FACEBOOK_URL" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
@@ -232,16 +232,13 @@ const leadersSub = computed(() =>
   </section>
 
   <div class="container">
-    <!-- Finals poster: the wide version on desktop, the tall one on phones. -->
-    <router-link to="/playoffs" class="finals-banner" aria-label="Finals: Stampede vs Jacque Jons. View the playoff bracket">
-      <picture>
-        <source media="(max-width: 640px)" srcset="/banner/finals-banner-mobile.webp" width="1080" height="1200" />
-        <img src="/banner/finals-banner-desktop.webp" width="1920" height="560" alt="CGYBallers Finals: Stampede vs Jacque Jons" />
-      </picture>
+    <!-- Champions banner (landscape 16:9), full width. -->
+    <router-link to="/playoffs" class="champs-banner" aria-label="Season 4 champions: Stampede. View the playoff bracket">
+      <img src="/champions/stampede_champions.webp" width="2000" height="1125" alt="Stampede, CGYBallers Season 4 Champions" />
     </router-link>
     <p class="finals-story">
-      <b>Jacque Jons</b> are chasing a three-peat after winning Seasons 2 and 3. <b>Stampede</b>, in their 2nd
-      Finals, are going for their first championship.
+      <b>Stampede</b>, in their 2nd Finals, won their first championship and ended the run of
+      <b>Jacque Jons</b>, who had won Seasons 2 and 3.
     </p>
 
     <div v-if="loading" class="empty-state card">Loading&hellip;</div>

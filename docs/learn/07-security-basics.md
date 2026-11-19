@@ -1,4 +1,4 @@
-# 6. Security basics
+# 7. Security basics
 
 ## In one sentence
 Security here means: only admins can change data, nobody can sneak in
@@ -19,7 +19,57 @@ restored.
 | **`requireAuth` on every change** | Logged-out people saving or deleting anything | All `POST`/`PUT`/`DELETE` routes |
 | **Parameterized SQL** (`$1, $2`) | SQL injection attacks | Every `pool.query` call |
 | **Automatic security updates** | Known bugs in the server's software | Ubuntu `unattended-upgrades` |
-| **Nightly backups** | Losing data to a mistake | See [5. The database](./05-the-database.md) |
+| **Nightly backups** | Losing data to a mistake | See [6. The database](./06-the-database.md) |
+
+## The doors: ports 22, 80, 443
+The firewall (`ufw`) is the **gate guard at the fence**: it only lets
+people through to doors 22, 80 and 443. Behind each door is a different
+program:
+
+| Port | Who uses it | Behind the door | Login? |
+|---|---|---|---|
+| **22** | You, from cmd | `sshd`: the server's command line | Yes, with your **SSH key** |
+| **80** | Visitors typing `http://` | Nginx: redirects to `https://` | No |
+| **443** | Visitors on `https://` | Nginx → the website and API | Only the `/admin` login, checked by the API |
+
+So there are **two separate logins**, and neither uses port 80: the
+**server login** (SSH, port 22) and the **admin panel login** (`/admin`,
+port 443). The API (3001) and Postgres (5432) aren't on the list on
+purpose: they only listen inside the droplet.
+
+### When is port 22 used?
+Every time your PC connects to the droplet:
+
+| What you do | Command | Port 22? |
+|---|---|---|
+| Log in to the server | `ssh root@159.223.81.97` | Yes |
+| Run one command from your PC | `ssh root@159.223.81.97 "pm2 status"` | Yes |
+| Copy files to/from the server | `scp root@159.223.81.97:/root/backups/... .` | Yes (`scp` goes through SSH) |
+| Open the website, log in to `/admin` | the browser | No, that's 443 |
+
+What happens when you run `ssh`:
+```
+Your PC ──► knocks on door 22
+              │
+         1. ufw (gate guard): "Door 22 is on my list." → lets you through
+              │
+         2. sshd (doorman): "Show me your key."
+              │   your PC proves it has the private key (in C:\Users\ACER\.ssh\)
+              │
+         3. Key matches → you're in: root@...:~#
+```
+Two checks: ufw checks **which door**, sshd checks **who you are**.
+
+**Bots knock on door 22 all day.** They scan every IP on the internet and
+try common logins like `root / 123456`. They fail because the server only
+accepts keys. To see them, on the droplet:
+```bash
+journalctl -u ssh --since today | grep -i "invalid user" | head
+sshd -T | grep -i passwordauthentication   # "no" = passwords are refused
+```
+
+**Never remove 22 from `ufw`**, or the gate guard locks you out too. The
+way back in is the DigitalOcean console (see [Habits](#habits-that-matter-more-than-any-tool)).
 
 ## What's still open
 These are known and written down. None of them is an emergency for a
@@ -53,7 +103,7 @@ standard baseline for a small site. Closing the four open items above
 would put it in good shape.
 
 ## Go deeper
-- [`../HOW-THE-LIVE-SITE-WORKS.md`](../HOW-THE-LIVE-SITE-WORKS.md),
+- [`../deploy/01-how-the-live-site-works.md`](../deploy/01-how-the-live-site-works.md),
   sections 2.6–2.7 — backups and firewall, with check commands
 
-Next: [7. Review checklist →](./07-review-checklist.md)
+Next: [8. Review checklist →](./08-review-checklist.md)

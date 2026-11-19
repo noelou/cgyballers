@@ -1,4 +1,4 @@
-# 3. Why pm2
+# 4. Why pm2
 
 ## In one sentence
 pm2 is a **babysitter for the Node API**: it keeps it running in the
@@ -146,7 +146,7 @@ On the droplet. The API is registered under the name `cgyballers-api`.
 | `pm2 restart cgyballers-api` | Load new server code after a deploy |
 
 **Gotcha:** after changing `.env`, a plain `pm2 restart` may keep the old
-values. Use the full command in `DEPLOYING-CHANGES.md`, step 5.
+values. Use the full command in `../deploy/02-deploying-changes.md`, step 5.
 
 ## Try it yourself (on your laptop, not the droplet)
 This shows scenarios 1 and 2 with your own eyes. It's safe: it only
@@ -212,7 +212,7 @@ Linux servers and doesn't work on Windows. On the droplet it's already set
 up.)
 
 ## Go deeper
-- [`../DEPLOYING-CHANGES.md`](../DEPLOYING-CHANGES.md): when to restart,
+- [`../deploy/02-deploying-changes.md`](../deploy/02-deploying-changes.md): when to restart,
   and troubleshooting
 
-Next: [4. The API (REST) →](./04-the-api-rest.md)
+Next: [5. The API (REST) →](./05-the-api-rest.md)

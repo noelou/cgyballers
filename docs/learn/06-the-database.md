@@ -1,4 +1,4 @@
-# 5. The database
+# 6. The database
 
 ## In one sentence
 **PostgreSQL** ("Postgres") stores all the league data: teams, players,
@@ -48,14 +48,14 @@ own separate database.
   droplet. The last 14 days are kept.
 - **Weak spot:** the backups are on the **same server**. If the droplet
   were lost, the backups would be lost too. Copy them to your computer now
-  and then (command in `HOW-THE-LIVE-SITE-WORKS.md`, section 2.6).
+  and then (command in `../deploy/01-how-the-live-site-works.md`, section 2.6).
 - A backup you've never restored is a guess. The restore steps are in
-  `DEPLOYING-CHANGES.md` → **Restoring**.
+  `../deploy/02-deploying-changes.md` → **Restoring**.
 
 ## Go deeper
-- [`../BACKEND_SETUP.md`](../BACKEND_SETUP.md) — why we moved off JSON,
+- [`../backend-setup/`](../backend-setup/README.md) — why we moved off JSON,
   and how the database was set up
-- [`../DEPLOYING-CHANGES.md`](../DEPLOYING-CHANGES.md) — schema changes,
+- [`../deploy/02-deploying-changes.md`](../deploy/02-deploying-changes.md) — schema changes,
   backups, restoring
 
-Next: [6. Security basics →](./06-security-basics.md)
+Next: [7. Security basics →](./07-security-basics.md)

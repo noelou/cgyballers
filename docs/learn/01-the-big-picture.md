@@ -50,8 +50,8 @@ firewall and HTTPS. **The two databases are separate**: data entered on
 `localhost` never shows up on the live site.
 
 ## Go deeper
-- [`../HOW-THE-LIVE-SITE-WORKS.md`](../HOW-THE-LIVE-SITE-WORKS.md) — a
+- [`../deploy/01-how-the-live-site-works.md`](../deploy/01-how-the-live-site-works.md) — a
   bigger diagram plus a glossary of words like SSH, port and cron
-- [`../APP-STRUCTURE.md`](../APP-STRUCTURE.md) — what each folder is for
+- [`../architecture/app-structure.md`](../architecture/app-structure.md) — what each folder is for
 
-Next: [2. Why Nginx →](./02-why-nginx.md)
+Next: [2. What is Node →](./02-what-is-node.md)

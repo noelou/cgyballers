@@ -166,16 +166,17 @@
   align-self: flex-start;
 }
 
-/* Finals poster between the hero and Game Day. */
-.finals-banner {
+/* Champions banner between the hero and Game Day. */
+.champs-banner {
   display: block;
-  margin: 20px 0 10px;
+  width: 100%;
+  margin: 20px 0 16px;
   border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--border);
 }
 
-.finals-banner img {
+.champs-banner img {
   display: block;
   width: 100%;
   height: auto;
